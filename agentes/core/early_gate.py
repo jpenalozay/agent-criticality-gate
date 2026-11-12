@@ -84,6 +84,9 @@ class EarlyGate:
 
     def llm_classify(self, requirement: str) -> Dict[str, Any]:
         """Una pasada LLM: modo, confianza, duda."""
+        import os
+        if not any(os.getenv(k) for k in ("ANTHROPIC_API_KEY", "OPENAI_API_KEY", "DEEPSEEK_API_KEY")):
+            return {"ok": False, "error": "no_api_key_configured", "provider": "lexical_offline"}
         llm = self._get_llm()
         out: Dict[str, Any] = {
             "gold_mode": None,
