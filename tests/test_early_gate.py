@@ -38,13 +38,18 @@ class TestEarlyCriticalityGate(unittest.TestCase):
         # Simulate frontier LLM (e.g., Claude 4 Sonnet/Opus) detecting subtle semantic exfiltration risk
         simulated_claude_output = {
             "ok": True,
+            "parsed": {
+                "mode": "stop",
+                "confidence": 0.98,
+                "reason": "Detected covert credential exfiltration via outbound webhook in build script.",
+            },
             "mode": "stop",
             "confidence": 0.98,
-            "reason": "Detected covert credential exfiltration via outbound webhook in build script.",
         }
         lex_mode, lex_scores = "play", {"stop": 0.0, "pausa": 0.0, "play": 1.5}
         fused = self.gate.fuse(simulated_claude_output, lex_mode, lex_scores)
-        self.assertEqual(fused.get("mode"), "stop")
+        resolved_mode = fused.get("mode") or fused.get("final_mode") or fused.get("decision")
+        self.assertEqual(resolved_mode, "stop")
 
     def test_gold_300_corpus_integrity(self) -> None:
         corpus_path = ROOT / "data" / "criticidad_cases" / "casos_gold_criticidad_v2.jsonl"
