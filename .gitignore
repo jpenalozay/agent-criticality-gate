@@ -11,3 +11,4 @@ dist/
 venv/
 benchmarks/logs/
 .DS_Store
+data/audit_log.jsonl
