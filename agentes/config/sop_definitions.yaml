@@ -1,0 +1,253 @@
+# SOP Definitions for all agents
+
+arquitecto:
+  role: "Software Architect"
+  workflow:
+    - "1. Analyze requirement"
+    - "2. Identify components"
+    - "3. Define technologies"
+    - "4. Map dependencies"
+    - "5. Specify security considerations"
+  output_schema:
+    type: object
+    required:
+      - name
+      - type
+      - components
+    properties:
+      name:
+        type: string
+      type:
+        type: string
+        enum: [api, web_app, service, cli, library]
+      description:
+        type: string
+      components:
+        type: object
+      dependencies:
+        type: array
+      data:
+        type: array
+      security:
+        type: array
+  validation_rules:
+    - "All components must have type and tech"
+    - "Dependencies must reference existing components"
+    - "High criticality components need security notes"
+
+ui_ux_designer:
+  role: "UI/UX Designer"
+  workflow:
+    - "1. Analyze requirement and blueprint"
+    - "2. Identify user personas"
+    - "3. Design user flows"
+    - "4. Create wireframes"
+    - "5. Define design tokens"
+    - "6. Add accessibility guidelines"
+  output_schema:
+    type: object
+    required:
+      - personas
+      - user_flows
+      - wireframes
+      - design_tokens
+      - accessibility
+    properties:
+      personas:
+        type: array
+      user_flows:
+        type: array
+      wireframes:
+        type: array
+      component_tree:
+        type: object
+      design_tokens:
+        type: object
+      accessibility:
+        type: object
+  validation_rules:
+    - "All user flows must be complete"
+    - "Components must follow design system"
+    - "Must meet WCAG 2.1 AA standards"
+
+sentinel:
+  role: "Risk Evaluator"
+  workflow:
+    - "1. Analyze blueprint components"
+    - "2. Calculate 3D risk score"
+    - "3. Determine risk level"
+    - "4. Make routing decision"
+  output_schema:
+    type: object
+    required:
+      - total_score
+      - level
+      - decision
+      - dimensions
+    properties:
+      total_score:
+        type: number
+        minimum: 0
+        maximum: 100
+      level:
+        type: string
+        enum: [LOW, MEDIUM, HIGH]
+      decision:
+        type: string
+        enum: [auto_approve, peer_review, human_approval]
+      dimensions:
+        type: object
+  validation_rules:
+    - "Total score must be weighted average of dimensions"
+    - "Decision must match score thresholds"
+
+coder:
+  role: "Software Engineer"
+  workflow:
+    - "1. Analyze blueprint"
+    - "2. Generate initial code"
+    - "3. Execute code in sandbox"
+    - "4. Analyze execution results"
+    - "5. If errors: fix and retry (max 3)"
+    - "6. Validate syntax and quality"
+    - "7. Return final code"
+  output_schema:
+    type: object
+    required:
+      - files
+      - language
+    properties:
+      files:
+        type: object
+      structure:
+        type: array
+      language:
+        type: string
+      execution_results:
+        type: object
+  quality_gates:
+    syntax_valid: true
+    has_docstrings: true
+    has_type_hints: true
+    has_error_handling: true
+  max_iterations: 3
+  timeout_seconds: 60
+
+test_designer:
+  role: "Test Designer"
+  workflow:
+    - "1. Analyze requirement (NOT code)"
+    - "2. Generate basic test cases"
+    - "3. Generate edge case tests"
+    - "4. Generate large-scale tests"
+    - "5. Estimate expected coverage"
+  output_schema:
+    type: object
+    required:
+      - test_files
+      - total_tests
+    properties:
+      test_files:
+        type: object
+      total_tests:
+        type: integer
+      categories:
+        type: object
+      expected_coverage:
+        type: number
+  test_categories:
+    - basic
+    - edge_cases
+    - large_scale
+  independence_rule: "NEVER see generated code before creating tests"
+
+test_executor:
+  role: "Test Executor"
+  workflow:
+    - "1. Receive code and tests"
+    - "2. Execute tests in sandbox"
+    - "3. Capture results"
+    - "4. Calculate coverage"
+    - "5. Generate feedback if failures"
+  output_schema:
+    type: object
+    required:
+      - total_tests
+      - passed
+      - failed
+      - coverage
+    properties:
+      total_tests:
+        type: integer
+      passed:
+        type: integer
+      failed:
+        type: integer
+      coverage:
+        type: number
+      errors:
+        type: array
+  feedback_on_failure: true
+
+linter:
+  role: "Code Quality Analyzer"
+  workflow:
+    - "1. Analyze code with tools"
+    - "2. Calculate quality score"
+    - "3. Identify issues"
+    - "4. Generate recommendations"
+  output_schema:
+    type: object
+    required:
+      - quality_score
+      - issues
+    properties:
+      quality_score:
+        type: number
+        minimum: 0
+        maximum: 100
+      issues:
+        type: array
+      recommendations:
+        type: array
+  tools:
+    - pylint
+    - flake8
+    - mypy
+    - ruff
+
+auditor:
+  role: "Audit Logger"
+  workflow:
+    - "1. Receive event from any agent"
+    - "2. Generate audit entry"
+    - "3. Calculate checksum"
+    - "4. Append to immutable log"
+  output_schema:
+    type: object
+    required:
+      - id
+      - timestamp
+      - actor
+      - action
+      - resource
+      - checksum
+    properties:
+      id:
+        type: string
+      timestamp:
+        type: string
+      actor:
+        type: string
+      action:
+        type: string
+      resource:
+        type: string
+      details:
+        type: object
+      checksum:
+        type: string
+  properties:
+    append_only: true
+    immutable: true
+    checksummed: true

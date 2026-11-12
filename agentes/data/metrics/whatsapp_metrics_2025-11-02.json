@@ -1,0 +1,32 @@
+[
+  {
+    "agent_id": "whatsapp",
+    "execution_id": "whatsapp_20251102203551852877",
+    "timestamp": "2025-11-02T20:35:51.954191",
+    "execution_time_ms": 100.7692813873291,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0078125,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 100.7692813873291,
+          "operation": "validate_integration",
+          "timestamp": "2025-11-02T20:35:51.954191"
+        }
+      ],
+      "api_calls": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 500,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.001,
+    "query_times": [
+      100.7692813873291,
+      100.7692813873291
+    ],
+    "total_query_time_ms": 201.5385627746582
+  }
+]

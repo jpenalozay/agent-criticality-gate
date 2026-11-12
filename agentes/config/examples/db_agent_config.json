@@ -1,0 +1,117 @@
+{
+  "agent": "db",
+  "enabled": true,
+  "priority": "high",
+  "environment": "development",
+  "version": "2.0",
+  "description": "Agente especializado en validación y optimización de modelos de datos, migraciones SQL y estructura de base de datos",
+  "config": {
+    "validate_on_change": true,
+    "validate_on_save": false,
+    "auto_suggest_indexes": true,
+    "strict_mode": false,
+    "allowed_orms": ["sqlalchemy"],
+    "database_type": "mysql",
+    "database_version": "8.0+",
+    "min_pool_size": 5,
+    "max_pool_size": 50,
+    "naming_conventions": {
+      "enabled": true,
+      "strictness": "medium",
+      "table_plural": true,
+      "table_lowercase": true,
+      "column_snake_case": true,
+      "boolean_prefix": "is_",
+      "timestamp_suffix": "_at"
+    },
+    "validation_levels": {
+      "critical": {
+        "block_on_failure": true,
+        "required": true,
+        "description": "Reglas que bloquean cambios si fallan"
+      },
+      "high": {
+        "block_on_failure": false,
+        "show_warning": true,
+        "suggest_fix": true,
+        "description": "Reglas importantes que muestran warnings"
+      },
+      "medium": {
+        "block_on_failure": false,
+        "show_suggestion": true,
+        "allow_continue": true,
+        "description": "Sugerencias que no bloquean el desarrollo"
+      },
+      "low": {
+        "block_on_failure": false,
+        "show_info": true,
+        "optional": true,
+        "description": "Información opcional y buenas prácticas"
+      }
+    },
+    "migration_settings": {
+      "require_rollback": false,
+      "require_transactions": true,
+      "strict_naming": false,
+      "allow_destructive": true,
+      "warn_on_destructive": true,
+      "description": "Configuración para entorno de desarrollo"
+    },
+    "monitored_files": {
+      "patterns": [
+        "app/models/**/*.py",
+        "app/database/**/*.py",
+        "sql/migrations/**/*.sql",
+        "scripts/database/**/*.py"
+      ],
+      "specific": [
+        "app/models/current.py",
+        "app/models/advanced.py",
+        "app/database/connection.py"
+      ]
+    }
+  },
+  "functions": {
+    "validate_model": {
+      "enabled": true,
+      "parameters": {
+        "normalization": true,
+        "indexes": true,
+        "relations": true,
+        "naming": true
+      }
+    },
+    "check_migrations": {
+      "enabled": true,
+      "parameters": {
+        "syntax": true,
+        "compatibility": true,
+        "rollback": false,
+        "naming": true
+      }
+    },
+    "optimize_queries": {
+      "enabled": true,
+      "parameters": {
+        "analyze": true,
+        "suggest_indexes": true
+      }
+    },
+    "validate_connection_pool": {
+      "enabled": true,
+      "parameters": {
+        "pool_size": true,
+        "timeout": true
+      }
+    },
+    "validate_naming_conventions": {
+      "enabled": true,
+      "parameters": {
+        "tables": true,
+        "columns": true,
+        "indexes": true
+      }
+    }
+  }
+}
+

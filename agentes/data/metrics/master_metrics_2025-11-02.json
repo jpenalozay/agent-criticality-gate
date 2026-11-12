@@ -1,0 +1,234 @@
+[
+  {
+    "agent_id": "master",
+    "execution_id": "master_20251102204838359930",
+    "timestamp": "2025-11-02T20:48:39.452357",
+    "execution_time_ms": 1091.3996696472168,
+    "cpu_time_ms": 62.5,
+    "memory_mb": 1.51171875,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 1091.3996696472168,
+          "operation": "analyze_architecture",
+          "timestamp": "2025-11-02T20:48:39.452357"
+        }
+      ]
+    },
+    "error_message": null,
+    "llm_tokens_used": 2200,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.004399999999999999,
+    "query_times": [
+      1091.3996696472168,
+      1091.3996696472168
+    ],
+    "total_query_time_ms": 2182.7993392944336
+  },
+  {
+    "agent_id": "master",
+    "execution_id": "master_20251102205633214578",
+    "timestamp": "2025-11-02T20:56:34.277245",
+    "execution_time_ms": 1061.1588954925537,
+    "cpu_time_ms": 78.125,
+    "memory_mb": 0.3828125,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 1061.1588954925537,
+          "operation": "analyze_architecture",
+          "timestamp": "2025-11-02T20:56:34.277245"
+        }
+      ]
+    },
+    "error_message": null,
+    "llm_tokens_used": 2200,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.004399999999999999,
+    "query_times": [
+      1061.1588954925537,
+      1061.1588954925537
+    ],
+    "total_query_time_ms": 2122.3177909851074
+  },
+  {
+    "agent_id": "master",
+    "execution_id": "master_20251102205942396848",
+    "timestamp": "2025-11-02T20:59:43.438060",
+    "execution_time_ms": 1040.2305126190186,
+    "cpu_time_ms": 46.875,
+    "memory_mb": 0.10546875,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 1040.2305126190186,
+          "operation": "analyze_architecture",
+          "timestamp": "2025-11-02T20:59:43.438060"
+        }
+      ]
+    },
+    "error_message": null,
+    "llm_tokens_used": 2200,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.004399999999999999,
+    "query_times": [
+      1040.2305126190186,
+      1040.2305126190186
+    ],
+    "total_query_time_ms": 2080.461025238037
+  },
+  {
+    "agent_id": "master",
+    "execution_id": "master_20251102210001826530",
+    "timestamp": "2025-11-02T21:00:02.916193",
+    "execution_time_ms": 1088.6616706848145,
+    "cpu_time_ms": 15.625,
+    "memory_mb": 0.20703125,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 1088.6616706848145,
+          "operation": "analyze_architecture",
+          "timestamp": "2025-11-02T21:00:02.916193"
+        }
+      ]
+    },
+    "error_message": null,
+    "llm_tokens_used": 2200,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.004399999999999999,
+    "query_times": [
+      1088.6616706848145,
+      1088.6616706848145
+    ],
+    "total_query_time_ms": 2177.323341369629
+  },
+  {
+    "agent_id": "master",
+    "execution_id": "master_20251102210009827352",
+    "timestamp": "2025-11-02T21:00:10.932646",
+    "execution_time_ms": 1104.2921543121338,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.12109375,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 1104.2921543121338,
+          "operation": "analyze_architecture",
+          "timestamp": "2025-11-02T21:00:10.932646"
+        }
+      ]
+    },
+    "error_message": null,
+    "llm_tokens_used": 2200,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.004399999999999999,
+    "query_times": [
+      1104.2921543121338,
+      1104.2921543121338
+    ],
+    "total_query_time_ms": 2208.5843086242676
+  },
+  {
+    "agent_id": "master",
+    "execution_id": "master_20251102210452734929",
+    "timestamp": "2025-11-02T21:04:53.779617",
+    "execution_time_ms": 1043.6859130859375,
+    "cpu_time_ms": 15.625,
+    "memory_mb": 0.16015625,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 1043.6859130859375,
+          "operation": "analyze_architecture",
+          "timestamp": "2025-11-02T21:04:53.779617"
+        }
+      ]
+    },
+    "error_message": null,
+    "llm_tokens_used": 2200,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.004399999999999999,
+    "query_times": [
+      1043.6859130859375,
+      1043.6859130859375
+    ],
+    "total_query_time_ms": 2087.371826171875
+  },
+  {
+    "agent_id": "master",
+    "execution_id": "master_20251102210455812274",
+    "timestamp": "2025-11-02T21:04:56.931419",
+    "execution_time_ms": 1118.1485652923584,
+    "cpu_time_ms": 31.25,
+    "memory_mb": 0.01953125,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 1118.1485652923584,
+          "operation": "analyze_architecture",
+          "timestamp": "2025-11-02T21:04:56.931419"
+        }
+      ]
+    },
+    "error_message": null,
+    "llm_tokens_used": 2200,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.004399999999999999,
+    "query_times": [
+      1118.1485652923584,
+      1118.1485652923584
+    ],
+    "total_query_time_ms": 2236.297130584717
+  },
+  {
+    "agent_id": "master",
+    "execution_id": "master_20251102210502963649",
+    "timestamp": "2025-11-02T21:05:04.075395",
+    "execution_time_ms": 1110.7499599456787,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.01953125,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 1110.7499599456787,
+          "operation": "analyze_architecture",
+          "timestamp": "2025-11-02T21:05:04.075395"
+        }
+      ]
+    },
+    "error_message": null,
+    "llm_tokens_used": 2200,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.004399999999999999,
+    "query_times": [
+      1110.7499599456787,
+      1110.7499599456787
+    ],
+    "total_query_time_ms": 2221.4999198913574
+  }
+]

@@ -1,0 +1,10 @@
+python-dotenv
+grpcio
+grpcio-tools
+pyyaml
+jsonschema
+requests
+redis
+psycopg2-binary
+pyjwt
+prometheus-client

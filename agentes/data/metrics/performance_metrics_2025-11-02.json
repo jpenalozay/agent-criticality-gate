@@ -1,0 +1,290 @@
+[
+  {
+    "agent_id": "performance",
+    "execution_id": "performance_20251102203224800375",
+    "timestamp": "2025-11-02T20:32:25.100993",
+    "execution_time_ms": 300.61793327331543,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.03125,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 300.61793327331543,
+          "operation": "analyze_performance",
+          "timestamp": "2025-11-02T20:32:25.100993"
+        }
+      ],
+      "analyses_performed": 1,
+      "files_analyzed": 1,
+      "optimizations_suggested": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 950,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0019,
+    "query_times": [
+      300.61793327331543,
+      300.61793327331543
+    ],
+    "total_query_time_ms": 601.2358665466309
+  },
+  {
+    "agent_id": "performance",
+    "execution_id": "performance_20251102204838938435",
+    "timestamp": "2025-11-02T20:48:39.239359",
+    "execution_time_ms": 300.92406272888184,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 300.92406272888184,
+          "operation": "analyze_performance",
+          "timestamp": "2025-11-02T20:48:39.239359"
+        }
+      ],
+      "analyses_performed": 1,
+      "files_analyzed": 1,
+      "optimizations_suggested": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 950,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0019,
+    "query_times": [
+      300.92406272888184,
+      300.92406272888184
+    ],
+    "total_query_time_ms": 601.8481254577637
+  },
+  {
+    "agent_id": "performance",
+    "execution_id": "performance_20251102205633753022",
+    "timestamp": "2025-11-02T20:56:34.053831",
+    "execution_time_ms": 300.8089065551758,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.00390625,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 300.8089065551758,
+          "operation": "analyze_performance",
+          "timestamp": "2025-11-02T20:56:34.053831"
+        }
+      ],
+      "analyses_performed": 1,
+      "files_analyzed": 1,
+      "optimizations_suggested": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 950,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0019,
+    "query_times": [
+      300.8089065551758,
+      300.8089065551758
+    ],
+    "total_query_time_ms": 601.6178131103516
+  },
+  {
+    "agent_id": "performance",
+    "execution_id": "performance_20251102205942922753",
+    "timestamp": "2025-11-02T20:59:43.224831",
+    "execution_time_ms": 301.0578155517578,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 301.0578155517578,
+          "operation": "analyze_performance",
+          "timestamp": "2025-11-02T20:59:43.224831"
+        }
+      ],
+      "analyses_performed": 1,
+      "files_analyzed": 1,
+      "optimizations_suggested": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 950,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0019,
+    "query_times": [
+      301.0578155517578,
+      301.0578155517578
+    ],
+    "total_query_time_ms": 602.1156311035156
+  },
+  {
+    "agent_id": "performance",
+    "execution_id": "performance_20251102210002381395",
+    "timestamp": "2025-11-02T21:00:02.682878",
+    "execution_time_ms": 300.4796504974365,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 300.4796504974365,
+          "operation": "analyze_performance",
+          "timestamp": "2025-11-02T21:00:02.682878"
+        }
+      ],
+      "analyses_performed": 1,
+      "files_analyzed": 1,
+      "optimizations_suggested": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 950,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0019,
+    "query_times": [
+      300.4796504974365,
+      300.4796504974365
+    ],
+    "total_query_time_ms": 600.959300994873
+  },
+  {
+    "agent_id": "performance",
+    "execution_id": "performance_20251102210010394599",
+    "timestamp": "2025-11-02T21:00:10.695656",
+    "execution_time_ms": 301.0566234588623,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.00390625,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 301.0566234588623,
+          "operation": "analyze_performance",
+          "timestamp": "2025-11-02T21:00:10.695656"
+        }
+      ],
+      "analyses_performed": 1,
+      "files_analyzed": 1,
+      "optimizations_suggested": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 950,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0019,
+    "query_times": [
+      301.0566234588623,
+      301.0566234588623
+    ],
+    "total_query_time_ms": 602.1132469177246
+  },
+  {
+    "agent_id": "performance",
+    "execution_id": "performance_20251102210453264799",
+    "timestamp": "2025-11-02T21:04:53.565774",
+    "execution_time_ms": 300.9755611419678,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 300.9755611419678,
+          "operation": "analyze_performance",
+          "timestamp": "2025-11-02T21:04:53.565774"
+        }
+      ],
+      "analyses_performed": 1,
+      "files_analyzed": 1,
+      "optimizations_suggested": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 950,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0019,
+    "query_times": [
+      300.9755611419678,
+      300.9755611419678
+    ],
+    "total_query_time_ms": 601.9511222839355
+  },
+  {
+    "agent_id": "performance",
+    "execution_id": "performance_20251102210456387834",
+    "timestamp": "2025-11-02T21:04:56.688625",
+    "execution_time_ms": 300.79078674316406,
+    "cpu_time_ms": 15.625,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 300.79078674316406,
+          "operation": "analyze_performance",
+          "timestamp": "2025-11-02T21:04:56.688625"
+        }
+      ],
+      "analyses_performed": 1,
+      "files_analyzed": 1,
+      "optimizations_suggested": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 950,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0019,
+    "query_times": [
+      300.79078674316406,
+      300.79078674316406
+    ],
+    "total_query_time_ms": 601.5815734863281
+  },
+  {
+    "agent_id": "performance",
+    "execution_id": "performance_20251102210503521986",
+    "timestamp": "2025-11-02T21:05:03.823271",
+    "execution_time_ms": 301.2857437133789,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 301.2857437133789,
+          "operation": "analyze_performance",
+          "timestamp": "2025-11-02T21:05:03.823271"
+        }
+      ],
+      "analyses_performed": 1,
+      "files_analyzed": 1,
+      "optimizations_suggested": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 950,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0019,
+    "query_times": [
+      301.2857437133789,
+      301.2857437133789
+    ],
+    "total_query_time_ms": 602.5714874267578
+  }
+]

@@ -1,0 +1,46 @@
+services:
+  # Redis - Comunicación en tiempo real entre agentes
+  redis:
+    image: redis:7-alpine
+    container_name: chatbot_redis
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf:ro
+    command: redis-server /usr/local/etc/redis/redis.conf
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    networks:
+      - agentes_network
+
+  # Redis Commander - Interface web para Redis (opcional, para desarrollo)
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: chatbot_redis_commander
+    ports:
+      - "${REDIS_COMMANDER_PORT:-8081}:8081"
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+      - HTTP_USER=admin
+      - HTTP_PASSWORD=${REDIS_COMMANDER_PASSWORD:-admin}
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - agentes_network
+    profiles:
+      - tools  # Solo se inicia con --profile tools
+
+volumes:
+  redis_data:
+    driver: local
+
+networks:
+  agentes_network:
+    driver: bridge
+

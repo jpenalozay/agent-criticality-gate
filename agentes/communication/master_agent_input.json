@@ -1,0 +1,15 @@
+{
+  "task_id": "cursor-20251102-210502-46cdfbd9",
+  "timestamp": "2025-11-02T21:05:02.609345",
+  "type": "analysis",
+  "command": "analyze_architecture",
+  "user_input": "agents, analiza todo el proyecto a profundidad",
+  "parameters": {
+    "check_structure": true,
+    "provide_suggestions": true,
+    "coordinate_agents": true
+  },
+  "context": {},
+  "source": "cursor_chat",
+  "expected_output": "suggestions"
+}

@@ -1,0 +1,730 @@
+{
+  "agent_id": "master",
+  "agent_name": "Master Agent",
+  "version": "1.0",
+  "description": "Agente maestro que coordina y orquesta todos los demás agentes, toma decisiones arquitectónicas y gestiona tareas complejas",
+  "enabled": true,
+  "priority": "highest",
+  "environment": "development",
+  "created_at": "2025-01-XX",
+  "last_updated": "2025-01-XX",
+  
+  "metadata": {
+    "type": "coordinator",
+    "category": "orchestration",
+    "role": "master",
+    "focus": ["coordination", "architecture", "task_management", "integration", "cost_optimization", "time_optimization", "ai_optimization"],
+    "ai_techniques": ["reinforcement_learning", "pattern_learning", "predictive_analytics", "resource_optimization"]
+  },
+  
+  "monitoring": {
+    "files": {
+      "patterns": [
+        "**/*.py",
+        "**/*.json",
+        "**/*.md",
+        "agentes/**/*"
+      ],
+      "specific": [
+        "app/main.py",
+        "agentes/specs/agents/*.json",
+        "agentes/communication/*.json"
+      ],
+      "exclude": [
+        "**/__pycache__/**",
+        "**/*.pyc",
+        "**/node_modules/**"
+      ]
+    },
+    "directories": [
+      "app",
+      "agentes",
+      "scripts"
+    ],
+    "triggers": {
+      "file_created": true,
+      "file_modified": true,
+      "file_deleted": false,
+      "on_save": false,
+      "git_commit": true
+    }
+  },
+  
+  "functions": {
+    "coordinate_task": {
+      "description": "Coordina una tarea entre múltiples agentes",
+      "priority": "highest",
+      "rules": [
+        "Analizar tarea y determinar agentes necesarios",
+        "Asignar agentes según prioridad",
+        "Gestionar dependencias entre agentes",
+        "Coordinar ejecución secuencial o paralela",
+        "Agregar resultados de todos los agentes",
+        "Validar integración final"
+      ],
+      "parameters": {
+        "task_data": {},
+        "agents_required": [],
+        "dependencies": [],
+        "parallel_execution": false
+      }
+    },
+    
+    "validate_integration": {
+      "description": "Valida integración final de cambios de múltiples agentes",
+      "priority": "highest",
+      "rules": [
+        "Verificar compatibilidad entre cambios",
+        "Detectar conflictos entre agentes",
+        "Validar integración de código",
+        "Verificar que todos los agentes aprobaron",
+        "Detectar problemas de integración",
+        "Sugerir resoluciones de conflictos"
+      ],
+      "parameters": {
+        "agents_results": [],
+        "check_compatibility": true,
+        "check_conflicts": true,
+        "require_all_approval": false
+      }
+    },
+    
+    "manage_agents": {
+      "description": "Gestiona estado y configuración de todos los agentes",
+      "priority": "high",
+      "rules": [
+        "Monitorear estado de agentes",
+        "Gestionar habilitación/deshabilitación",
+        "Coordinar comunicación entre agentes",
+        "Gestionar prioridades de agentes",
+        "Detectar agentes inactivos",
+        "Sugerir reconfiguración"
+      ],
+      "parameters": {
+        "monitor_status": true,
+        "manage_enabled": true,
+        "coordinate_communication": true
+      }
+    },
+    
+    "analyze_architecture": {
+      "description": "Analiza arquitectura del proyecto y toma decisiones",
+      "priority": "high",
+      "rules": [
+        "Analizar estructura del proyecto",
+        "Detectar problemas arquitectónicos",
+        "Sugerir mejoras arquitectónicas",
+        "Validar decisiones arquitectónicas",
+        "Mantener consistencia arquitectónica"
+      ],
+      "parameters": {
+        "check_structure": true,
+        "check_patterns": true,
+        "provide_suggestions": true
+      }
+    },
+    
+    "detect_conflicts": {
+      "description": "Detecta conflictos entre cambios de diferentes agentes",
+      "priority": "high",
+      "rules": [
+        "Detectar conflictos de código",
+        "Detectar conflictos de configuración",
+        "Detectar conflictos de dependencias",
+        "Sugerir resoluciones",
+        "Prevenir conflictos futuros"
+      ],
+      "parameters": {
+        "check_code_conflicts": true,
+        "check_config_conflicts": true,
+        "check_dependency_conflicts": true,
+        "provide_resolutions": true
+      }
+    },
+    
+    "orchestrate_workflow": {
+      "description": "Orquesta workflows complejos entre múltiples agentes",
+      "priority": "high",
+      "rules": [
+        "Definir secuencia de ejecución",
+        "Gestionar dependencias",
+        "Ejecutar en orden apropiado",
+        "Manejar errores en workflow",
+        "Rollback si es necesario",
+        "Reportar progreso"
+      ],
+      "parameters": {
+        "workflow_steps": [],
+        "dependencies": [],
+        "error_handling": true,
+        "rollback_on_error": false
+      }
+    },
+    
+    "generate_reports": {
+      "description": "Genera reportes consolidados de todos los agentes",
+      "priority": "medium",
+      "rules": [
+        "Agregar resultados de todos los agentes",
+        "Generar reporte consolidado",
+        "Incluir métricas generales",
+        "Incluir recomendaciones",
+        "Formato estructurado y legible"
+      ],
+      "parameters": {
+        "include_all_agents": true,
+        "include_metrics": true,
+        "include_recommendations": true,
+        "format": "json"
+      }
+    },
+    
+    "suggest_improvements": {
+      "description": "Sugiere mejoras basadas en análisis de todos los agentes",
+      "priority": "low",
+      "rules": [
+        "Analizar resultados de todos los agentes",
+        "Identificar patrones comunes",
+        "Sugerir mejoras globales",
+        "Priorizar sugerencias",
+        "Proporcionar roadmap"
+      ],
+      "parameters": {
+        "analyze_all_agents": true,
+        "identify_patterns": true,
+        "prioritize": true,
+        "provide_roadmap": true
+      }
+    },
+    
+    "monitor_costs": {
+      "description": "Monitorea costos de todos los agentes: OpenAI, infraestructura, recursos y tiempo de ejecución",
+      "priority": "high",
+      "rules": [
+        "Trackear costos de OpenAI (tokens, API calls) por agente",
+        "Trackear costos de infraestructura (tiempo CPU, memoria, I/O)",
+        "Trackear costos de desarrollo (tiempo de ejecución de agentes)",
+        "Calcular costos totales por tarea",
+        "Calcular costos totales por día/semana/mes",
+        "Identificar agentes más costosos",
+        "Detectar incrementos anómalos de costos",
+        "Alertar sobre costos excesivos",
+        "Comparar costos históricos vs actuales",
+        "Proyectar costos futuros basados en tendencias"
+      ],
+      "parameters": {
+        "track_openai_costs": true,
+        "track_infrastructure_costs": true,
+        "track_execution_time_costs": true,
+        "calculate_per_task": true,
+        "calculate_per_period": true,
+        "detect_anomalies": true,
+        "alert_threshold_percentage": 80,
+        "historical_comparison": true,
+        "future_projection": true
+      }
+    },
+    
+    "monitor_execution_times": {
+      "description": "Monitorea tiempos de ejecución de cada agente y workflows completos",
+      "priority": "high",
+      "rules": [
+        "Trackear tiempo de ejecución de cada agente",
+        "Trackear tiempo de coordinación",
+        "Trackear tiempo de validación",
+        "Trackear tiempo total de workflows",
+        "Identificar agentes más lentos",
+        "Detectar cuellos de botella en workflows",
+        "Calcular tiempo promedio por tipo de tarea",
+        "Comparar tiempos históricos vs actuales",
+        "Detectar degradación de performance",
+        "Alertar sobre tiempos excesivos"
+      ],
+      "parameters": {
+        "track_agent_times": true,
+        "track_coordination_time": true,
+        "track_validation_time": true,
+        "track_workflow_time": true,
+        "detect_bottlenecks": true,
+        "calculate_averages": true,
+        "historical_comparison": true,
+        "detect_degradation": true,
+        "alert_threshold_ms": 60000
+      }
+    },
+    
+    "optimize_costs": {
+      "description": "Optimiza costos usando técnicas de IA: Reinforcement Learning, aprendizaje de patrones y predicción",
+      "priority": "high",
+      "rules": [
+        "Aplicar Reinforcement Learning para optimizar secuencias de ejecución",
+        "Aprender patrones de ejecución eficientes",
+        "Optimizar scheduling para reducir costos",
+        "Predicción de costos futuros",
+        "Sugerir alternativas más económicas",
+        "Optimizar uso de recursos",
+        "Ajustar prioridades según costo-beneficio",
+        "Reducir ejecuciones redundantes",
+        "Optimizar paralelización para reducir tiempo total",
+        "Aprender de ejecuciones pasadas exitosas"
+      ],
+      "parameters": {
+        "reinforcement_learning": true,
+        "pattern_learning": true,
+        "predictive_analytics": true,
+        "resource_optimization": true,
+        "suggest_alternatives": true,
+        "reduce_redundancy": true,
+        "optimize_parallelization": true,
+        "learn_from_history": true,
+        "rl_learning_rate": 0.1,
+        "rl_discount_factor": 0.9,
+        "rl_exploration_rate": 0.2
+      }
+    },
+    
+    "optimize_execution_times": {
+      "description": "Optimiza tiempos de ejecución usando técnicas de IA: RL, predicción y optimización de scheduling",
+      "priority": "high",
+      "rules": [
+        "Aplicar Reinforcement Learning para optimizar secuencias",
+        "Predicción de tiempos de ejecución por agente",
+        "Optimizar orden de ejecución para minimizar tiempo total",
+        "Identificar oportunidades de paralelización",
+        "Aprender patrones de ejecución rápidos",
+        "Optimizar scheduling según dependencias",
+        "Reducir tiempos de espera innecesarios",
+        "Ajustar prioridades dinámicamente",
+        "Aprender de workflows exitosos",
+        "Optimizar uso de recursos compartidos"
+      ],
+      "parameters": {
+        "reinforcement_learning": true,
+        "time_prediction": true,
+        "sequence_optimization": true,
+        "parallelization_optimization": true,
+        "pattern_learning": true,
+        "dynamic_prioritization": true,
+        "reduce_wait_times": true,
+        "learn_from_history": true,
+        "rl_episodes": 1000,
+        "rl_reward_function": "time_reduction"
+      }
+    },
+    
+    "analyze_cost_time_tradeoffs": {
+      "description": "Analiza tradeoffs entre costo y tiempo para tomar decisiones óptimas",
+      "priority": "medium",
+      "rules": [
+        "Calcular relación costo-tiempo por agente",
+        "Identificar cuando reducir tiempo aumenta costo significativamente",
+        "Identificar cuando reducir costo aumenta tiempo significativamente",
+        "Sugerir balance óptimo costo-tiempo",
+        "Priorizar según contexto (desarrollo vs producción)",
+        "Aplicar modelos de optimización multi-objetivo",
+        "Considerar límites de tiempo y presupuesto"
+      ],
+      "parameters": {
+        "calculate_tradeoffs": true,
+        "identify_conflicts": true,
+        "suggest_balance": true,
+        "consider_context": true,
+        "multi_objective_optimization": true,
+        "time_budget_ms": 300000,
+        "cost_budget_usd": 50.0
+      }
+    },
+    
+    "apply_reinforcement_learning": {
+      "description": "Aplica Reinforcement Learning para optimización continua de costos y tiempos",
+      "priority": "high",
+      "rules": [
+        "Definir estados del sistema (estado de agentes, tareas pendientes)",
+        "Definir acciones posibles (secuencias de ejecución, prioridades)",
+        "Definir función de recompensa (reducción de costo, reducción de tiempo)",
+        "Entrenar modelo RL con historial de ejecuciones",
+        "Explorar nuevas estrategias mientras explota las conocidas",
+        "Actualizar política de decisión basada en resultados",
+        "Optimizar hiperparámetros del modelo RL",
+        "Validar mejoras con A/B testing",
+        "Aprender de ejecuciones exitosas y fallidas"
+      ],
+      "parameters": {
+        "rl_algorithm": "q_learning",
+        "state_space": ["agent_status", "task_queue", "resource_usage"],
+        "action_space": ["execution_order", "priorities", "parallelization"],
+        "reward_function": "weighted_cost_time_reduction",
+        "learning_rate": 0.1,
+        "discount_factor": 0.9,
+        "exploration_rate": 0.2,
+        "exploration_decay": 0.995,
+        "min_exploration_rate": 0.01,
+        "training_episodes": 1000,
+        "validation_episodes": 100,
+        "ab_testing": true
+      }
+    },
+    
+    "learn_execution_patterns": {
+      "description": "Aprende patrones de ejecución eficientes usando Machine Learning",
+      "priority": "medium",
+      "rules": [
+        "Identificar patrones comunes en ejecuciones exitosas",
+        "Aprender correlaciones entre tareas y tiempos/costos",
+        "Clasificar tipos de tareas según características",
+        "Predecir tiempos y costos basados en características de tarea",
+        "Identificar secuencias de ejecución óptimas",
+        "Aprender qué agentes funcionan mejor juntos",
+        "Detectar anomalías en patrones de ejecución",
+        "Actualizar modelos con nuevos datos continuamente"
+      ],
+      "parameters": {
+        "pattern_detection": true,
+        "correlation_analysis": true,
+        "task_classification": true,
+        "time_prediction": true,
+        "cost_prediction": true,
+        "sequence_learning": true,
+        "anomaly_detection": true,
+        "continuous_learning": true,
+        "ml_model": "random_forest",
+        "retrain_frequency": "weekly"
+      }
+    },
+    
+    "optimize_resource_allocation": {
+      "description": "Optimiza asignación de recursos usando técnicas de optimización",
+      "priority": "medium",
+      "rules": [
+        "Optimizar asignación de CPU/memoria por agente",
+        "Balancear carga entre agentes",
+        "Evitar sobrecarga de recursos",
+        "Optimizar uso de recursos compartidos",
+        "Ajustar asignación según prioridad de tareas",
+        "Predecir necesidades de recursos",
+        "Aplicar técnicas de optimización (greedy, genetic algorithms)"
+      ],
+      "parameters": {
+        "cpu_allocation": true,
+        "memory_allocation": true,
+        "load_balancing": true,
+        "shared_resources": true,
+        "priority_based": true,
+        "predictive_allocation": true,
+        "optimization_algorithm": "genetic_algorithm"
+      }
+    },
+    
+    "generate_cost_time_reports": {
+      "description": "Genera reportes detallados de costos y tiempos con análisis y recomendaciones",
+      "priority": "medium",
+      "rules": [
+        "Agregar métricas de costos y tiempos de todos los agentes",
+        "Incluir tendencias históricas",
+        "Identificar áreas de optimización",
+        "Proporcionar recomendaciones específicas",
+        "Incluir proyecciones futuras",
+        "Comparar con benchmarks",
+        "Visualizar datos de forma clara"
+      ],
+      "parameters": {
+        "include_all_agents": true,
+        "include_trends": true,
+        "include_recommendations": true,
+        "include_projections": true,
+        "include_benchmarks": true,
+        "visualization": true,
+        "format": "json"
+      }
+    }
+  },
+  
+  "rules": {
+    "coordination": {
+      "priority": "highest",
+      "required": [
+        "coordinación apropiada",
+        "gestión de dependencias",
+        "validación de integración"
+      ],
+      "recommended": [
+        "ejecución paralela cuando sea posible",
+        "reportes consolidados",
+        "rollback automático"
+      ],
+      "forbidden": [
+        "conflictos sin resolver",
+        "ejecución sin validación",
+        "sin gestión de errores"
+      ]
+    },
+    
+    "architecture": {
+      "priority": "high",
+      "required": [
+        "consistencia arquitectónica",
+        "validación de decisiones",
+        "detección de problemas"
+      ],
+      "recommended": [
+        "mejoras arquitectónicas",
+        "documentación",
+        "patrones apropiados"
+      ],
+      "forbidden": [
+        "decisiones inconsistentes",
+        "problemas sin resolver",
+        "sin validación"
+      ]
+    }
+  },
+  
+  "communication": {
+    "redis_channels": {
+      "listen": [
+        "agent:master:trigger",
+        "agent:master:coordinate",
+        "agent:master:validate",
+        "agent:*:results",
+        "agent:*:errors",
+        "agent:*:warnings"
+      ],
+      "publish": [
+        "agent:master:results",
+        "agent:master:coordination",
+        "agent:master:reports",
+        "agent:master:instructions",
+        "agent:master:cost_optimization",
+        "agent:master:time_optimization",
+        "agent:*:trigger"
+      ]
+    },
+    "file_based": {
+      "input": "agentes/communication/master_agent_input.json",
+      "output": "agentes/communication/master_agent_output.json",
+      "errors": "agentes/communication/master_agent_errors.json",
+      "reports": "agentes/reports/master_agent_reports/"
+    }
+  },
+  
+  "agents_managed": [
+    "db",
+    "backend",
+    "frontend",
+    "performance",
+    "openai",
+    "whatsapp",
+    "code_quality",
+    "tests"
+  ],
+  
+  "test_and_performance": {
+    "enabled": true,
+    "schedule": {
+      "coordination_analysis": {
+        "enabled": true,
+        "frequency": "hourly",
+        "time": "00:00",
+        "timezone": "America/Lima"
+      },
+      "integration_validation": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "13:00",
+        "timezone": "America/Lima"
+      },
+      "report_generation": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "14:00",
+        "timezone": "America/Lima"
+      },
+      "cost_analysis": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "15:00",
+        "timezone": "America/Lima"
+      },
+      "time_analysis": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "16:00",
+        "timezone": "America/Lima"
+      },
+      "rl_training": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "17:00",
+        "timezone": "America/Lima"
+      },
+      "optimization_analysis": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "18:00",
+        "timezone": "America/Lima"
+      }
+    },
+    "metrics": {
+      "coordination": {
+        "target_success_rate_percentage": 95,
+        "max_conflict_rate_percentage": 5
+      },
+      "integration": {
+        "target_validation_rate_percentage": 100,
+        "max_integration_issues": 0
+      },
+      "costs": {
+        "tracking_enabled": true,
+        "target_daily_cost_usd": 50.0,
+        "target_monthly_cost_usd": 1500.0,
+        "warning_threshold_percentage": 80,
+        "cost_reduction_target_percentage": 20
+      },
+      "execution_times": {
+        "tracking_enabled": true,
+        "target_avg_execution_time_ms": 30000,
+        "target_max_execution_time_ms": 120000,
+        "time_reduction_target_percentage": 15,
+        "warning_threshold_ms": 60000
+      },
+      "optimization": {
+        "rl_model_accuracy_target": 0.85,
+        "cost_optimization_target_percentage": 20,
+        "time_optimization_target_percentage": 15,
+        "pattern_learning_accuracy_target": 0.80
+      }
+    },
+    "reporting": {
+      "format": "json",
+      "location": "agentes/reports/master_agent_reports/",
+      "include_all_agents": true,
+      "include_metrics": true,
+      "include_recommendations": true,
+      "include_cost_analysis": true,
+      "include_time_analysis": true,
+      "include_optimization_suggestions": true
+    }
+  },
+  
+  "cost_time_optimization": {
+    "enabled": true,
+    "ai_techniques": {
+      "reinforcement_learning": {
+        "enabled": true,
+        "algorithm": "q_learning",
+        "state_space_size": 100,
+        "action_space_size": 50,
+        "learning_rate": 0.1,
+        "discount_factor": 0.9,
+        "exploration_rate": 0.2,
+        "exploration_decay": 0.995,
+        "min_exploration_rate": 0.01,
+        "training_episodes": 1000,
+        "update_frequency": "daily",
+        "model_storage": "agentes/models/rl_model.pkl"
+      },
+      "pattern_learning": {
+        "enabled": true,
+        "algorithm": "random_forest",
+        "features": ["task_type", "agent_combo", "file_changes", "time_of_day"],
+        "targets": ["execution_time", "cost"],
+        "retrain_frequency": "weekly",
+        "min_samples_for_training": 100,
+        "model_storage": "agentes/models/pattern_model.pkl"
+      },
+      "predictive_analytics": {
+        "enabled": true,
+        "algorithms": ["linear_regression", "time_series"],
+        "prediction_horizon_days": 7,
+        "confidence_threshold": 0.75,
+        "model_storage": "agentes/models/prediction_model.pkl"
+      },
+      "resource_optimization": {
+        "enabled": true,
+        "algorithm": "genetic_algorithm",
+        "population_size": 50,
+        "generations": 100,
+        "mutation_rate": 0.1,
+        "crossover_rate": 0.8,
+        "fitness_function": "weighted_cost_time"
+      }
+    },
+    "data_collection": {
+      "enabled": true,
+      "metrics_tracked": [
+        "agent_execution_time",
+        "agent_cost",
+        "workflow_total_time",
+        "workflow_total_cost",
+        "resource_usage",
+        "success_rate",
+        "error_rate"
+      ],
+      "storage": "agentes/data/cost_time_metrics.json",
+      "retention_days": 90
+    },
+    "optimization_goals": {
+      "primary": "minimize_cost_time_product",
+      "secondary": ["minimize_cost", "minimize_time"],
+      "constraints": {
+        "max_time_ms": 300000,
+        "max_cost_usd": 50.0,
+        "min_success_rate": 0.95
+      }
+    },
+    "reporting": {
+      "cost_time_reports": {
+        "frequency": "daily",
+        "include_trends": true,
+        "include_projections": true,
+        "include_recommendations": true,
+        "format": "json",
+        "location": "agentes/reports/master_agent_cost_time_reports/"
+      },
+      "optimization_reports": {
+        "frequency": "weekly",
+        "include_rl_performance": true,
+        "include_improvements": true,
+        "include_next_steps": true,
+        "format": "json",
+        "location": "agentes/reports/master_agent_optimization_reports/"
+      }
+    }
+  },
+  
+  "metrics_collection": {
+    "enabled": true,
+    "collect_from_all_agents": true,
+    "use_metrics_aggregator": true,
+    "aggregator_class": "MetricsAggregator",
+    "collect_from_redis": true,
+    "redis_channels": [
+      "agent:db:metrics",
+      "agent:backend:metrics",
+      "agent:frontend:metrics",
+      "agent:performance:metrics",
+      "agent:openai:metrics",
+      "agent:whatsapp:metrics",
+      "agent:code_quality:metrics",
+      "agent:tests:metrics"
+    ],
+    "collect_from_files": true,
+    "metrics_storage_dir": "agentes/data/metrics",
+    "aggregation_frequency": "daily",
+    "aggregation_time": "15:00",
+    "aggregate_daily": true,
+    "aggregate_weekly": true,
+    "aggregate_monthly": true,
+    "agents_to_collect": [
+      "db",
+      "backend",
+      "frontend",
+      "performance",
+      "openai",
+      "whatsapp",
+      "code_quality",
+      "tests"
+    ]
+  }
+}
+

@@ -1,0 +1,62 @@
+framework:
+  name: "AI Software Factory"
+  version: "1.0.0-mvp"
+  
+deepseek:
+  model: "deepseek-chat"
+  temperature: 0.3
+  max_tokens: 4000
+  timeout_seconds: 30
+  
+coordinator:
+  max_concurrent_tasks: 5
+  default_timeout_minutes: 60
+  retry_policy:
+    max_retries: 3
+    backoff_multiplier: 2
+    
+agents:
+  arquitecto:
+    enabled: true
+    temperature: 0.3
+    max_tokens: 4000
+    timeout_seconds: 30
+    
+  sentinel:
+    enabled: true
+    risk_thresholds:
+      auto_approve: 30
+      peer_review: 70
+      human_approval: 71
+    recalculation_enabled: true
+    
+  coder:
+    enabled: true
+    temperature: 0.2
+    max_tokens: 6000
+    languages: ["python", "javascript"]
+    patterns: ["repository", "service_layer", "mvc"]
+    
+  linter:
+    enabled: true
+    tools:
+      python: ["pylint", "flake8", "mypy"]
+      javascript: ["eslint"]
+    max_complexity: 10
+    min_coverage: 80
+    
+  tester:
+    enabled: true
+    frameworks:
+      python: "pytest"
+      javascript: "jest"
+    coverage_threshold: 85
+    
+auditor:
+  enabled: true
+  storage: "sqlite"
+  retention_days: 2555  # 7 años
+  
+monitoring:
+  logs_level: "INFO"
+  metrics_enabled: true

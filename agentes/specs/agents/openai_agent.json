@@ -1,0 +1,347 @@
+{
+  "agent_id": "openai",
+  "agent_name": "OpenAI Agent",
+  "version": "1.0",
+  "description": "Agente especializado en validar integración OpenAI, optimizar prompts, gestionar tokens y costos",
+  "enabled": true,
+  "priority": "medium",
+  "environment": "development",
+  "created_at": "2025-01-XX",
+  "last_updated": "2025-01-XX",
+  
+  "metadata": {
+    "type": "external_service",
+    "category": "ai_integration",
+    "service": "openai",
+    "api_version": "assistants=v2",
+    "focus": ["integration", "prompts", "tokens", "costs"]
+  },
+  
+  "monitoring": {
+    "files": {
+      "patterns": [
+        "app/backend/services/external/openai*.py",
+        "app/backend/core/config.py"
+      ],
+      "specific": [
+        "app/backend/services/external/openai_service.py",
+        "app/backend/services/external/openai_advanced.py",
+        "app/backend/core/config.py"
+      ],
+      "exclude": [
+        "**/__pycache__/**",
+        "**/*.pyc"
+      ]
+    },
+    "directories": [
+      "app/backend/services/external"
+    ],
+    "triggers": {
+      "file_created": true,
+      "file_modified": true,
+      "file_deleted": false,
+      "on_save": true,
+      "git_commit": false
+    }
+  },
+  
+  "functions": {
+    "validate_integration": {
+      "description": "Valida integración con OpenAI API",
+      "priority": "high",
+      "rules": [
+        "API key debe estar configurada",
+        "Assistant ID debe estar configurado",
+        "Debe manejar errores de API apropiadamente",
+        "Debe tener timeouts configurados",
+        "Debe tener retry logic para rate limits",
+        "Debe usar cliente async apropiadamente",
+        "Debe tener manejo de excepciones específicas de OpenAI"
+      ],
+      "parameters": {
+        "api_key": true,
+        "assistant_id": true,
+        "error_handling": true,
+        "timeouts": true,
+        "retry_logic": true
+      }
+    },
+    
+    "optimize_prompts": {
+      "description": "Optimiza prompts para reducir tokens y mejorar efectividad",
+      "priority": "high",
+      "rules": [
+        "Prompts deben ser claros y concisos",
+        "Debe evitar tokens innecesarios",
+        "Debe usar instrucciones específicas",
+        "Debe incluir ejemplos cuando sea apropiado",
+        "Debe evitar repetición de información",
+        "Debe usar formato apropiado para el modelo"
+      ],
+      "parameters": {
+        "token_count": true,
+        "clarity": true,
+        "effectiveness": true,
+        "provide_suggestions": true
+      }
+    },
+    
+    "monitor_costs": {
+      "description": "Monitorea costos de OpenAI y tokens usados",
+      "priority": "medium",
+      "rules": [
+        "Debe trackear tokens usados por request",
+        "Debe calcular costos por request",
+        "Debe tener límites configurados",
+        "Debe alertar sobre costos altos",
+        "Debe trackear costos diarios y mensuales",
+        "Debe registrar métricas de uso"
+      ],
+      "parameters": {
+        "tracking": true,
+        "limits": true,
+        "alerts": true,
+        "daily_tracking": true,
+        "monthly_tracking": true
+      }
+    },
+    
+    "validate_rate_limits": {
+      "description": "Valida manejo de rate limits de OpenAI",
+      "priority": "high",
+      "rules": [
+        "Debe manejar rate limits apropiadamente",
+        "Debe tener retry logic con backoff exponencial",
+        "Debe evitar exceder límites de tokens",
+        "Debe manejar errores de rate limit específicos"
+      ],
+      "parameters": {
+        "check_handling": true,
+        "check_retry": true,
+        "check_backoff": true
+      }
+    },
+    
+    "validate_responses": {
+      "description": "Valida calidad y formato de respuestas de OpenAI",
+      "priority": "medium",
+      "rules": [
+        "Respuestas deben ser procesadas apropiadamente",
+        "Debe manejar respuestas vacías",
+        "Debe manejar errores en respuestas",
+        "Debe validar formato de respuestas",
+        "Debe extraer contenido correctamente"
+      ],
+      "parameters": {
+        "check_processing": true,
+        "check_empty": true,
+        "check_format": true
+      }
+    },
+    
+    "monitor_performance": {
+      "description": "Monitorea performance de llamadas a OpenAI",
+      "priority": "medium",
+      "rules": [
+        "Debe trackear tiempo de respuesta",
+        "Debe trackear tiempo de espera",
+        "Debe detectar timeouts",
+        "Debe monitorear tasa de éxito",
+        "Debe detectar respuestas lentas"
+      ],
+      "parameters": {
+        "track_response_time": true,
+        "track_wait_time": true,
+        "detect_timeouts": true,
+        "track_success_rate": true
+      }
+    },
+    
+    "suggest_optimizations": {
+      "description": "Sugiere optimizaciones para uso de OpenAI",
+      "priority": "low",
+      "rules": [
+        "Analizar patrones de uso",
+        "Sugerir optimizaciones de prompts",
+        "Sugerir reducción de tokens",
+        "Sugerir mejoras de performance",
+        "Sugerir mejoras de costo"
+      ],
+      "parameters": {
+        "check_patterns": true,
+        "check_prompts": true,
+        "check_costs": true,
+        "provide_examples": true
+      }
+    }
+  },
+  
+  "rules": {
+    "integration": {
+      "priority": "high",
+      "required": [
+        "API key configurada",
+        "Assistant ID configurado",
+        "manejo de errores",
+        "timeouts configurados"
+      ],
+      "recommended": [
+        "retry logic",
+        "circuit breaker",
+        "cache de respuestas",
+        "métricas de uso"
+      ],
+      "forbidden": [
+        "API keys hardcodeadas",
+        "timeouts muy largos",
+        "sin manejo de errores",
+        "exponer API keys"
+      ]
+    },
+    
+    "prompts": {
+      "priority": "high",
+      "required": [
+        "prompts claros",
+        "instrucciones específicas",
+        "formato apropiado"
+      ],
+      "recommended": [
+        "ejemplos en prompts",
+        "few-shot learning",
+        "system messages apropiados",
+        "optimización de tokens"
+      ],
+      "forbidden": [
+        "prompts ambiguos",
+        "tokens innecesarios",
+        "repetición excesiva",
+        "información sensible en prompts"
+      ]
+    },
+    
+    "costs": {
+      "priority": "medium",
+      "required": [
+        "tracking de tokens",
+        "límites configurados",
+        "alertas de costos"
+      ],
+      "recommended": [
+        "análisis de costos",
+        "optimización de tokens",
+        "cache de respuestas",
+        "métricas detalladas"
+      ],
+      "forbidden": [
+        "sin límites",
+        "sin tracking",
+        "costos no controlados"
+      ]
+    }
+  },
+  
+  "communication": {
+    "redis_channels": {
+      "listen": [
+        "agent:openai:trigger",
+        "agent:openai:validate",
+        "agent:openai:optimize"
+      ],
+      "publish": [
+        "agent:openai:results",
+        "agent:openai:costs",
+        "agent:openai:optimizations",
+        "agent:openai:warnings"
+      ]
+    },
+    "file_based": {
+      "input": "agentes/communication/openai_agent_input.json",
+      "output": "agentes/communication/openai_agent_output.json",
+      "errors": "agentes/communication/openai_agent_errors.json"
+    }
+  },
+  
+  "test_and_performance": {
+    "enabled": true,
+    "schedule": {
+      "cost_analysis": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "06:00",
+        "timezone": "America/Lima"
+      },
+      "performance_analysis": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "07:00",
+        "timezone": "America/Lima"
+      }
+    },
+    "metrics": {
+      "costs": {
+        "daily_limit_usd": 10.0,
+        "monthly_limit_usd": 300.0,
+        "warning_threshold_percentage": 80
+      },
+      "tokens": {
+        "max_tokens_per_request": 1500,
+        "warning_tokens_per_request": 1200
+      },
+      "performance": {
+        "max_response_time_ms": 30000,
+        "warning_response_time_ms": 20000,
+        "target_success_rate_percentage": 95
+      }
+    },
+    "reporting": {
+      "format": "json",
+      "location": "agentes/reports/openai_agent_reports/",
+      "include_costs": true,
+      "include_performance": true,
+      "include_suggestions": true
+    }
+  },
+  
+  "metrics_tracking": {
+    "enabled": true,
+    "track_execution_time": true,
+    "track_cpu_time": true,
+    "track_memory": true,
+    "track_cost": true,
+    "track_operations": true,
+    "custom_metrics": {
+      "tokens_used": {
+        "enabled": true,
+        "description": "Número de tokens usados en la llamada API"
+      },
+      "api_calls": {
+        "enabled": true,
+        "description": "Número de llamadas API realizadas"
+      },
+      "api_response_time_ms": {
+        "enabled": true,
+        "description": "Tiempo de respuesta de la API OpenAI"
+      },
+      "prompt_tokens": {
+        "enabled": true,
+        "description": "Tokens usados en el prompt"
+      },
+      "completion_tokens": {
+        "enabled": true,
+        "description": "Tokens usados en la completion"
+      },
+      "cost_per_request": {
+        "enabled": true,
+        "description": "Costo por request en USD",
+        "calculation": "tokens_used * pricing_rate"
+      }
+    },
+    "publish_to_redis": true,
+    "redis_channel": "agent:openai:metrics",
+    "save_to_file": true,
+    "storage_dir": "agentes/data/metrics",
+    "publish_frequency": "on_completion"
+  }
+}
+

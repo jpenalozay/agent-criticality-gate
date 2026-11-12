@@ -1,0 +1,297 @@
+syntax = "proto3";
+
+package agentes;
+
+option go_package = "github.com/jlpy/agentes/proto";
+
+// Servicio principal del framework
+service AgentFramework {
+  // Procesar requerimiento completo
+  rpc ProcessRequirement(RequirementRequest) returns (ProcessResult);
+  
+  // Obtener estado de una tarea
+  rpc GetTaskStatus(TaskStatusRequest) returns (TaskStatus);
+  
+  // Listar tareas recientes
+  rpc ListTasks(ListTasksRequest) returns (TaskList);
+  
+  // Obtener logs de auditoría
+  rpc GetAuditLogs(AuditLogsRequest) returns (AuditLogs);
+}
+
+// Request para procesar requerimiento
+message RequirementRequest {
+  string requirement = 1;
+  map<string, string> context = 2;
+  bool enable_peer_review = 3;
+  bool enable_executable_feedback = 4;
+}
+
+// Resultado del procesamiento
+message ProcessResult {
+  string task_id = 1;
+  string status = 2;  // completed, failed, running
+  int64 total_time_ms = 3;
+  
+  // Outputs de agentes
+  Blueprint blueprint = 4;
+  UIUXSpec ui_ux_spec = 5;
+  RiskAssessment risk_assessment = 6;
+  CodeArtifacts code_artifacts = 7;
+  TestSuite test_suite = 8;
+  TestResults test_results = 9;
+  LintResults lint_results = 10;
+  AuditSummary audit_summary = 11;
+  
+  // Resumen ejecutivo
+  Summary summary = 12;
+  
+  // Error si falló
+  string error = 13;
+}
+
+// Blueprint del arquitecto
+message Blueprint {
+  string name = 1;
+  string type = 2;
+  map<string, Component> components = 3;
+  repeated Dependency dependencies = 4;
+  double sop_compliance_score = 5;
+}
+
+message Component {
+  string type = 1;
+  string tech = 2;
+  string criticality = 3;
+  string description = 4;
+}
+
+message Dependency {
+  string from = 1;
+  string to = 2;
+  string type = 3;
+}
+
+// Especificación UI/UX
+message UIUXSpec {
+  repeated Persona personas = 1;
+  repeated UserFlow user_flows = 2;
+  repeated Wireframe wireframes = 3;
+  DesignTokens design_tokens = 4;
+  Accessibility accessibility = 5;
+  double sop_compliance_score = 6;
+}
+
+message Persona {
+  string id = 1;
+  string name = 2;
+  string role = 3;
+  repeated string goals = 4;
+}
+
+message UserFlow {
+  string id = 1;
+  string name = 2;
+  repeated string steps = 3;
+}
+
+message Wireframe {
+  string id = 1;
+  string name = 2;
+  string layout = 3;
+  repeated string components = 4;
+}
+
+message DesignTokens {
+  map<string, string> colors = 1;
+  map<string, string> typography = 2;
+  map<string, string> spacing = 3;
+}
+
+message Accessibility {
+  string wcag_level = 1;
+  repeated string requirements = 2;
+}
+
+// Risk Assessment
+message RiskAssessment {
+  double total_score = 1;
+  string level = 2;  // LOW, MEDIUM, HIGH
+  string decision = 3;  // auto_approve, peer_review, human_approval
+  RiskDimensions dimensions = 4;
+  repeated string recommendations = 5;
+}
+
+message RiskDimensions {
+  RiskDimension impact = 1;
+  RiskDimension complexity = 2;
+  RiskDimension sensitivity = 3;
+}
+
+message RiskDimension {
+  int32 score = 1;
+  repeated string factors = 2;
+}
+
+// Code Artifacts
+message CodeArtifacts {
+  string language = 1;
+  map<string, string> files = 2;
+  ExecutionResults execution_results = 3;
+  double sop_compliance_score = 4;
+}
+
+message ExecutionResults {
+  bool success = 1;
+  int32 iterations = 2;
+  int64 runtime_ms = 3;
+}
+
+// Test Suite
+message TestSuite {
+  map<string, string> test_files = 1;
+  int32 total_tests = 2;
+  TestCategories categories = 3;
+  double expected_coverage = 4;
+  double sop_compliance_score = 5;
+}
+
+message TestCategories {
+  int32 basic = 1;
+  int32 edge_cases = 2;
+  int32 large_scale = 3;
+}
+
+// Test Results
+message TestResults {
+  int32 total_tests = 1;
+  int32 passed = 2;
+  int32 failed = 3;
+  double coverage = 4;
+  repeated string errors = 5;
+}
+
+// Lint Results
+message LintResults {
+  double quality_score = 1;
+  repeated Issue issues = 2;
+  repeated string recommendations = 3;
+  repeated string tools_used = 4;
+}
+
+message Issue {
+  string tool = 1;
+  string message = 2;
+}
+
+// Audit Summary
+message AuditSummary {
+  int32 events_logged = 1;
+  int32 total_events = 2;
+  double integrity = 3;
+  string log_file = 4;
+}
+
+// Summary ejecutivo
+message Summary {
+  ArchitectureSummary architecture = 1;
+  UIUXSummary ui_ux = 2;
+  RiskSummary risk = 3;
+  CodeSummary code = 4;
+  TestingSummary testing = 5;
+  QualitySummary quality = 6;
+  AuditSummaryInfo audit = 7;
+}
+
+message ArchitectureSummary {
+  string name = 1;
+  int32 components = 2;
+  double sop_compliance = 3;
+}
+
+message UIUXSummary {
+  int32 personas = 1;
+  int32 wireframes = 2;
+  string accessibility = 3;
+}
+
+message RiskSummary {
+  double score = 1;
+  string level = 2;
+  string decision = 3;
+}
+
+message CodeSummary {
+  int32 files = 1;
+  string language = 2;
+}
+
+message TestingSummary {
+  int32 tests_designed = 1;
+  int32 tests_passed = 2;
+  int32 tests_failed = 3;
+  double coverage = 4;
+}
+
+message QualitySummary {
+  double score = 1;
+  int32 issues = 2;
+}
+
+message AuditSummaryInfo {
+  int32 events_logged = 1;
+  double integrity = 2;
+}
+
+// Task Status
+message TaskStatusRequest {
+  string task_id = 1;
+}
+
+message TaskStatus {
+  string task_id = 1;
+  string status = 2;
+  int32 progress_percent = 3;
+  string current_agent = 4;
+  int64 elapsed_time_ms = 5;
+}
+
+// List Tasks
+message ListTasksRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+}
+
+message TaskList {
+  repeated TaskInfo tasks = 1;
+  int32 total = 2;
+}
+
+message TaskInfo {
+  string task_id = 1;
+  string requirement = 2;
+  string status = 3;
+  int64 created_at = 4;
+  int64 completed_at = 5;
+}
+
+// Audit Logs
+message AuditLogsRequest {
+  string task_id = 1;
+  int32 limit = 2;
+}
+
+message AuditLogs {
+  repeated AuditEvent events = 1;
+  int32 total = 2;
+}
+
+message AuditEvent {
+  string id = 1;
+  string timestamp = 2;
+  string actor = 3;
+  string action = 4;
+  string resource = 5;
+  map<string, string> details = 6;
+  string checksum = 7;
+}

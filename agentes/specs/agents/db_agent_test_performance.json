@@ -1,0 +1,566 @@
+{
+  "test_and_performance": {
+    "version": "1.0",
+    "enabled": true,
+    "description": "Sistema de pruebas y análisis de performance automatizado para agentes",
+    
+    "test_plan": {
+      "enabled": true,
+      "description": "Plan de pruebas automatizadas para validar funcionalidad y calidad",
+      
+      "schedules": [
+        {
+          "schedule_id": "test_db_basic_daily",
+          "name": "Pruebas Básicas Diarias",
+          "agent": "db",
+          "frequency": "daily",
+          "time": "02:00",
+          "timezone": "America/Lima",
+          "enabled": true,
+          "tests": [
+            {
+              "test_id": "db_connection_test",
+              "name": "Test de Conexión a Base de Datos",
+              "type": "connection",
+              "priority": "critical",
+              "timeout_seconds": 30,
+              "expected_result": "success",
+              "description": "Verifica que la conexión a la BD funcione correctamente"
+            },
+            {
+              "test_id": "db_pool_test",
+              "name": "Test de Connection Pool",
+              "type": "performance",
+              "priority": "high",
+              "timeout_seconds": 60,
+              "expected_result": "pool_size >= 5",
+              "description": "Verifica que el pool de conexiones esté funcionando"
+            },
+            {
+              "test_id": "db_model_integrity",
+              "name": "Test de Integridad de Modelos",
+              "type": "validation",
+              "priority": "high",
+              "timeout_seconds": 120,
+              "expected_result": "all_models_valid",
+              "description": "Valida que todos los modelos SQLAlchemy estén correctos"
+            },
+            {
+              "test_id": "db_foreign_keys",
+              "name": "Test de Foreign Keys",
+              "type": "integrity",
+              "priority": "critical",
+              "timeout_seconds": 180,
+              "expected_result": "all_fk_valid",
+              "description": "Verifica que todas las foreign keys sean válidas"
+            },
+            {
+              "test_id": "db_indexes_exist",
+              "name": "Test de Índices Existentes",
+              "type": "validation",
+              "priority": "medium",
+              "timeout_seconds": 120,
+              "expected_result": "all_indexes_exist",
+              "description": "Verifica que los índices esperados existan"
+            }
+          ]
+        },
+        {
+          "schedule_id": "test_db_comprehensive_weekly",
+          "name": "Pruebas Comprensivas Semanales",
+          "agent": "db",
+          "frequency": "weekly",
+          "day": "sunday",
+          "time": "03:00",
+          "timezone": "America/Lima",
+          "enabled": true,
+          "tests": [
+            {
+              "test_id": "db_migration_test",
+              "name": "Test de Migraciones",
+              "type": "validation",
+              "priority": "high",
+              "timeout_seconds": 300,
+              "expected_result": "all_migrations_applied",
+              "description": "Verifica que todas las migraciones estén aplicadas"
+            },
+            {
+              "test_id": "db_data_integrity",
+              "name": "Test de Integridad de Datos",
+              "type": "integrity",
+              "priority": "high",
+              "timeout_seconds": 600,
+              "expected_result": "no_orphan_records",
+              "description": "Verifica que no haya registros huérfanos"
+            },
+            {
+              "test_id": "db_naming_conventions",
+              "name": "Test de Naming Conventions",
+              "type": "validation",
+              "priority": "medium",
+              "timeout_seconds": 180,
+              "expected_result": "conventions_followed",
+              "description": "Verifica que se sigan las convenciones de nombres"
+            }
+          ]
+        }
+      ],
+      
+      "test_types": {
+        "connection": {
+          "description": "Pruebas de conectividad y disponibilidad",
+          "metrics": ["latency_ms", "success_rate", "error_count"]
+        },
+        "performance": {
+          "description": "Pruebas de rendimiento y velocidad",
+          "metrics": ["response_time_ms", "throughput", "resource_usage"]
+        },
+        "validation": {
+          "description": "Pruebas de validación de estructura y reglas",
+          "metrics": ["validation_score", "errors_found", "warnings_found"]
+        },
+        "integrity": {
+          "description": "Pruebas de integridad referencial y datos",
+          "metrics": ["integrity_score", "orphan_records", "constraint_violations"]
+        },
+        "load": {
+          "description": "Pruebas de carga y estrés",
+          "metrics": ["requests_per_second", "error_rate", "response_time_p95", "response_time_p99"]
+        }
+      }
+    },
+    
+    "performance_plan": {
+      "enabled": true,
+      "description": "Plan de análisis de performance y optimización",
+      
+      "schedules": [
+        {
+          "schedule_id": "perf_db_hourly",
+          "name": "Análisis de Performance Horario",
+          "agent": "db",
+          "frequency": "hourly",
+          "enabled": true,
+          "analyses": [
+            {
+              "analysis_id": "perf_slow_queries",
+              "name": "Análisis de Queries Lentas",
+              "type": "query_analysis",
+              "priority": "high",
+              "enabled": true,
+              "threshold_ms": 1000,
+              "description": "Detecta queries que toman más de 1 segundo",
+              "metrics": [
+                "query_count",
+                "avg_execution_time_ms",
+                "max_execution_time_ms",
+                "slowest_queries",
+                "query_patterns"
+              ]
+            },
+            {
+              "analysis_id": "perf_connection_pool",
+              "name": "Análisis de Connection Pool",
+              "type": "pool_analysis",
+              "priority": "high",
+              "enabled": true,
+              "thresholds": {
+                "pool_utilization": 0.8,
+                "wait_time_ms": 100,
+                "overflow_count": 5
+              },
+              "description": "Analiza el uso del pool de conexiones",
+              "metrics": [
+                "pool_size",
+                "active_connections",
+                "idle_connections",
+                "wait_time_ms",
+                "overflow_count"
+              ]
+            },
+            {
+              "analysis_id": "perf_table_sizes",
+              "name": "Análisis de Tamaños de Tablas",
+              "type": "table_analysis",
+              "priority": "medium",
+              "enabled": true,
+              "threshold_rows": 10000,
+              "description": "Detecta tablas que crecen rápidamente",
+              "metrics": [
+                "table_rows",
+                "table_size_mb",
+                "index_size_mb",
+                "growth_rate_per_day"
+              ]
+            }
+          ]
+        },
+        {
+          "schedule_id": "perf_db_daily_volume",
+          "name": "Análisis de Performance por Volumen",
+          "agent": "db",
+          "frequency": "daily",
+          "time": "04:00",
+          "timezone": "America/Lima",
+          "enabled": true,
+          "analyses": [
+            {
+              "analysis_id": "perf_volume_analysis",
+              "name": "Análisis de Performance por Volumen de Datos",
+              "type": "volume_analysis",
+              "priority": "critical",
+              "enabled": true,
+              "description": "Analiza qué parte del modelo se demora más con volumen creciente",
+              "test_scenarios": [
+                {
+                  "scenario": "small_volume",
+                  "name": "Volumen Pequeño (< 1K registros)",
+                  "table_rows": {
+                    "users": 100,
+                    "conversations": 500,
+                    "messages": 2000
+                  },
+                  "baseline": true
+                },
+                {
+                  "scenario": "medium_volume",
+                  "name": "Volumen Medio (1K - 10K registros)",
+                  "table_rows": {
+                    "users": 1000,
+                    "conversations": 5000,
+                    "messages": 20000
+                  }
+                },
+                {
+                  "scenario": "large_volume",
+                  "name": "Volumen Grande (10K - 100K registros)",
+                  "table_rows": {
+                    "users": 10000,
+                    "conversations": 50000,
+                    "messages": 200000
+                  }
+                },
+                {
+                  "scenario": "xlarge_volume",
+                  "name": "Volumen Muy Grande (> 100K registros)",
+                  "table_rows": {
+                    "users": 100000,
+                    "conversations": 500000,
+                    "messages": 2000000
+                  }
+                }
+              ],
+              "queries_to_test": [
+                {
+                  "query_id": "q_get_user_conversations",
+                  "name": "Obtener Conversaciones de Usuario",
+                  "sql": "SELECT * FROM conversations WHERE user_id = ? ORDER BY created_at DESC LIMIT 20",
+                  "priority": "high",
+                  "expected_max_ms": {
+                    "small_volume": 50,
+                    "medium_volume": 100,
+                    "large_volume": 500,
+                    "xlarge_volume": 2000
+                  }
+                },
+                {
+                  "query_id": "q_get_conversation_messages",
+                  "name": "Obtener Mensajes de Conversación",
+                  "sql": "SELECT * FROM messages WHERE conversation_id = ? ORDER BY created_at ASC",
+                  "priority": "high",
+                  "expected_max_ms": {
+                    "small_volume": 50,
+                    "medium_volume": 200,
+                    "large_volume": 1000,
+                    "xlarge_volume": 5000
+                  }
+                },
+                {
+                  "query_id": "q_get_user_messages",
+                  "name": "Obtener Todos los Mensajes de Usuario",
+                  "sql": "SELECT * FROM messages WHERE user_id = ? ORDER BY created_at DESC LIMIT 100",
+                  "priority": "medium",
+                  "expected_max_ms": {
+                    "small_volume": 100,
+                    "medium_volume": 300,
+                    "large_volume": 1500,
+                    "xlarge_volume": 8000
+                  }
+                },
+                {
+                  "query_id": "q_count_conversations",
+                  "name": "Contar Conversaciones por Usuario",
+                  "sql": "SELECT COUNT(*) FROM conversations WHERE user_id = ?",
+                  "priority": "high",
+                  "expected_max_ms": {
+                    "small_volume": 10,
+                    "medium_volume": 50,
+                    "large_volume": 200,
+                    "xlarge_volume": 1000
+                  }
+                },
+                {
+                  "query_id": "q_get_assigned_chats",
+                  "name": "Obtener Chats Asignados a Asesor",
+                  "sql": "SELECT * FROM chat_assignments WHERE asesor_id = ? AND status = 'active'",
+                  "priority": "high",
+                  "expected_max_ms": {
+                    "small_volume": 50,
+                    "medium_volume": 150,
+                    "large_volume": 800,
+                    "xlarge_volume": 4000
+                  }
+                },
+                {
+                  "query_id": "q_join_user_conversations",
+                  "name": "JOIN Usuario con Conversaciones",
+                  "sql": "SELECT u.*, c.* FROM users u JOIN conversations c ON u.id = c.user_id WHERE u.id = ?",
+                  "priority": "medium",
+                  "expected_max_ms": {
+                    "small_volume": 100,
+                    "medium_volume": 300,
+                    "large_volume": 1500,
+                    "xlarge_volume": 8000
+                  }
+                }
+              ],
+              "metrics": [
+                "execution_time_ms",
+                "rows_scanned",
+                "index_usage",
+                "full_table_scans",
+                "temp_table_usage",
+                "sort_operations",
+                "lock_wait_time_ms"
+              ]
+            },
+            {
+              "analysis_id": "perf_bottleneck_detection",
+              "name": "Detección de Cuellos de Botella",
+              "type": "bottleneck_analysis",
+              "priority": "critical",
+              "enabled": true,
+              "description": "Identifica qué partes del modelo se demoran más y por qué",
+              "detection_methods": [
+                "explain_analyze",
+                "profiling",
+                "index_usage_analysis",
+                "lock_analysis",
+                "connection_analysis"
+              ],
+              "investigation_triggers": {
+                "slow_query_threshold_ms": 1000,
+                "degradation_percentage": 50,
+                "error_rate_threshold": 0.01
+              },
+              "investigation_steps": [
+                {
+                  "step": 1,
+                  "name": "Análisis de EXPLAIN",
+                  "description": "Ejecuta EXPLAIN ANALYZE para ver el plan de ejecución",
+                  "checks": [
+                    "full_table_scan_detected",
+                    "index_not_used",
+                    "wrong_index_used",
+                    "temporary_table_used",
+                    "filesort_used"
+                  ]
+                },
+                {
+                  "step": 2,
+                  "name": "Análisis de Índices",
+                  "description": "Verifica si los índices necesarios existen y se usan",
+                  "checks": [
+                    "missing_indexes",
+                    "unused_indexes",
+                    "duplicate_indexes",
+                    "index_selectivity"
+                  ]
+                },
+                {
+                  "step": 3,
+                  "name": "Análisis de Volumen",
+                  "description": "Analiza el tamaño de las tablas y crecimiento",
+                  "checks": [
+                    "table_size_growth",
+                    "index_size_growth",
+                    "fragmentation",
+                    "cardinality"
+                  ]
+                },
+                {
+                  "step": 4,
+                  "name": "Análisis de Bloqueos",
+                  "description": "Verifica si hay bloqueos que causen lentitud",
+                  "checks": [
+                    "lock_waits",
+                    "deadlocks",
+                    "table_locks",
+                    "row_locks"
+                  ]
+                },
+                {
+                  "step": 5,
+                  "name": "Análisis de Relaciones",
+                  "description": "Analiza si las relaciones causan problemas",
+                  "checks": [
+                    "n_plus_one_queries",
+                    "eager_loading_issues",
+                    "lazy_loading_overhead",
+                    "cascade_operations"
+                  ]
+                }
+              ],
+              "suggestion_engine": {
+                "enabled": true,
+                "suggestion_types": [
+                  "missing_indexes",
+                  "index_optimization",
+                  "query_optimization",
+                  "table_partitioning",
+                  "archiving_strategy",
+                  "caching_strategy",
+                  "connection_pool_optimization"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "schedule_id": "perf_db_weekly_optimization",
+          "name": "Análisis Semanal de Optimización",
+          "agent": "db",
+          "frequency": "weekly",
+          "day": "saturday",
+          "time": "05:00",
+          "timezone": "America/Lima",
+          "enabled": true,
+          "analyses": [
+            {
+              "analysis_id": "perf_index_optimization",
+              "name": "Optimización de Índices",
+              "type": "index_optimization",
+              "priority": "high",
+              "enabled": true,
+              "description": "Analiza y sugiere optimizaciones de índices"
+            },
+            {
+              "analysis_id": "perf_query_optimization",
+              "name": "Optimización de Queries",
+              "type": "query_optimization",
+              "priority": "high",
+              "enabled": true,
+              "description": "Analiza y sugiere optimizaciones de queries"
+            },
+            {
+              "analysis_id": "perf_schema_optimization",
+              "name": "Optimización de Esquema",
+              "type": "schema_optimization",
+              "priority": "medium",
+              "enabled": true,
+              "description": "Analiza posibles mejoras en el esquema"
+            }
+          ]
+        }
+      ],
+      
+      "analysis_types": {
+        "query_analysis": {
+          "description": "Análisis de queries individuales",
+          "outputs": ["execution_plan", "metrics", "suggestions"]
+        },
+        "pool_analysis": {
+          "description": "Análisis del pool de conexiones",
+          "outputs": ["pool_metrics", "optimization_suggestions"]
+        },
+        "table_analysis": {
+          "description": "Análisis de tablas individuales",
+          "outputs": ["size_metrics", "growth_metrics", "optimization_suggestions"]
+        },
+        "volume_analysis": {
+          "description": "Análisis de performance por volumen de datos",
+          "outputs": ["performance_by_volume", "bottleneck_identification", "optimization_suggestions"]
+        },
+        "bottleneck_analysis": {
+          "description": "Análisis de cuellos de botella",
+          "outputs": ["bottleneck_report", "root_cause_analysis", "optimization_suggestions"]
+        },
+        "index_optimization": {
+          "description": "Análisis y optimización de índices",
+          "outputs": ["index_recommendations", "unused_indexes", "duplicate_indexes"]
+        },
+        "query_optimization": {
+          "description": "Análisis y optimización de queries",
+          "outputs": ["query_recommendations", "n_plus_one_detection", "optimization_suggestions"]
+        },
+        "schema_optimization": {
+          "description": "Análisis y optimización del esquema",
+          "outputs": ["schema_recommendations", "normalization_analysis", "optimization_suggestions"]
+        }
+      }
+    },
+    
+    "results": {
+      "storage": {
+        "format": "json",
+        "location": ".agents/results/{agent_id}/",
+        "retention_days": 90,
+        "compression": false
+      },
+      "reporting": {
+        "format": ["json", "markdown"],
+        "location": ".agents/reports/{agent_id}/",
+        "email_alerts": false,
+        "slack_alerts": false,
+        "dashboard": true
+      },
+      "metrics": {
+        "collect": true,
+        "granularity": "minute",
+        "aggregation": ["hourly", "daily", "weekly"]
+      }
+    },
+    
+    "alerting": {
+      "enabled": true,
+      "thresholds": {
+        "test_failure": {
+          "level": "critical",
+          "action": "immediate_notification"
+        },
+        "performance_degradation": {
+          "level": "warning",
+          "threshold_percentage": 50,
+          "action": "notification"
+        },
+        "critical_bottleneck": {
+          "level": "critical",
+          "threshold_ms": 5000,
+          "action": "immediate_notification"
+        },
+        "volume_growth": {
+          "level": "info",
+          "threshold_percentage": 20,
+          "action": "log"
+        }
+      }
+    },
+    
+    "automation": {
+      "auto_fix": {
+        "enabled": false,
+        "allowed_actions": [
+          "add_missing_indexes",
+          "optimize_queries",
+          "update_statistics"
+        ],
+        "requires_approval": true
+      },
+      "auto_suggest": {
+        "enabled": true,
+        "priority": "medium"
+      }
+    }
+  }
+}
+

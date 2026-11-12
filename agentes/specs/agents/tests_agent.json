@@ -1,0 +1,312 @@
+{
+  "agent_id": "tests",
+  "agent_name": "Tests Agent",
+  "version": "1.0",
+  "description": "Agente especializado en validar tests, coverage, calidad de pruebas y sugerir tests faltantes",
+  "enabled": true,
+  "priority": "high",
+  "environment": "development",
+  "created_at": "2025-01-XX",
+  "last_updated": "2025-01-XX",
+  
+  "metadata": {
+    "type": "testing",
+    "category": "test_validation",
+    "language": "python",
+    "focus": ["coverage", "test_quality", "missing_tests", "edge_cases"]
+  },
+  
+  "monitoring": {
+    "files": {
+      "patterns": [
+        "**/test_*.py",
+        "**/*_test.py",
+        "tests/**/*.py",
+        "app/**/*.py"
+      ],
+      "specific": [
+        "scripts/tests/**/*.py"
+      ],
+      "exclude": [
+        "**/__pycache__/**",
+        "**/*.pyc"
+      ]
+    },
+    "directories": [
+      "tests",
+      "scripts/tests",
+      "app"
+    ],
+    "triggers": {
+      "file_created": true,
+      "file_modified": true,
+      "file_deleted": false,
+      "on_save": true,
+      "git_commit": false
+    }
+  },
+  
+  "functions": {
+    "run_tests": {
+      "description": "Ejecuta tests y calcula coverage",
+      "priority": "high",
+      "rules": [
+        "Ejecutar todos los tests",
+        "Calcular coverage",
+        "Reportar resultados",
+        "Detectar tests fallidos",
+        "Identificar tests lentos"
+      ],
+      "parameters": {
+        "test_files": null,
+        "coverage": true,
+        "verbose": true,
+        "parallel": false
+      }
+    },
+    
+    "suggest_tests": {
+      "description": "Sugiere tests faltantes y edge cases",
+      "priority": "high",
+      "rules": [
+        "Detectar funciones sin tests",
+        "Detectar clases sin tests",
+        "Sugerir edge cases",
+        "Sugerir tests de integración",
+        "Sugerir tests de performance",
+        "Sugerir tests de seguridad"
+      ],
+      "parameters": {
+        "missing": true,
+        "edge_cases": true,
+        "integration": true,
+        "performance": false,
+        "security": false
+      }
+    },
+    
+    "validate_test_quality": {
+      "description": "Valida calidad de tests existentes",
+      "priority": "medium",
+      "rules": [
+        "Tests deben ser claros y legibles",
+        "Tests deben tener nombres descriptivos",
+        "Tests deben ser independientes",
+        "Tests deben usar fixtures apropiadas",
+        "Tests deben tener assertions apropiadas",
+        "Tests no deben tener lógica compleja"
+      ],
+      "parameters": {
+        "check_clarity": true,
+        "check_naming": true,
+        "check_independence": true,
+        "check_fixtures": true,
+        "check_assertions": true
+      }
+    },
+    
+    "analyze_coverage": {
+      "description": "Analiza coverage y sugiere mejoras",
+      "priority": "high",
+      "rules": [
+        "Coverage debe ser >= 80%",
+        "Código crítico debe tener coverage >= 90%",
+        "Detectar áreas sin coverage",
+        "Sugerir tests para aumentar coverage",
+        "Analizar coverage por módulo"
+      ],
+      "parameters": {
+        "target_coverage": 80,
+        "critical_coverage": 90,
+        "analyze_by_module": true,
+        "provide_suggestions": true
+      }
+    },
+    
+    "check_test_performance": {
+      "description": "Verifica performance de tests",
+      "priority": "low",
+      "rules": [
+        "Tests deben ejecutarse rápidamente",
+        "Detectar tests lentos",
+        "Sugerir optimizaciones",
+        "Detectar tests que usan recursos pesados"
+      ],
+      "parameters": {
+        "max_test_time_ms": 1000,
+        "detect_slow_tests": true,
+        "suggest_optimizations": true
+      }
+    },
+    
+    "validate_test_structure": {
+      "description": "Valida estructura de tests",
+      "priority": "low",
+      "rules": [
+        "Tests deben seguir estructura apropiada",
+        "Tests deben estar organizados",
+        "Tests deben usar fixtures apropiadas",
+        "Tests deben tener setup/teardown apropiado"
+      ],
+      "parameters": {
+        "check_structure": true,
+        "check_organization": true,
+        "check_fixtures": true
+      }
+    },
+    
+    "suggest_improvements": {
+      "description": "Sugiere mejoras para tests",
+      "priority": "low",
+      "rules": [
+        "Analizar patrones de tests",
+        "Sugerir mejores prácticas",
+        "Sugerir mejoras de legibilidad",
+        "Sugerir mejoras de mantenibilidad"
+      ],
+      "parameters": {
+        "check_patterns": true,
+        "check_best_practices": true,
+        "provide_examples": true
+      }
+    }
+  },
+  
+  "rules": {
+    "coverage": {
+      "priority": "high",
+      "required": [
+        "coverage >= 80%",
+        "código crítico >= 90%"
+      ],
+      "recommended": [
+        "coverage >= 85%",
+        "código crítico >= 95%",
+        "análisis por módulo"
+      ],
+      "forbidden": [
+        "coverage < 70%",
+        "código crítico sin tests"
+      ]
+    },
+    
+    "test_quality": {
+      "priority": "high",
+      "required": [
+        "tests claros",
+        "tests independientes",
+        "nombres descriptivos"
+      ],
+      "recommended": [
+        "tests rápidos",
+        "tests mantenibles",
+        "uso de fixtures"
+      ],
+      "forbidden": [
+        "tests complejos",
+        "tests dependientes",
+        "nombres confusos"
+      ]
+    }
+  },
+  
+  "communication": {
+    "redis_channels": {
+      "listen": [
+        "agent:tests:trigger",
+        "agent:tests:run",
+        "agent:tests:analyze"
+      ],
+      "publish": [
+        "agent:tests:results",
+        "agent:tests:coverage",
+        "agent:tests:suggestions"
+      ]
+    },
+    "file_based": {
+      "input": "agentes/communication/tests_agent_input.json",
+      "output": "agentes/communication/tests_agent_output.json",
+      "errors": "agentes/communication/tests_agent_errors.json"
+    }
+  },
+  
+  "test_and_performance": {
+    "enabled": true,
+    "schedule": {
+      "test_execution": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "11:00",
+        "timezone": "America/Lima"
+      },
+      "coverage_analysis": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "12:00",
+        "timezone": "America/Lima"
+      }
+    },
+    "metrics": {
+      "coverage": {
+        "target_percentage": 80,
+        "critical_target_percentage": 90,
+        "warning_threshold_percentage": 75
+      },
+      "test_performance": {
+        "max_average_test_time_ms": 1000,
+        "max_individual_test_time_ms": 5000
+      },
+      "test_quality": {
+        "target_score": 85
+      }
+    },
+    "reporting": {
+      "format": "json",
+      "location": "agentes/reports/tests_agent_reports/",
+      "include_coverage": true,
+      "include_suggestions": true,
+      "include_performance": true
+    }
+  },
+  
+  "metrics_tracking": {
+    "enabled": true,
+    "track_execution_time": true,
+    "track_cpu_time": true,
+    "track_memory": true,
+    "track_cost": true,
+    "track_operations": true,
+    "custom_metrics": {
+      "tests_executed": {
+        "enabled": true,
+        "description": "Número de tests ejecutados"
+      },
+      "tests_passed": {
+        "enabled": true,
+        "description": "Número de tests que pasaron"
+      },
+      "tests_failed": {
+        "enabled": true,
+        "description": "Número de tests que fallaron"
+      },
+      "coverage_percentage": {
+        "enabled": true,
+        "description": "Porcentaje de coverage alcanzado"
+      },
+      "test_execution_time_ms": {
+        "enabled": true,
+        "description": "Tiempo total de ejecución de tests"
+      },
+      "tests_suggested": {
+        "enabled": true,
+        "description": "Número de tests sugeridos"
+      }
+    },
+    "publish_to_redis": true,
+    "redis_channel": "agent:tests:metrics",
+    "save_to_file": true,
+    "storage_dir": "agentes/data/metrics",
+    "publish_frequency": "on_completion"
+  }
+}
+

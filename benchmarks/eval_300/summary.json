@@ -1,0 +1,22 @@
+{
+  "timestamp_utc": "2026-05-02T00:39:26.045722+00:00",
+  "corpus": "data/criticidad_cases/casos_gold_criticidad_v2.jsonl",
+  "n_samples": 300,
+  "elapsed_sec": 696.64,
+  "delay_sec": 0.35,
+  "metrics": {
+    "accuracy": 0.79,
+    "f1_macro": 0.7668674197219061,
+    "cohen_kappa": 0.685,
+    "f1_per_class": {
+      "play": 0.7604562737642585,
+      "pausa": 0.5401459854014599,
+      "stop": 1.0
+    }
+  },
+  "confusion_matrix": {
+    "play": { "play": 100, "pausa": 0, "stop": 0 },
+    "pausa": { "play": 63, "pausa": 37, "stop": 0 },
+    "stop": { "play": 0, "pausa": 0, "stop": 100 }
+  }
+}

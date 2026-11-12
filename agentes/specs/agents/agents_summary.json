@@ -1,0 +1,530 @@
+{
+  "summary_version": "1.1",
+  "last_updated": "2025-01-15",
+  "total_agents": 9,
+  "agents": [
+    {
+      "agent_id": "db",
+      "agent_name": "DB Agent",
+      "priority": "high",
+      "enabled": true,
+      "description": "Agente especializado en validación, creación y modificación del modelo de datos, migraciones, optimización y análisis de performance",
+      "focus_areas": [
+        "modelo de datos",
+        "migraciones",
+        "optimización",
+        "normalización",
+        "performance",
+        "integridad"
+      ],
+      "monitored_files": [
+        "app/backend/models/**/*.py",
+        "app/backend/database/**/*.py",
+        "sql/**/*.sql"
+      ],
+      "key_functions": [
+        "validate_model",
+        "suggest_improvements",
+        "analyze_performance",
+        "detect_bottlenecks",
+        "update_knowledge_base",
+        "execute_query"
+      ],
+      "metrics_tracking": {
+        "llm_tokens_per_function": {
+          "validate_model": 700,
+          "execute_query": 400,
+          "suggest_improvements": 800,
+          "analyze_performance": 900,
+          "apply_migration": 600
+        },
+        "tracks_query_times": true,
+        "tracks_db_query_times": true
+      },
+      "testing_schedule": "daily 02:00",
+      "performance_schedule": "weekly sunday 03:00"
+    },
+    {
+      "agent_id": "backend",
+      "agent_name": "Backend Agent",
+      "priority": "high",
+      "enabled": true,
+      "description": "Agente especializado en validación, creación y modificación de código backend, seguridad, endpoints API y arquitectura FastAPI",
+      "focus_areas": [
+        "código backend",
+        "seguridad",
+        "endpoints API",
+        "validación",
+        "manejo de errores",
+        "arquitectura FastAPI"
+      ],
+      "monitored_files": [
+        "app/backend/**/*.py",
+        "app/main.py"
+      ],
+      "key_functions": [
+        "validate_code",
+        "validate_endpoints",
+        "check_security",
+        "generate_code",
+        "modify_code"
+      ],
+      "metrics_tracking": {
+        "llm_tokens_per_function": {
+          "validate_code": 800,
+          "validate_endpoints": 600,
+          "check_security": 900,
+          "generate_code": 1200
+        },
+        "tracks_query_times": true
+      },
+      "testing_schedule": "on_change",
+      "performance_schedule": "on_change"
+    },
+    {
+      "agent_id": "frontend",
+      "agent_name": "Frontend Agent",
+      "priority": "high",
+      "enabled": true,
+      "description": "Agente especializado en validación, creación y modificación de código frontend: HTML, CSS, JavaScript, accesibilidad, UX y rendimiento",
+      "focus_areas": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Jinja2",
+        "accesibilidad",
+        "responsive",
+        "SEO",
+        "performance",
+        "seguridad",
+        "PWA"
+      ],
+      "monitored_files": [
+        "app/frontend/**/*.html",
+        "app/frontend/**/*.css",
+        "app/frontend/**/*.js",
+        "app/frontend/**/*.json"
+      ],
+      "key_functions": [
+        "validate_html",
+        "validate_css",
+        "validate_javascript",
+        "validate_jinja2",
+        "check_accessibility",
+        "check_responsive",
+        "check_seo",
+        "check_performance",
+        "check_security",
+        "check_pwa"
+      ],
+      "metrics_tracking": {
+        "llm_tokens_per_function": {
+          "validate_html": 600,
+          "validate_css": 550,
+          "validate_javascript": 650,
+          "check_accessibility": 750,
+          "check_seo": 500
+        },
+        "tracks_query_times": true
+      },
+      "testing_schedule": "daily 02:00",
+      "performance_schedule": "weekly sunday 03:00"
+    },
+    {
+      "agent_id": "performance",
+      "agent_name": "Performance & Stability Agent",
+      "priority": "high",
+      "enabled": true,
+      "description": "Agente especializado en optimización de performance, detección de cuellos de botella, validación de manejo de errores y logging",
+      "focus_areas": [
+        "performance",
+        "stability",
+        "logging",
+        "error_handling",
+        "async operations",
+        "caching",
+        "memory usage",
+        "timeouts"
+      ],
+      "monitored_files": [
+        "app/**/*.py",
+        "app/backend/**/*.py",
+        "app/main.py",
+        "logs/**/*.log"
+      ],
+      "key_functions": [
+        "analyze_performance",
+        "check_error_handling",
+        "validate_logging",
+        "detect_bottlenecks",
+        "check_async_operations",
+        "validate_caching",
+        "check_memory_usage",
+        "validate_timeouts"
+      ],
+      "metrics_tracking": {
+        "llm_tokens_per_function": {
+          "analyze_performance": 950,
+          "detect_bottlenecks": 1100,
+          "check_error_handling": 650,
+          "validate_logging": 550
+        },
+        "tracks_query_times": true
+      },
+      "testing_schedule": "daily 03:00",
+      "performance_schedule": "daily 04:00"
+    },
+    {
+      "agent_id": "openai",
+      "agent_name": "OpenAI Agent",
+      "priority": "medium",
+      "enabled": true,
+      "description": "Agente especializado en validar integración OpenAI, optimizar prompts, gestionar tokens y costos",
+      "focus_areas": [
+        "integración OpenAI",
+        "prompts",
+        "tokens",
+        "costos",
+        "rate limits",
+        "performance"
+      ],
+      "monitored_files": [
+        "app/backend/services/external/openai*.py",
+        "app/backend/core/config.py"
+      ],
+      "key_functions": [
+        "validate_integration",
+        "optimize_prompts",
+        "monitor_costs",
+        "validate_rate_limits",
+        "validate_responses",
+        "monitor_performance"
+      ],
+      "metrics_tracking": {
+        "llm_tokens_per_function": {
+          "validate_integration": 500,
+          "optimize_prompts": 800,
+          "monitor_costs": 600,
+          "validate_rate_limits": 400,
+          "monitor_performance": 500
+        },
+        "tracks_query_times": true,
+        "tracks_api_tokens": true,
+        "separates_llm_vs_api_costs": true
+      },
+      "testing_schedule": "daily 06:00",
+      "performance_schedule": "daily 07:00"
+    },
+    {
+      "agent_id": "whatsapp",
+      "agent_name": "WhatsApp Agent",
+      "priority": "high",
+      "enabled": true,
+      "description": "Agente especializado en validar integración WhatsApp Business API, webhooks, mensajería y manejo de errores",
+      "focus_areas": [
+        "integración WhatsApp",
+        "webhooks",
+        "mensajería",
+        "seguridad",
+        "rate limiting",
+        "performance",
+        "error handling"
+      ],
+      "monitored_files": [
+        "app/backend/services/external/whatsapp*.py",
+        "app/backend/core/config.py"
+      ],
+      "key_functions": [
+        "validate_integration",
+        "validate_webhook",
+        "validate_messaging",
+        "validate_security",
+        "validate_rate_limiting",
+        "monitor_performance",
+        "validate_error_handling"
+      ],
+      "metrics_tracking": {
+        "llm_tokens_per_function": {
+          "validate_integration": 500,
+          "process_message": 450,
+          "handle_webhook": 400,
+          "validate_rate_limiting": 350
+        },
+        "tracks_query_times": true,
+        "tracks_api_response_times": true,
+        "separates_llm_vs_api_times": true
+      },
+      "testing_schedule": "daily 08:00",
+      "performance_schedule": "daily 09:00"
+    },
+    {
+      "agent_id": "code_quality",
+      "agent_name": "Code Quality Agent",
+      "priority": "medium",
+      "enabled": true,
+      "description": "Agente especializado en validar calidad de código, estilo PEP 8, detección de duplicación, refactoring y convenciones",
+      "focus_areas": [
+        "PEP 8",
+        "duplicación",
+        "refactoring",
+        "convenciones",
+        "complejidad",
+        "documentación"
+      ],
+      "monitored_files": [
+        "app/**/*.py",
+        "scripts/**/*.py"
+      ],
+      "key_functions": [
+        "validate_pep8",
+        "detect_duplication",
+        "suggest_refactoring",
+        "check_conventions",
+        "analyze_complexity",
+        "check_documentation"
+      ],
+      "metrics_tracking": {
+        "llm_tokens_per_function": {
+          "validate_pep8": 700,
+          "detect_duplication": 1000,
+          "analyze_complexity": 850,
+          "suggest_refactoring": 950
+        },
+        "tracks_query_times": true
+      },
+      "testing_schedule": "daily 10:00",
+      "performance_schedule": "on_change"
+    },
+    {
+      "agent_id": "tests",
+      "agent_name": "Tests Agent",
+      "priority": "high",
+      "enabled": true,
+      "description": "Agente especializado en validar tests, coverage, calidad de pruebas y sugerir tests faltantes",
+      "focus_areas": [
+        "coverage",
+        "test_quality",
+        "missing_tests",
+        "edge_cases",
+        "test_performance",
+        "test_structure"
+      ],
+      "monitored_files": [
+        "**/test_*.py",
+        "**/*_test.py",
+        "tests/**/*.py",
+        "app/**/*.py"
+      ],
+      "key_functions": [
+        "run_tests",
+        "suggest_tests",
+        "validate_test_quality",
+        "analyze_coverage",
+        "check_test_performance",
+        "validate_test_structure"
+      ],
+      "metrics_tracking": {
+        "llm_tokens_per_function": {
+          "run_tests": 600,
+          "analyze_coverage": 800,
+          "suggest_tests": 700
+        },
+        "tracks_query_times": true,
+        "tracks_test_execution_times": true,
+        "separates_llm_vs_test_times": true
+      },
+      "testing_schedule": "daily 11:00",
+      "performance_schedule": "daily 12:00"
+    },
+    {
+      "agent_id": "master",
+      "agent_name": "Master Agent",
+      "priority": "highest",
+      "enabled": true,
+      "description": "Agente maestro que coordina y orquesta todos los demás agentes, toma decisiones arquitectónicas, gestiona tareas complejas y optimiza costos y tiempos usando técnicas de IA",
+      "focus_areas": [
+        "coordinación",
+        "arquitectura",
+        "task_management",
+        "integración",
+        "conflictos",
+        "workflows",
+        "reportes",
+        "cost_optimization",
+        "time_optimization",
+        "reinforcement_learning",
+        "pattern_learning",
+        "predictive_analytics"
+      ],
+      "monitored_files": [
+        "**/*.py",
+        "**/*.json",
+        "**/*.md",
+        "agentes/**/*"
+      ],
+      "key_functions": [
+        "coordinate_task",
+        "validate_integration",
+        "manage_agents",
+        "analyze_architecture",
+        "detect_conflicts",
+        "orchestrate_workflow",
+        "generate_reports",
+        "monitor_costs",
+        "monitor_execution_times",
+        "optimize_costs",
+        "optimize_execution_times",
+        "analyze_cost_time_tradeoffs",
+        "apply_reinforcement_learning",
+        "learn_execution_patterns",
+        "optimize_resource_allocation",
+        "generate_cost_time_reports"
+      ],
+      "testing_schedule": "hourly",
+      "performance_schedule": "daily 13:00-18:00",
+      "ai_techniques": [
+        "reinforcement_learning",
+        "pattern_learning",
+        "predictive_analytics",
+        "resource_optimization"
+      ],
+      "optimization_targets": {
+        "cost_reduction": "20%",
+        "time_reduction": "15%",
+        "rl_model_accuracy": "85%"
+      },
+      "metrics_collection": {
+        "enabled": true,
+        "collects_from_all_agents": true,
+        "aggregates_llm_metrics": true,
+        "aggregates_query_times": true,
+        "generates_cost_time_reports": true,
+        "metrics_included": {
+          "total_llm_tokens": true,
+          "total_llm_cost_usd": true,
+          "total_query_time_ms": true,
+          "avg_query_time_ms": true,
+          "total_queries": true,
+          "cost_by_agent": true,
+          "time_by_agent": true
+        }
+      }
+    }
+  ],
+  "communication": {
+    "redis_channels": {
+      "master_listens": [
+        "agent:*:results",
+        "agent:*:errors",
+        "agent:*:warnings",
+        "agent:*:metrics"
+      ],
+      "agents_publish": [
+        "agent:{agent_id}:results",
+        "agent:{agent_id}:errors",
+        "agent:{agent_id}:warnings",
+        "agent:{agent_id}:suggestions",
+        "agent:{agent_id}:metrics"
+      ]
+    },
+    "file_based": {
+      "input_dir": "agentes/communication/",
+      "output_dir": "agentes/communication/",
+      "reports_dir": "agentes/reports/"
+    }
+  },
+  "statistics": {
+    "total_functions": 87,
+    "total_rules": 250,
+    "total_monitored_files": 150,
+    "automated_testing": true,
+    "automated_performance": true,
+    "coordination_enabled": true,
+    "ai_optimization_enabled": true,
+    "cost_optimization_enabled": true,
+    "time_optimization_enabled": true,
+    "llm_tracking_enabled": true,
+    "metrics_tracking_enabled": true,
+    "individual_metrics_tracking": true,
+    "total_llm_tracked_functions": 35
+  },
+  "metrics_tracking": {
+    "enabled": true,
+    "all_agents_track_llm": true,
+    "metrics_tracked": {
+      "execution_time": true,
+      "cpu_time": true,
+      "memory": true,
+      "cost": true,
+      "operations": true,
+      "llm_tokens": true,
+      "llm_cost_per_token": true,
+      "llm_total_cost": true,
+      "query_times": true,
+      "total_query_time": true
+    },
+    "publishing": {
+      "redis_channels": [
+        "agent:db:metrics",
+        "agent:backend:metrics",
+        "agent:frontend:metrics",
+        "agent:performance:metrics",
+        "agent:openai:metrics",
+        "agent:whatsapp:metrics",
+        "agent:code_quality:metrics",
+        "agent:tests:metrics",
+        "agent:master:metrics"
+      ],
+      "file_storage": "agentes/data/metrics",
+      "aggregation": {
+        "daily": true,
+        "weekly": true,
+        "monthly": true,
+        "aggregator": "MetricsAggregator"
+      }
+    }
+  },
+  "schedule_summary": {
+    "02:00": ["db", "frontend"],
+    "03:00": ["performance", "db"],
+    "04:00": ["performance"],
+    "06:00": ["openai"],
+    "07:00": ["openai"],
+    "08:00": ["whatsapp"],
+    "09:00": ["whatsapp"],
+    "10:00": ["code_quality"],
+    "11:00": ["tests"],
+    "12:00": ["tests"],
+    "13:00": ["master"],
+    "14:00": ["master"],
+    "15:00": ["master"],
+    "16:00": ["master"],
+    "17:00": ["master"],
+    "18:00": ["master"]
+  },
+  "ai_optimization": {
+    "enabled": true,
+    "techniques": {
+      "reinforcement_learning": {
+        "algorithm": "q_learning",
+        "purpose": "optimize_execution_sequences",
+        "target_improvement": "20% cost, 15% time"
+      },
+      "pattern_learning": {
+        "algorithm": "random_forest",
+        "purpose": "learn_efficient_patterns",
+        "target_accuracy": "80%"
+      },
+      "predictive_analytics": {
+        "algorithms": ["linear_regression", "time_series"],
+        "purpose": "predict_costs_times",
+        "horizon_days": 7
+      },
+      "resource_optimization": {
+        "algorithm": "genetic_algorithm",
+        "purpose": "optimize_resource_allocation"
+      }
+    }
+  }
+}
+

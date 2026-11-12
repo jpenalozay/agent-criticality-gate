@@ -1,0 +1,438 @@
+{
+  "agent_id": "performance",
+  "agent_name": "Performance & Stability Agent",
+  "version": "1.0",
+  "description": "Agente especializado en optimización de performance, detección de cuellos de botella, validación de manejo de errores y logging",
+  "enabled": true,
+  "priority": "high",
+  "environment": "development",
+  "created_at": "2025-01-XX",
+  "last_updated": "2025-01-XX",
+  
+  "metadata": {
+    "type": "performance",
+    "category": "monitoring_optimization",
+    "framework": "fastapi",
+    "language": "python",
+    "focus": ["performance", "stability", "logging", "error_handling"]
+  },
+  
+  "monitoring": {
+    "files": {
+      "patterns": [
+        "app/**/*.py",
+        "app/backend/**/*.py",
+        "app/main.py"
+      ],
+      "specific": [
+        "app/main.py",
+        "app/backend/core/logging.py",
+        "app/backend/database/connection.py",
+        "app/backend/database/core_connection.py",
+        "app/backend/services/**/*.py",
+        "app/backend/core/config.py"
+      ],
+      "exclude": [
+        "**/__pycache__/**",
+        "**/*.pyc",
+        "**/tests/**",
+        "**/test_*.py"
+      ]
+    },
+    "directories": [
+      "app/backend",
+      "app/backend/services",
+      "app/backend/core",
+      "app/backend/database",
+      "logs"
+    ],
+    "triggers": {
+      "file_created": true,
+      "file_modified": true,
+      "file_deleted": false,
+      "on_save": true,
+      "git_commit": false
+    }
+  },
+  
+  "functions": {
+    "analyze_performance": {
+      "description": "Analiza performance del código: queries SQL, async/await, caching, connection pooling",
+      "priority": "high",
+      "rules": [
+        "Queries deben evitar N+1 problems",
+        "Operaciones I/O deben ser async",
+        "Debe usar cache cuando sea apropiado",
+        "No debe bloquear el event loop",
+        "Debe usar connection pooling",
+        "Queries SQL deben estar optimizadas",
+        "Debe evitar queries innecesarias",
+        "Debe usar índices apropiados",
+        "Debe evitar select * cuando sea posible",
+        "Debe usar paginación para grandes datasets"
+      ],
+      "parameters": {
+        "queries": true,
+        "async_await": true,
+        "caching": true,
+        "connection_pooling": true,
+        "detect_n_plus_one": true,
+        "check_query_time": true,
+        "max_query_time_ms": 1000
+      }
+    },
+    
+    "check_error_handling": {
+      "description": "Verifica manejo de errores y recovery mechanisms",
+      "priority": "high",
+      "rules": [
+        "Errores deben loguearse con contexto",
+        "Debe tener retry logic para operaciones críticas",
+        "Debe tener circuit breakers para servicios externos",
+        "Errores no deben causar crashes",
+        "Debe tener manejo de timeouts",
+        "Debe manejar errores de conexión apropiadamente",
+        "Debe tener fallbacks para servicios externos",
+        "Errores deben tener mensajes descriptivos",
+        "Debe evitar exponer stack traces a usuarios"
+      ],
+      "parameters": {
+        "try_except": true,
+        "logging": true,
+        "recovery": true,
+        "retry_logic": true,
+        "circuit_breaker": true,
+        "timeouts": true
+      }
+    },
+    
+    "validate_logging": {
+      "description": "Valida sistema de logging: niveles, formato, contexto, seguridad",
+      "priority": "high",
+      "rules": [
+        "Debe usar niveles apropiados (DEBUG, INFO, WARNING, ERROR)",
+        "Logs deben tener contexto suficiente",
+        "No debe loguear información sensible",
+        "Debe tener formato estructurado",
+        "Debe usar loggers apropiados por módulo",
+        "Debe tener rotación de logs configurada",
+        "Debe evitar logs excesivos en producción",
+        "Logs deben ser útiles para debugging"
+      ],
+      "parameters": {
+        "levels": true,
+        "format": true,
+        "context": true,
+        "security": true,
+        "rotation": true,
+        "structure": true
+      }
+    },
+    
+    "detect_bottlenecks": {
+      "description": "Detecta cuellos de botella en el código",
+      "priority": "medium",
+      "rules": [
+        "Detectar queries lentas",
+        "Detectar operaciones bloqueantes",
+        "Detectar uso excesivo de memoria",
+        "Detectar código que puede ser optimizado",
+        "Detectar patrones anti-performance"
+      ],
+      "parameters": {
+        "check_query_time": true,
+        "check_memory_usage": true,
+        "check_blocking_operations": true,
+        "check_cpu_usage": false,
+        "provide_suggestions": true
+      }
+    },
+    
+    "check_async_operations": {
+      "description": "Verifica uso correcto de async/await",
+      "priority": "high",
+      "rules": [
+        "Operaciones I/O deben ser async",
+        "Debe usar await apropiadamente",
+        "No debe bloquear el event loop",
+        "Debe usar asyncio.gather para operaciones paralelas",
+        "Debe manejar excepciones async apropiadamente"
+      ],
+      "parameters": {
+        "check_io_operations": true,
+        "check_blocking": true,
+        "check_await_usage": true,
+        "check_gather": true
+      }
+    },
+    
+    "validate_caching": {
+      "description": "Valida uso de cache y estrategias de caching",
+      "priority": "medium",
+      "rules": [
+        "Debe usar cache para datos frecuentemente accedidos",
+        "Cache debe tener TTL apropiado",
+        "Cache debe ser invalidado cuando sea necesario",
+        "Debe usar Redis cuando sea apropiado",
+        "Cache debe ser eficiente"
+      ],
+      "parameters": {
+        "check_cache_usage": true,
+        "check_ttl": true,
+        "check_invalidation": true,
+        "check_redis": true
+      }
+    },
+    
+    "check_memory_usage": {
+      "description": "Verifica uso de memoria y posibles memory leaks",
+      "priority": "medium",
+      "rules": [
+        "Debe evitar memory leaks",
+        "Debe liberar recursos apropiadamente",
+        "Debe usar context managers cuando sea apropiado",
+        "Debe evitar almacenar datos grandes en memoria",
+        "Debe usar generators para grandes datasets"
+      ],
+      "parameters": {
+        "check_leaks": false,
+        "check_resources": true,
+        "check_context_managers": true,
+        "check_large_data": true
+      }
+    },
+    
+    "validate_timeouts": {
+      "description": "Valida configuración de timeouts",
+      "priority": "high",
+      "rules": [
+        "Operaciones externas deben tener timeouts",
+        "Timeouts deben ser apropiados",
+        "Debe manejar timeouts apropiadamente",
+        "Debe tener timeouts para HTTP requests",
+        "Debe tener timeouts para DB queries"
+      ],
+      "parameters": {
+        "check_http_timeouts": true,
+        "check_db_timeouts": true,
+        "check_external_services": true,
+        "check_defaults": true
+      }
+    },
+    
+    "check_resource_cleanup": {
+      "description": "Verifica limpieza apropiada de recursos",
+      "priority": "medium",
+      "rules": [
+        "Conexiones deben cerrarse apropiadamente",
+        "Archivos deben cerrarse apropiadamente",
+        "Debe usar context managers",
+        "Debe usar try/finally para cleanup",
+        "Debe liberar recursos en excepciones"
+      ],
+      "parameters": {
+        "check_connections": true,
+        "check_files": true,
+        "check_context_managers": true,
+        "check_finally_blocks": true
+      }
+    },
+    
+    "suggest_optimizations": {
+      "description": "Sugiere optimizaciones basadas en análisis del código",
+      "priority": "low",
+      "rules": [
+        "Analizar patrones de código",
+        "Sugerir mejoras de performance",
+        "Sugerir mejoras de estabilidad",
+        "Sugerir mejoras de logging",
+        "Sugerir mejoras de error handling"
+      ],
+      "parameters": {
+        "check_patterns": true,
+        "check_best_practices": true,
+        "provide_examples": true,
+        "prioritize": true
+      }
+    }
+  },
+  
+  "rules": {
+    "performance": {
+      "priority": "high",
+      "required": [
+        "operaciones I/O async",
+        "connection pooling",
+        "queries optimizadas",
+        "timeouts configurados"
+      ],
+      "recommended": [
+        "caching apropiado",
+        "paginación para grandes datasets",
+        "lazy loading cuando sea apropiado",
+        "compresión de respuestas"
+      ],
+      "forbidden": [
+        "N+1 queries",
+        "operaciones bloqueantes en async",
+        "queries sin límites",
+        "select * innecesarios"
+      ]
+    },
+    
+    "error_handling": {
+      "priority": "high",
+      "required": [
+        "try/except apropiados",
+        "logging de errores",
+        "manejo de excepciones",
+        "timeouts para operaciones externas"
+      ],
+      "recommended": [
+        "retry logic",
+        "circuit breakers",
+        "fallbacks",
+        "error recovery"
+      ],
+      "forbidden": [
+        "bare except",
+        "exponer stack traces",
+        "ignorar errores silenciosamente",
+        "crashes sin manejo"
+      ]
+    },
+    
+    "logging": {
+      "priority": "high",
+      "required": [
+        "niveles apropiados",
+        "contexto suficiente",
+        "formato estructurado",
+        "no loguear información sensible"
+      ],
+      "recommended": [
+        "rotación de logs",
+        "logs estructurados (JSON)",
+        "loggers por módulo",
+        "métricas de performance"
+      ],
+      "forbidden": [
+        "logs excesivos",
+        "información sensible en logs",
+        "logs sin contexto",
+        "niveles incorrectos"
+      ]
+    }
+  },
+  
+  "communication": {
+    "redis_channels": {
+      "listen": [
+        "agent:performance:trigger",
+        "agent:performance:analyze",
+        "agent:performance:optimize"
+      ],
+      "publish": [
+        "agent:performance:results",
+        "agent:performance:bottlenecks",
+        "agent:performance:optimizations",
+        "agent:performance:warnings"
+      ]
+    },
+    "file_based": {
+      "input": "agentes/communication/performance_agent_input.json",
+      "output": "agentes/communication/performance_agent_output.json",
+      "errors": "agentes/communication/performance_agent_errors.json"
+    }
+  },
+  
+  "test_and_performance": {
+    "enabled": true,
+    "schedule": {
+      "performance_analysis": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "03:00",
+        "timezone": "America/Lima"
+      },
+      "bottleneck_detection": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "04:00",
+        "timezone": "America/Lima"
+      },
+      "logging_analysis": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "05:00",
+        "timezone": "America/Lima"
+      }
+    },
+    "metrics": {
+      "query_time": {
+        "max_ms": 1000,
+        "warning_ms": 500
+      },
+      "memory_usage": {
+        "max_mb": 512,
+        "warning_mb": 256
+      },
+      "error_rate": {
+        "max_percentage": 5,
+        "warning_percentage": 2
+      },
+      "logging": {
+        "max_logs_per_minute": 1000,
+        "warning_logs_per_minute": 500
+      }
+    },
+    "reporting": {
+      "format": "json",
+      "location": "agentes/reports/performance_agent_reports/",
+      "include_suggestions": true,
+      "include_optimizations": true,
+      "include_metrics": true
+    }
+  },
+  
+  "metrics_tracking": {
+    "enabled": true,
+    "track_execution_time": true,
+    "track_cpu_time": true,
+    "track_memory": true,
+    "track_cost": true,
+    "track_operations": true,
+    "custom_metrics": {
+      "analyses_performed": {
+        "enabled": true,
+        "description": "Número de análisis de performance realizados"
+      },
+      "bottlenecks_detected": {
+        "enabled": true,
+        "description": "Número de cuellos de botella detectados"
+      },
+      "optimizations_suggested": {
+        "enabled": true,
+        "description": "Número de optimizaciones sugeridas"
+      },
+      "files_analyzed": {
+        "enabled": true,
+        "description": "Número de archivos analizados"
+      },
+      "error_handling_validations": {
+        "enabled": true,
+        "description": "Número de validaciones de manejo de errores"
+      },
+      "logging_validations": {
+        "enabled": true,
+        "description": "Número de validaciones de logging"
+      }
+    },
+    "publish_to_redis": true,
+    "redis_channel": "agent:performance:metrics",
+    "save_to_file": true,
+    "storage_dir": "agentes/data/metrics",
+    "publish_frequency": "on_completion"
+  }
+}
+

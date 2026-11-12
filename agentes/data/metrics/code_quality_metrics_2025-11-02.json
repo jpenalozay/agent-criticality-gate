@@ -1,0 +1,281 @@
+[
+  {
+    "agent_id": "code_quality",
+    "execution_id": "code_quality_20251102203222066667",
+    "timestamp": "2025-11-02T20:32:22.267363",
+    "execution_time_ms": 200.6967067718506,
+    "cpu_time_ms": 15.625,
+    "memory_mb": 0.015625,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 200.17051696777344,
+          "operation": "validate_pep8",
+          "timestamp": "2025-11-02T20:32:22.267363"
+        }
+      ],
+      "files_analyzed": 1,
+      "pep8_violations": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 700,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0014,
+    "query_times": [
+      200.17051696777344,
+      200.17051696777344
+    ],
+    "total_query_time_ms": 400.3410339355469
+  },
+  {
+    "agent_id": "code_quality",
+    "execution_id": "code_quality_20251102204839243730",
+    "timestamp": "2025-11-02T20:48:39.444750",
+    "execution_time_ms": 201.019287109375,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 201.019287109375,
+          "operation": "validate_pep8",
+          "timestamp": "2025-11-02T20:48:39.444750"
+        }
+      ],
+      "files_analyzed": 1,
+      "pep8_violations": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 700,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0014,
+    "query_times": [
+      201.019287109375,
+      201.019287109375
+    ],
+    "total_query_time_ms": 402.03857421875
+  },
+  {
+    "agent_id": "code_quality",
+    "execution_id": "code_quality_20251102205634068939",
+    "timestamp": "2025-11-02T20:56:34.270708",
+    "execution_time_ms": 200.74963569641113,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 200.74963569641113,
+          "operation": "validate_pep8",
+          "timestamp": "2025-11-02T20:56:34.270708"
+        }
+      ],
+      "files_analyzed": 1,
+      "pep8_violations": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 700,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0014,
+    "query_times": [
+      200.74963569641113,
+      200.74963569641113
+    ],
+    "total_query_time_ms": 401.49927139282227
+  },
+  {
+    "agent_id": "code_quality",
+    "execution_id": "code_quality_20251102205943229794",
+    "timestamp": "2025-11-02T20:59:43.430434",
+    "execution_time_ms": 200.64043998718262,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 200.11425018310547,
+          "operation": "validate_pep8",
+          "timestamp": "2025-11-02T20:59:43.430434"
+        }
+      ],
+      "files_analyzed": 1,
+      "pep8_violations": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 700,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0014,
+    "query_times": [
+      200.11425018310547,
+      200.11425018310547
+    ],
+    "total_query_time_ms": 400.22850036621094
+  },
+  {
+    "agent_id": "code_quality",
+    "execution_id": "code_quality_20251102210002698052",
+    "timestamp": "2025-11-02T21:00:02.899407",
+    "execution_time_ms": 201.35498046875,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 201.35498046875,
+          "operation": "validate_pep8",
+          "timestamp": "2025-11-02T21:00:02.899407"
+        }
+      ],
+      "files_analyzed": 1,
+      "pep8_violations": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 700,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0014,
+    "query_times": [
+      201.35498046875,
+      201.35498046875
+    ],
+    "total_query_time_ms": 402.7099609375
+  },
+  {
+    "agent_id": "code_quality",
+    "execution_id": "code_quality_20251102210010713881",
+    "timestamp": "2025-11-02T21:00:10.914842",
+    "execution_time_ms": 200.96135139465332,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 200.96135139465332,
+          "operation": "validate_pep8",
+          "timestamp": "2025-11-02T21:00:10.914842"
+        }
+      ],
+      "files_analyzed": 1,
+      "pep8_violations": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 700,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0014,
+    "query_times": [
+      200.96135139465332,
+      200.96135139465332
+    ],
+    "total_query_time_ms": 401.92270278930664
+  },
+  {
+    "agent_id": "code_quality",
+    "execution_id": "code_quality_20251102210453571978",
+    "timestamp": "2025-11-02T21:04:53.773071",
+    "execution_time_ms": 201.0934352874756,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 201.0934352874756,
+          "operation": "validate_pep8",
+          "timestamp": "2025-11-02T21:04:53.773071"
+        }
+      ],
+      "files_analyzed": 1,
+      "pep8_violations": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 700,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0014,
+    "query_times": [
+      201.0934352874756,
+      201.0934352874756
+    ],
+    "total_query_time_ms": 402.1868705749512
+  },
+  {
+    "agent_id": "code_quality",
+    "execution_id": "code_quality_20251102210456707336",
+    "timestamp": "2025-11-02T21:04:56.908170",
+    "execution_time_ms": 200.83332061767578,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 200.83332061767578,
+          "operation": "validate_pep8",
+          "timestamp": "2025-11-02T21:04:56.908170"
+        }
+      ],
+      "files_analyzed": 1,
+      "pep8_violations": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 700,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0014,
+    "query_times": [
+      200.83332061767578,
+      200.83332061767578
+    ],
+    "total_query_time_ms": 401.66664123535156
+  },
+  {
+    "agent_id": "code_quality",
+    "execution_id": "code_quality_20251102210503853566",
+    "timestamp": "2025-11-02T21:05:04.054662",
+    "execution_time_ms": 201.0955810546875,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 201.0955810546875,
+          "operation": "validate_pep8",
+          "timestamp": "2025-11-02T21:05:04.054662"
+        }
+      ],
+      "files_analyzed": 1,
+      "pep8_violations": 1
+    },
+    "error_message": null,
+    "llm_tokens_used": 700,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0014,
+    "query_times": [
+      201.0955810546875,
+      201.0955810546875
+    ],
+    "total_query_time_ms": 402.191162109375
+  }
+]

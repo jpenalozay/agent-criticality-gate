@@ -1,0 +1,518 @@
+{
+  "agent_id": "frontend",
+  "agent_name": "Frontend Agent",
+  "version": "1.0",
+  "description": "Agente especializado en validación, creación y modificación de código frontend: HTML, CSS, JavaScript, accesibilidad, UX y rendimiento",
+  "enabled": true,
+  "priority": "high",
+  "environment": "development",
+  "created_at": "2025-01-XX",
+  "last_updated": "2025-01-XX",
+  
+  "metadata": {
+    "type": "frontend",
+    "category": "code_generation_validation",
+    "technologies": ["html", "css", "javascript", "jinja2"],
+    "framework": "jinja2",
+    "templating": true,
+    "pwa": true,
+    "responsive": true
+  },
+  
+  "monitoring": {
+    "files": {
+      "patterns": [
+        "app/frontend/**/*.html",
+        "app/frontend/**/*.css",
+        "app/frontend/**/*.js",
+        "app/frontend/**/*.json"
+      ],
+      "specific": [
+        "app/frontend/templates/base.html",
+        "app/frontend/templates/panel.html",
+        "app/frontend/templates/login.html",
+        "app/frontend/templates/admin_panel.html",
+        "app/frontend/templates/asesor_panel.html",
+        "app/frontend/static/css/styles.css",
+        "app/frontend/static/css/animations.css",
+        "app/frontend/static/js/language.js",
+        "app/frontend/static/manifest.json"
+      ],
+      "exclude": [
+        "**/__pycache__/**",
+        "**/*.pyc",
+        "**/node_modules/**",
+        "**/.git/**"
+      ]
+    },
+    "directories": [
+      "app/frontend",
+      "app/frontend/templates",
+      "app/frontend/static",
+      "app/frontend/static/css",
+      "app/frontend/static/js"
+    ],
+    "triggers": {
+      "file_created": true,
+      "file_modified": true,
+      "file_deleted": false,
+      "on_save": true,
+      "git_commit": false
+    }
+  },
+  
+  "functions": {
+    "validate_html": {
+      "description": "Valida estructura HTML, semántica, accesibilidad y mejores prácticas",
+      "priority": "high",
+      "rules": [
+        "HTML debe ser válido y seguir estándares HTML5",
+        "Estructura semántica correcta (header, nav, main, section, footer)",
+        "Atributos alt en imágenes",
+        "Labels asociados a inputs",
+        "ARIA labels donde sea necesario",
+        "Doctype HTML5 presente",
+        "Meta tags para SEO y responsive",
+        "Links a recursos externos deben tener rel='noopener noreferrer'",
+        "Formularios deben tener method y action apropiados",
+        "IDs deben ser únicos en cada página"
+      ],
+      "parameters": {
+        "check_accessibility": true,
+        "check_seo": true,
+        "check_semantic": true,
+        "w3c_validation": false,
+        "strict_mode": false
+      }
+    },
+    
+    "validate_css": {
+      "description": "Valida CSS, organización, performance y mejores prácticas",
+      "priority": "high",
+      "rules": [
+        "CSS debe ser válido y seguir estándares",
+        "Variables CSS deben estar definidas en :root",
+        "No usar !important innecesariamente",
+        "Media queries para responsive design",
+        "Animaciones deben usar GPU acceleration (transform, opacity)",
+        "Evitar selectores muy específicos (> 3 niveles)",
+        "Usar unidades relativas (rem, em, %) cuando sea posible",
+        "Evitar valores mágicos, usar variables",
+        "Optimizar para performance (evitar repaint/reflow)",
+        "Dark mode debe estar soportado"
+      ],
+      "parameters": {
+        "check_browser_compatibility": true,
+        "check_performance": true,
+        "check_responsive": true,
+        "validate_variables": true,
+        "check_animations": true
+      }
+    },
+    
+    "validate_javascript": {
+      "description": "Valida JavaScript, seguridad, performance y mejores prácticas",
+      "priority": "high",
+      "rules": [
+        "JavaScript debe ser válido (ES6+)",
+        "Evitar variables globales innecesarias",
+        "Usar const/let en lugar de var",
+        "Funciones deben tener manejo de errores",
+        "No exponer información sensible en console.log",
+        "Validar inputs del usuario antes de procesar",
+        "Usar async/await para operaciones asíncronas",
+        "Evitar DOM queries repetidos (cachear resultados)",
+        "Event listeners deben ser removidos cuando no se usen",
+        "Código debe ser legible y documentado"
+      ],
+      "parameters": {
+        "check_security": true,
+        "check_performance": true,
+        "check_async": true,
+        "strict_mode": true,
+        "check_memory_leaks": false
+      }
+    },
+    
+    "validate_jinja2": {
+      "description": "Valida sintaxis Jinja2 y uso correcto de templates",
+      "priority": "medium",
+      "rules": [
+        "Sintaxis Jinja2 debe ser válida",
+        "Variables deben estar definidas antes de usar",
+        "Usar filtros Jinja2 apropiados",
+        "Evitar lógica compleja en templates",
+        "Templates deben usar base.html cuando sea posible",
+        "Bloques deben estar correctamente definidos",
+        "Evitar HTML hardcodeado, usar variables",
+        "i18n debe usarse para textos traducibles"
+      ],
+      "parameters": {
+        "check_syntax": true,
+        "check_variables": true,
+        "check_inheritance": true,
+        "check_security": true
+      }
+    },
+    
+    "check_accessibility": {
+      "description": "Verifica accesibilidad (WCAG 2.1 AA)",
+      "priority": "high",
+      "rules": [
+        "Contraste de colores mínimo 4.5:1 para texto normal",
+        "Contraste de colores mínimo 3:1 para texto grande",
+        "Elementos interactivos deben tener focus visible",
+        "Navegación por teclado debe funcionar",
+        "Formularios deben tener labels asociados",
+        "Imágenes deben tener alt text descriptivo",
+        "Videos deben tener subtítulos o transcripción",
+        "ARIA labels deben usarse apropiadamente",
+        "Estructura de headings debe ser lógica (h1 > h2 > h3)",
+        "No depender solo del color para transmitir información"
+      ],
+      "parameters": {
+        "wcag_level": "AA",
+        "check_keyboard_navigation": true,
+        "check_screen_reader": true,
+        "check_contrast": true,
+        "check_aria": true
+      }
+    },
+    
+    "check_responsive": {
+      "description": "Verifica diseño responsive y mobile-first",
+      "priority": "high",
+      "rules": [
+        "Viewport meta tag debe estar presente",
+        "Media queries deben cubrir breakpoints comunes",
+        "Diseño debe funcionar en móvil (320px+)",
+        "Diseño debe funcionar en tablet (768px+)",
+        "Diseño debe funcionar en desktop (1024px+)",
+        "Imágenes deben ser responsive (max-width: 100%)",
+        "Texto debe ser legible en móvil (mínimo 16px)",
+        "Botones deben tener tamaño mínimo táctil (44x44px)",
+        "No usar hover en móvil",
+        "Menús móviles deben estar implementados"
+      ],
+      "parameters": {
+        "check_breakpoints": true,
+        "check_mobile": true,
+        "check_tablet": true,
+        "check_desktop": true,
+        "check_touch_targets": true
+      }
+    },
+    
+    "check_seo": {
+      "description": "Verifica optimización SEO",
+      "priority": "medium",
+      "rules": [
+        "Title tag debe estar presente y ser único",
+        "Meta description debe estar presente (150-160 caracteres)",
+        "Meta keywords debe estar presente (opcional pero recomendado)",
+        "Open Graph tags deben estar presentes",
+        "Twitter Card tags deben estar presentes",
+        "Canonical URL debe estar presente",
+        "Schema.org structured data debe estar presente",
+        "Headings deben usar jerarquía correcta",
+        "Alt text en imágenes debe ser descriptivo",
+        "URLs deben ser amigables y descriptivas"
+      ],
+      "parameters": {
+        "check_meta_tags": true,
+        "check_structured_data": true,
+        "check_sitemap": false,
+        "check_robots": false
+      }
+    },
+    
+    "check_performance": {
+      "description": "Verifica optimización de performance frontend",
+      "priority": "medium",
+      "rules": [
+        "Imágenes deben estar optimizadas",
+        "CSS crítico debe estar inline o en <head>",
+        "JavaScript no crítico debe estar defer o async",
+        "Recursos externos deben usar preconnect o dns-prefetch",
+        "Evitar render-blocking resources",
+        "Minificar CSS y JS en producción",
+        "Usar lazy loading para imágenes",
+        "Cache headers deben estar configurados",
+        "Evitar múltiples reflows/repaints",
+        "Usar CSS animations en lugar de JS cuando sea posible"
+      ],
+      "parameters": {
+        "check_load_time": false,
+        "check_render_blocking": true,
+        "check_image_optimization": true,
+        "check_css_optimization": true,
+        "check_js_optimization": true
+      }
+    },
+    
+    "check_security": {
+      "description": "Verifica seguridad frontend",
+      "priority": "high",
+      "rules": [
+        "No exponer información sensible en HTML/CSS/JS",
+        "CSRF tokens deben estar presentes en formularios",
+        "Inputs deben tener validación del lado del cliente",
+        "No usar eval() o innerHTML con contenido no sanitizado",
+        "Cookies deben tener flags Secure y HttpOnly cuando sea apropiado",
+        "Links externos deben tener rel='noopener noreferrer'",
+        "No almacenar tokens o secrets en localStorage sin encriptar",
+        "Content Security Policy debe estar configurado",
+        "XSS prevention: sanitizar inputs del usuario",
+        "Validar y sanitizar datos antes de enviar al servidor"
+      ],
+      "parameters": {
+        "check_xss": true,
+        "check_csrf": true,
+        "check_data_exposure": true,
+        "check_external_links": true,
+        "strict_mode": true
+      }
+    },
+    
+    "check_pwa": {
+      "description": "Verifica configuración PWA (Progressive Web App)",
+      "priority": "low",
+      "rules": [
+        "manifest.json debe estar presente y ser válido",
+        "Service worker debe estar registrado (si aplica)",
+        "Iconos deben estar en múltiples tamaños",
+        "Theme color debe estar configurado",
+        "Display mode debe estar configurado",
+        "Start URL debe estar presente",
+        "Name y short_name deben estar presentes"
+      ],
+      "parameters": {
+        "check_manifest": true,
+        "check_service_worker": false,
+        "check_icons": true,
+        "check_offline": false
+      }
+    },
+    
+    "suggest_improvements": {
+      "description": "Sugiere mejoras basadas en mejores prácticas y patrones del proyecto",
+      "priority": "low",
+      "rules": [
+        "Analizar patrones existentes en el proyecto",
+        "Sugerir mejoras de UX basadas en tendencias",
+        "Sugerir optimizaciones de performance",
+        "Sugerir mejoras de accesibilidad",
+        "Sugerir mejoras de código mantenible"
+      ],
+      "parameters": {
+        "check_patterns": true,
+        "check_trends": false,
+        "check_best_practices": true,
+        "provide_examples": true
+      }
+    }
+  },
+  
+  "rules": {
+    "html": {
+      "priority": "high",
+      "required": [
+        "doctype html5",
+        "lang attribute",
+        "charset utf-8",
+        "viewport meta tag",
+        "title tag",
+        "semantic structure"
+      ],
+      "recommended": [
+        "meta description",
+        "favicon",
+        "open graph tags",
+        "schema.org structured data",
+        "aria labels"
+      ],
+      "forbidden": [
+        "inline styles (excepto critical CSS)",
+        "script tags inline (excepto configuraciones críticas)",
+        "tables para layout",
+        "deprecated HTML tags"
+      ]
+    },
+    
+    "css": {
+      "priority": "high",
+      "required": [
+        "css válido",
+        "variables CSS en :root",
+        "media queries para responsive",
+        "dark mode support"
+      ],
+      "recommended": [
+        "organización por componentes",
+        "comentarios para secciones",
+        "mobile-first approach",
+        "performance optimizations"
+      ],
+      "forbidden": [
+        "!important sin justificación",
+        "valores mágicos",
+        "selectores muy específicos",
+        "animaciones que causan repaint"
+      ]
+    },
+    
+    "javascript": {
+      "priority": "high",
+      "required": [
+        "javascript válido ES6+",
+        "manejo de errores",
+        "validación de inputs"
+      ],
+      "recommended": [
+        "async/await para operaciones asíncronas",
+        "código modular",
+        "comentarios JSDoc",
+        "event delegation"
+      ],
+      "forbidden": [
+        "var (usar const/let)",
+        "eval()",
+        "innerHTML con contenido no sanitizado",
+        "variables globales innecesarias"
+      ]
+    },
+    
+    "jinja2": {
+      "priority": "medium",
+      "required": [
+        "sintaxis válida",
+        "extends base.html cuando sea posible",
+        "variables definidas"
+      ],
+      "recommended": [
+        "uso de filtros",
+        "macros para código repetido",
+        "i18n para textos"
+      ],
+      "forbidden": [
+        "lógica compleja en templates",
+        "queries a BD directamente",
+        "HTML hardcodeado"
+      ]
+    }
+  },
+  
+  "communication": {
+    "redis_channels": {
+      "listen": [
+        "agent:frontend:trigger",
+        "agent:frontend:validate",
+        "agent:frontend:create",
+        "agent:frontend:modify"
+      ],
+      "publish": [
+        "agent:frontend:results",
+        "agent:frontend:errors",
+        "agent:frontend:warnings",
+        "agent:frontend:suggestions"
+      ]
+    },
+    "file_based": {
+      "input": "agentes/communication/frontend_agent_input.json",
+      "output": "agentes/communication/frontend_agent_output.json",
+      "errors": "agentes/communication/frontend_agent_errors.json"
+    }
+  },
+  
+  "test_and_performance": {
+    "enabled": true,
+    "schedule": {
+      "tests": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "02:00",
+        "timezone": "America/Lima"
+      },
+      "performance_analysis": {
+        "enabled": true,
+        "frequency": "weekly",
+        "day": "sunday",
+        "time": "03:00",
+        "timezone": "America/Lima"
+      }
+    },
+    "tests": {
+      "html_validation": true,
+      "css_validation": true,
+      "javascript_validation": true,
+      "accessibility_check": true,
+      "responsive_check": true,
+      "seo_check": true,
+      "security_check": true
+    },
+    "performance_metrics": {
+      "file_sizes": {
+        "css_max_size_kb": 100,
+        "js_max_size_kb": 200,
+        "html_max_size_kb": 150
+      },
+      "load_time": {
+        "target_first_contentful_paint_ms": 1500,
+        "target_time_to_interactive_ms": 3000
+      },
+      "accessibility_score": {
+        "target_min": 90
+      },
+      "seo_score": {
+        "target_min": 85
+      }
+    },
+    "reporting": {
+      "format": "json",
+      "location": "agentes/reports/frontend_agent_reports/",
+      "include_suggestions": true,
+      "include_optimizations": true
+    }
+  },
+  
+  "metrics_tracking": {
+    "enabled": true,
+    "track_execution_time": true,
+    "track_cpu_time": true,
+    "track_memory": true,
+    "track_cost": true,
+    "track_operations": true,
+    "custom_metrics": {
+      "html_files_validated": {
+        "enabled": true,
+        "description": "Número de archivos HTML validados"
+      },
+      "css_files_validated": {
+        "enabled": true,
+        "description": "Número de archivos CSS validados"
+      },
+      "js_files_validated": {
+        "enabled": true,
+        "description": "Número de archivos JavaScript validados"
+      },
+      "accessibility_issues": {
+        "enabled": true,
+        "description": "Número de problemas de accesibilidad encontrados"
+      },
+      "seo_issues": {
+        "enabled": true,
+        "description": "Número de problemas SEO encontrados"
+      },
+      "performance_optimizations": {
+        "enabled": true,
+        "description": "Número de optimizaciones de performance sugeridas"
+      }
+    },
+    "publish_to_redis": true,
+    "redis_channel": "agent:frontend:metrics",
+    "save_to_file": true,
+    "storage_dir": "agentes/data/metrics",
+    "publish_frequency": "on_completion"
+  }
+}
+

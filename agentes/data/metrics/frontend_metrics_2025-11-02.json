@@ -1,0 +1,250 @@
+[
+  {
+    "agent_id": "frontend",
+    "execution_id": "frontend_20251102204838782013",
+    "timestamp": "2025-11-02T20:48:38.933712",
+    "execution_time_ms": 150.70080757141113,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.00390625,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 150.70080757141113,
+          "operation": "validate_html",
+          "timestamp": "2025-11-02T20:48:38.933712"
+        }
+      ],
+      "html_files_validated": 1,
+      "accessibility_issues": 0
+    },
+    "error_message": null,
+    "llm_tokens_used": 600,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0012,
+    "query_times": [
+      150.70080757141113,
+      150.70080757141113
+    ],
+    "total_query_time_ms": 301.40161514282227
+  },
+  {
+    "agent_id": "frontend",
+    "execution_id": "frontend_20251102205633594661",
+    "timestamp": "2025-11-02T20:56:33.746493",
+    "execution_time_ms": 150.88582038879395,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.00390625,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 150.88582038879395,
+          "operation": "validate_html",
+          "timestamp": "2025-11-02T20:56:33.746493"
+        }
+      ],
+      "html_files_validated": 1,
+      "accessibility_issues": 0
+    },
+    "error_message": null,
+    "llm_tokens_used": 600,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0012,
+    "query_times": [
+      150.88582038879395,
+      150.88582038879395
+    ],
+    "total_query_time_ms": 301.7716407775879
+  },
+  {
+    "agent_id": "frontend",
+    "execution_id": "frontend_20251102205942763537",
+    "timestamp": "2025-11-02T20:59:42.914531",
+    "execution_time_ms": 150.99334716796875,
+    "cpu_time_ms": 15.625,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 150.99334716796875,
+          "operation": "validate_html",
+          "timestamp": "2025-11-02T20:59:42.914531"
+        }
+      ],
+      "html_files_validated": 1,
+      "accessibility_issues": 0
+    },
+    "error_message": null,
+    "llm_tokens_used": 600,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0012,
+    "query_times": [
+      150.99334716796875,
+      150.99334716796875
+    ],
+    "total_query_time_ms": 301.9866943359375
+  },
+  {
+    "agent_id": "frontend",
+    "execution_id": "frontend_20251102210002211384",
+    "timestamp": "2025-11-02T21:00:02.362720",
+    "execution_time_ms": 150.3286361694336,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 150.3286361694336,
+          "operation": "validate_html",
+          "timestamp": "2025-11-02T21:00:02.362720"
+        }
+      ],
+      "html_files_validated": 1,
+      "accessibility_issues": 0
+    },
+    "error_message": null,
+    "llm_tokens_used": 600,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0012,
+    "query_times": [
+      150.3286361694336,
+      150.3286361694336
+    ],
+    "total_query_time_ms": 300.6572723388672
+  },
+  {
+    "agent_id": "frontend",
+    "execution_id": "frontend_20251102210010224068",
+    "timestamp": "2025-11-02T21:00:10.375468",
+    "execution_time_ms": 150.40206909179688,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 150.40206909179688,
+          "operation": "validate_html",
+          "timestamp": "2025-11-02T21:00:10.375468"
+        }
+      ],
+      "html_files_validated": 1,
+      "accessibility_issues": 0
+    },
+    "error_message": null,
+    "llm_tokens_used": 600,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0012,
+    "query_times": [
+      150.40206909179688,
+      150.40206909179688
+    ],
+    "total_query_time_ms": 300.80413818359375
+  },
+  {
+    "agent_id": "frontend",
+    "execution_id": "frontend_20251102210453107296",
+    "timestamp": "2025-11-02T21:04:53.258268",
+    "execution_time_ms": 150.9721279144287,
+    "cpu_time_ms": 15.625,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 150.9721279144287,
+          "operation": "validate_html",
+          "timestamp": "2025-11-02T21:04:53.258268"
+        }
+      ],
+      "html_files_validated": 1,
+      "accessibility_issues": 0
+    },
+    "error_message": null,
+    "llm_tokens_used": 600,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0012,
+    "query_times": [
+      150.9721279144287,
+      150.9721279144287
+    ],
+    "total_query_time_ms": 301.9442558288574
+  },
+  {
+    "agent_id": "frontend",
+    "execution_id": "frontend_20251102210456217508",
+    "timestamp": "2025-11-02T21:04:56.368542",
+    "execution_time_ms": 150.47264099121094,
+    "cpu_time_ms": 15.625,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 150.47264099121094,
+          "operation": "validate_html",
+          "timestamp": "2025-11-02T21:04:56.368542"
+        }
+      ],
+      "html_files_validated": 1,
+      "accessibility_issues": 0
+    },
+    "error_message": null,
+    "llm_tokens_used": 600,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0012,
+    "query_times": [
+      150.47264099121094,
+      150.47264099121094
+    ],
+    "total_query_time_ms": 300.9452819824219
+  },
+  {
+    "agent_id": "frontend",
+    "execution_id": "frontend_20251102210503353816",
+    "timestamp": "2025-11-02T21:05:03.504575",
+    "execution_time_ms": 150.7587432861328,
+    "cpu_time_ms": 0.0,
+    "memory_mb": 0.0,
+    "cost_usd": null,
+    "success": true,
+    "operations_count": 1,
+    "custom_metrics": {
+      "query_times": [
+        {
+          "time_ms": 150.7587432861328,
+          "operation": "validate_html",
+          "timestamp": "2025-11-02T21:05:03.504575"
+        }
+      ],
+      "html_files_validated": 1,
+      "accessibility_issues": 0
+    },
+    "error_message": null,
+    "llm_tokens_used": 600,
+    "llm_cost_per_token": 2e-06,
+    "llm_total_cost": 0.0012,
+    "query_times": [
+      150.7587432861328,
+      150.7587432861328
+    ],
+    "total_query_time_ms": 301.5174865722656
+  }
+]

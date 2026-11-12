@@ -1,0 +1,374 @@
+{
+  "agent_id": "whatsapp",
+  "agent_name": "WhatsApp Agent",
+  "version": "1.0",
+  "description": "Agente especializado en validar integración WhatsApp Business API, webhooks, mensajería y manejo de errores",
+  "enabled": true,
+  "priority": "high",
+  "environment": "development",
+  "created_at": "2025-01-XX",
+  "last_updated": "2025-01-XX",
+  
+  "metadata": {
+    "type": "external_service",
+    "category": "messaging_integration",
+    "service": "whatsapp_business_api",
+    "api_version": "v22.0",
+    "focus": ["webhooks", "messaging", "integration", "error_handling"]
+  },
+  
+  "monitoring": {
+    "files": {
+      "patterns": [
+        "app/backend/services/external/whatsapp*.py",
+        "app/backend/core/config.py"
+      ],
+      "specific": [
+        "app/backend/services/external/whatsapp_service.py",
+        "app/backend/services/external/whatsapp_advanced.py",
+        "app/backend/core/config.py"
+      ],
+      "exclude": [
+        "**/__pycache__/**",
+        "**/*.pyc"
+      ]
+    },
+    "directories": [
+      "app/backend/services/external"
+    ],
+    "triggers": {
+      "file_created": true,
+      "file_modified": true,
+      "file_deleted": false,
+      "on_save": true,
+      "git_commit": false
+    }
+  },
+  
+  "functions": {
+    "validate_integration": {
+      "description": "Valida integración con WhatsApp Business API",
+      "priority": "high",
+      "rules": [
+        "Token debe estar configurado",
+        "Phone Number ID debe estar configurado",
+        "Verify Token debe estar configurado",
+        "Debe manejar errores de API apropiadamente",
+        "Debe tener timeouts configurados",
+        "Debe validar webhook correctamente",
+        "Debe manejar autenticación apropiadamente"
+      ],
+      "parameters": {
+        "token": true,
+        "phone_number_id": true,
+        "verify_token": true,
+        "error_handling": true,
+        "timeouts": true,
+        "webhook_validation": true
+      }
+    },
+    
+    "validate_webhook": {
+      "description": "Valida configuración y funcionamiento de webhook",
+      "priority": "high",
+      "rules": [
+        "Webhook debe estar configurado correctamente",
+        "Debe manejar verificación de webhook",
+        "Debe validar firma de webhook",
+        "Debe manejar eventos apropiadamente",
+        "Debe tener rate limiting apropiado",
+        "Debe manejar errores de webhook"
+      ],
+      "parameters": {
+        "check_configuration": true,
+        "check_verification": true,
+        "check_signature": true,
+        "check_events": true,
+        "check_rate_limiting": true
+      }
+    },
+    
+    "validate_messaging": {
+      "description": "Valida envío y recepción de mensajes",
+      "priority": "high",
+      "rules": [
+        "Debe manejar envío de mensajes correctamente",
+        "Debe manejar recepción de mensajes correctamente",
+        "Debe validar formato de mensajes",
+        "Debe manejar diferentes tipos de mensajes",
+        "Debe manejar errores de envío",
+        "Debe tener retry logic para fallos"
+      ],
+      "parameters": {
+        "check_sending": true,
+        "check_receiving": true,
+        "check_format": true,
+        "check_types": true,
+        "check_error_handling": true,
+        "check_retry": true
+      }
+    },
+    
+    "validate_security": {
+      "description": "Valida seguridad de integración WhatsApp",
+      "priority": "high",
+      "rules": [
+        "Tokens no deben estar hardcodeados",
+        "Debe validar firma de webhook",
+        "Debe manejar autenticación apropiadamente",
+        "Debe proteger endpoints de webhook",
+        "Debe sanitizar datos recibidos",
+        "Debe validar datos antes de procesar"
+      ],
+      "parameters": {
+        "check_tokens": true,
+        "check_signature": true,
+        "check_authentication": true,
+        "check_sanitization": true,
+        "check_validation": true
+      }
+    },
+    
+    "validate_rate_limiting": {
+      "description": "Valida rate limiting y throttling",
+      "priority": "medium",
+      "rules": [
+        "Debe tener rate limiting apropiado",
+        "Debe manejar throttling de WhatsApp",
+        "Debe evitar exceder límites",
+        "Debe tener retry logic apropiado",
+        "Debe manejar backoff exponencial"
+      ],
+      "parameters": {
+        "check_rate_limiting": true,
+        "check_throttling": true,
+        "check_limits": true,
+        "check_retry": true
+      }
+    },
+    
+    "monitor_performance": {
+      "description": "Monitorea performance de integración WhatsApp",
+      "priority": "medium",
+      "rules": [
+        "Debe trackear tiempo de respuesta",
+        "Debe trackear tasa de éxito",
+        "Debe detectar errores frecuentes",
+        "Debe monitorear latencia",
+        "Debe trackear métricas de uso"
+      ],
+      "parameters": {
+        "track_response_time": true,
+        "track_success_rate": true,
+        "detect_errors": true,
+        "track_latency": true
+      }
+    },
+    
+    "validate_error_handling": {
+      "description": "Valida manejo de errores específicos de WhatsApp",
+      "priority": "high",
+      "rules": [
+        "Debe manejar errores de API apropiadamente",
+        "Debe manejar errores de formato",
+        "Debe manejar errores de autenticación",
+        "Debe manejar errores de rate limit",
+        "Debe manejar errores de webhook",
+        "Debe loguear errores apropiadamente"
+      ],
+      "parameters": {
+        "check_api_errors": true,
+        "check_format_errors": true,
+        "check_auth_errors": true,
+        "check_rate_limit_errors": true,
+        "check_logging": true
+      }
+    },
+    
+    "suggest_optimizations": {
+      "description": "Sugiere optimizaciones para integración WhatsApp",
+      "priority": "low",
+      "rules": [
+        "Analizar patrones de uso",
+        "Sugerir mejoras de performance",
+        "Sugerir mejoras de manejo de errores",
+        "Sugerir mejoras de seguridad"
+      ],
+      "parameters": {
+        "check_patterns": true,
+        "check_performance": true,
+        "check_error_handling": true,
+        "provide_examples": true
+      }
+    }
+  },
+  
+  "rules": {
+    "integration": {
+      "priority": "high",
+      "required": [
+        "Token configurado",
+        "Phone Number ID configurado",
+        "Verify Token configurado",
+        "manejo de errores",
+        "timeouts configurados"
+      ],
+      "recommended": [
+        "retry logic",
+        "circuit breaker",
+        "métricas de uso",
+        "logging detallado"
+      ],
+      "forbidden": [
+        "tokens hardcodeados",
+        "sin manejo de errores",
+        "exponer tokens",
+        "timeouts muy largos"
+      ]
+    },
+    
+    "webhook": {
+      "priority": "high",
+      "required": [
+        "verificación de webhook",
+        "validación de firma",
+        "manejo de eventos",
+        "rate limiting"
+      ],
+      "recommended": [
+        "idempotencia",
+        "logging detallado",
+        "monitoreo",
+        "alertas"
+      ],
+      "forbidden": [
+        "sin verificación",
+        "sin validación de firma",
+        "sin rate limiting"
+      ]
+    },
+    
+    "messaging": {
+      "priority": "high",
+      "required": [
+        "validación de formato",
+        "manejo de errores",
+        "retry logic",
+        "validación de datos"
+      ],
+      "recommended": [
+        "cache de respuestas",
+        "queue para mensajes",
+        "métricas de envío",
+        "optimización de envío"
+      ],
+      "forbidden": [
+        "sin validación",
+        "sin manejo de errores",
+        "sin retry logic"
+      ]
+    }
+  },
+  
+  "communication": {
+    "redis_channels": {
+      "listen": [
+        "agent:whatsapp:trigger",
+        "agent:whatsapp:validate",
+        "agent:whatsapp:monitor"
+      ],
+      "publish": [
+        "agent:whatsapp:results",
+        "agent:whatsapp:errors",
+        "agent:whatsapp:warnings",
+        "agent:whatsapp:performance"
+      ]
+    },
+    "file_based": {
+      "input": "agentes/communication/whatsapp_agent_input.json",
+      "output": "agentes/communication/whatsapp_agent_output.json",
+      "errors": "agentes/communication/whatsapp_agent_errors.json"
+    }
+  },
+  
+  "test_and_performance": {
+    "enabled": true,
+    "schedule": {
+      "performance_analysis": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "08:00",
+        "timezone": "America/Lima"
+      },
+      "error_analysis": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "09:00",
+        "timezone": "America/Lima"
+      }
+    },
+    "metrics": {
+      "performance": {
+        "max_response_time_ms": 5000,
+        "warning_response_time_ms": 3000,
+        "target_success_rate_percentage": 98
+      },
+      "errors": {
+        "max_error_rate_percentage": 2,
+        "warning_error_rate_percentage": 1
+      },
+      "rate_limiting": {
+        "max_requests_per_minute": 1000,
+        "warning_requests_per_minute": 800
+      }
+    },
+    "reporting": {
+      "format": "json",
+      "location": "agentes/reports/whatsapp_agent_reports/",
+      "include_performance": true,
+      "include_errors": true,
+      "include_suggestions": true
+    }
+  },
+  
+  "metrics_tracking": {
+    "enabled": true,
+    "track_execution_time": true,
+    "track_cpu_time": true,
+    "track_memory": true,
+    "track_cost": true,
+    "track_operations": true,
+    "custom_metrics": {
+      "messages_processed": {
+        "enabled": true,
+        "description": "Número de mensajes WhatsApp procesados"
+      },
+      "api_calls": {
+        "enabled": true,
+        "description": "Número de llamadas API realizadas"
+      },
+      "api_response_time_ms": {
+        "enabled": true,
+        "description": "Tiempo de respuesta de la API WhatsApp"
+      },
+      "webhook_events": {
+        "enabled": true,
+        "description": "Número de eventos webhook recibidos"
+      },
+      "errors_encountered": {
+        "enabled": true,
+        "description": "Número de errores encontrados"
+      },
+      "rate_limit_hits": {
+        "enabled": true,
+        "description": "Número de veces que se alcanzó el rate limit"
+      }
+    },
+    "publish_to_redis": true,
+    "redis_channel": "agent:whatsapp:metrics",
+    "save_to_file": true,
+    "storage_dir": "agentes/data/metrics",
+    "publish_frequency": "on_completion"
+  }
+}
+

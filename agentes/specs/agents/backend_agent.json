@@ -1,0 +1,676 @@
+{
+  "agent_id": "backend",
+  "agent_name": "Backend Agent",
+  "version": "1.0",
+  "description": "Agente especializado en validación, creación y modificación de código backend, seguridad, endpoints API y arquitectura FastAPI",
+  "enabled": true,
+  "priority": "high",
+  "environment": "development",
+  "created_at": "2025-01-XX",
+  "last_updated": "2025-01-XX",
+  
+  "metadata": {
+    "type": "backend",
+    "category": "code_generation_validation",
+    "framework": "fastapi",
+    "language": "python",
+    "version": "3.9+"
+  },
+  
+  "monitoring": {
+    "files": {
+      "patterns": [
+        "app/backend/**/*.py",
+        "app/backend/main.py",
+        "app/backend/api/**/*.py",
+        "app/backend/services/**/*.py",
+        "app/backend/core/**/*.py"
+      ],
+      "specific": [
+        "app/main.py",
+        "app/backend/api/routes/web.py",
+        "app/backend/core/security.py",
+        "app/backend/services/internal/user_service.py",
+        "app/backend/services/external/openai_service.py",
+        "app/backend/services/external/whatsapp_service.py",
+        "app/backend/services/external/email_service.py",
+        "app/backend/core/config.py"
+      ],
+      "exclude": [
+        "**/__pycache__/**",
+        "**/*.pyc",
+        "**/tests/**",
+        "**/test_*.py"
+      ]
+    },
+    "directories": [
+      "app/backend",
+      "app/backend/api",
+      "app/backend/services",
+      "app/backend/core"
+    ],
+    "triggers": {
+      "on_file_modified": true,
+      "on_file_created": true,
+      "on_file_deleted": false,
+      "debounce_ms": 2000
+    }
+  },
+  
+  "knowledge_base": {
+    "file": "backend_agent_knowledge.json",
+    "auto_update": true,
+    "update_on_change": true,
+    "search_external": false,
+    "suggest_improvements": true
+  },
+  
+  "test_and_performance": {
+    "enabled": true,
+    "config_file": "backend_agent_test_performance.json",
+    "description": "Sistema de pruebas y análisis de performance automatizado"
+  },
+  
+  "functions": {
+    "validate_code": {
+      "enabled": true,
+      "function_id": "backend_validate_code",
+      "description": "Valida código Python según mejores prácticas y reglas de seguridad",
+      "parameters": {
+        "syntax": {
+          "enabled": true,
+          "required": true
+        },
+        "security": {
+          "enabled": true,
+          "required": true
+        },
+        "best_practices": {
+          "enabled": true,
+          "required": false
+        },
+        "dependencies": {
+          "enabled": true,
+          "required": false
+        }
+      },
+      "output_format": "json"
+    },
+    
+    "validate_endpoints": {
+      "enabled": true,
+      "function_id": "backend_validate_endpoints",
+      "description": "Valida endpoints API según mejores prácticas FastAPI",
+      "parameters": {
+        "route_definition": {
+          "enabled": true,
+          "required": true
+        },
+        "authentication": {
+          "enabled": true,
+          "required": true
+        },
+        "authorization": {
+          "enabled": true,
+          "required": true
+        },
+        "input_validation": {
+          "enabled": true,
+          "required": true
+        },
+        "error_handling": {
+          "enabled": true,
+          "required": true
+        },
+        "response_format": {
+          "enabled": true,
+          "required": false
+        },
+        "documentation": {
+          "enabled": true,
+          "required": false
+        }
+      },
+      "output_format": "json"
+    },
+    
+    "validate_security": {
+      "enabled": true,
+      "function_id": "backend_validate_security",
+      "description": "Valida medidas de seguridad en el código",
+      "parameters": {
+        "authentication": {
+          "enabled": true,
+          "required": true
+        },
+        "authorization": {
+          "enabled": true,
+          "required": true
+        },
+        "input_sanitization": {
+          "enabled": true,
+          "required": true
+        },
+        "sql_injection": {
+          "enabled": true,
+          "required": true
+        },
+        "xss_protection": {
+          "enabled": true,
+          "required": true
+        },
+        "csrf_protection": {
+          "enabled": true,
+          "required": false
+        },
+        "password_security": {
+          "enabled": true,
+          "required": true
+        },
+        "session_security": {
+          "enabled": true,
+          "required": true
+        },
+        "secrets_management": {
+          "enabled": true,
+          "required": true
+        }
+      },
+      "output_format": "json"
+    },
+    
+    "generate_code": {
+      "enabled": true,
+      "function_id": "backend_generate_code",
+      "description": "Genera código backend siguiendo patrones y mejores prácticas",
+      "parameters": {
+        "endpoint_template": {
+          "enabled": true,
+          "required": false
+        },
+        "service_template": {
+          "enabled": true,
+          "required": false
+        },
+        "follow_patterns": {
+          "enabled": true,
+          "required": true
+        },
+        "include_security": {
+          "enabled": true,
+          "required": true
+        },
+        "include_documentation": {
+          "enabled": true,
+          "required": false
+        },
+        "include_tests": {
+          "enabled": false,
+          "required": false
+        }
+      },
+      "output_format": "code"
+    },
+    
+    "modify_code": {
+      "enabled": true,
+      "function_id": "backend_modify_code",
+      "description": "Modifica código existente manteniendo compatibilidad y mejores prácticas",
+      "parameters": {
+        "backward_compatibility": {
+          "enabled": true,
+          "required": true
+        },
+        "preserve_functionality": {
+          "enabled": true,
+          "required": true
+        },
+        "follow_patterns": {
+          "enabled": true,
+          "required": true
+        },
+        "update_dependencies": {
+          "enabled": true,
+          "required": false
+        }
+      },
+      "output_format": "code"
+    },
+    
+    "analyze_architecture": {
+      "enabled": true,
+      "function_id": "backend_analyze_architecture",
+      "description": "Analiza la arquitectura del backend y sugiere mejoras",
+      "parameters": {
+        "structure": {
+          "enabled": true,
+          "required": true
+        },
+        "dependencies": {
+          "enabled": true,
+          "required": true
+        },
+        "patterns": {
+          "enabled": true,
+          "required": false
+        },
+        "performance": {
+          "enabled": true,
+          "required": false
+        }
+      },
+      "output_format": "json"
+    },
+    
+    "update_knowledge_base": {
+      "enabled": true,
+      "function_id": "backend_update_knowledge",
+      "description": "Actualiza el conocimiento del backend cuando hay cambios",
+      "parameters": {
+        "auto_update": {
+          "enabled": true,
+          "required": true
+        },
+        "backup_before_update": {
+          "enabled": true,
+          "required": false
+        }
+      },
+      "output_format": "json",
+      "trigger_on": [
+        "file_changed",
+        "endpoint_added",
+        "service_added"
+      ]
+    }
+  },
+  
+  "rules": {
+    "critical": [
+      {
+        "id": "backend_critical_001",
+        "name": "Authentication Required",
+        "description": "Todos los endpoints sensibles deben requerir autenticación",
+        "type": "security",
+        "block_on_failure": true,
+        "message": "Endpoint '{endpoint}' debe requerir autenticación"
+      },
+      {
+        "id": "backend_critical_002",
+        "name": "Authorization Check",
+        "description": "Endpoints administrativos deben verificar roles",
+        "type": "security",
+        "block_on_failure": true,
+        "message": "Endpoint '{endpoint}' debe verificar autorización por rol"
+      },
+      {
+        "id": "backend_critical_003",
+        "name": "Input Validation",
+        "description": "Todos los inputs deben ser validados",
+        "type": "security",
+        "block_on_failure": true,
+        "message": "Endpoint '{endpoint}' debe validar inputs"
+      },
+      {
+        "id": "backend_critical_004",
+        "name": "SQL Injection Prevention",
+        "description": "No usar concatenación de strings en queries SQL",
+        "type": "security",
+        "block_on_failure": true,
+        "message": "Uso de concatenación de strings en SQL detectado en '{file}' línea {line}"
+      },
+      {
+        "id": "backend_critical_005",
+        "name": "Password Hashing",
+        "description": "Las contraseñas deben ser hasheadas antes de guardar",
+        "type": "security",
+        "block_on_failure": true,
+        "message": "Contraseña guardada sin hash en '{file}' línea {line}"
+      },
+      {
+        "id": "backend_critical_006",
+        "name": "Secrets Management",
+        "description": "No hardcodear secrets en el código",
+        "type": "security",
+        "block_on_failure": true,
+        "message": "Secret hardcodeado detectado en '{file}' línea {line}"
+      },
+      {
+        "id": "backend_critical_007",
+        "name": "Error Handling",
+        "description": "Todos los endpoints deben manejar errores",
+        "type": "code_quality",
+        "block_on_failure": true,
+        "message": "Endpoint '{endpoint}' no maneja errores apropiadamente"
+      }
+    ],
+    
+    "high": [
+      {
+        "id": "backend_high_001",
+        "name": "Response Format Consistency",
+        "description": "Las respuestas deben seguir formato consistente",
+        "type": "code_quality",
+        "block_on_failure": false,
+        "show_warning": true,
+        "suggest_fix": true,
+        "message": "Endpoint '{endpoint}' no sigue formato de respuesta estándar"
+      },
+      {
+        "id": "backend_high_002",
+        "name": "Input Sanitization",
+        "description": "Inputs de usuario deben ser sanitizados",
+        "type": "security",
+        "block_on_failure": false,
+        "show_warning": true,
+        "message": "Input no sanitizado en '{endpoint}'"
+      },
+      {
+        "id": "backend_high_003",
+        "name": "Rate Limiting",
+        "description": "Endpoints públicos deben tener rate limiting",
+        "type": "security",
+        "block_on_failure": false,
+        "show_warning": true,
+        "message": "Endpoint '{endpoint}' debería tener rate limiting"
+      },
+      {
+        "id": "backend_high_004",
+        "name": "Session Security",
+        "description": "Sesiones deben ser seguras (httponly, samesite)",
+        "type": "security",
+        "block_on_failure": false,
+        "show_warning": true,
+        "message": "Cookie de sesión no configurada con seguridad apropiada"
+      },
+      {
+        "id": "backend_high_005",
+        "name": "Dependency Injection",
+        "description": "Usar Depends() de FastAPI para dependencias",
+        "type": "code_quality",
+        "block_on_failure": false,
+        "show_warning": true,
+        "message": "Dependencia no inyectada apropiadamente en '{endpoint}'"
+      },
+      {
+        "id": "backend_high_006",
+        "name": "Async/Await Consistency",
+        "description": "Endpoints async deben usar await correctamente",
+        "type": "code_quality",
+        "block_on_failure": false,
+        "show_warning": true,
+        "message": "Uso inconsistente de async/await en '{endpoint}'"
+      }
+    ],
+    
+    "medium": [
+      {
+        "id": "backend_medium_001",
+        "name": "Documentation",
+        "description": "Endpoints deben tener docstrings",
+        "type": "code_quality",
+        "block_on_failure": false,
+        "show_suggestion": true,
+        "message": "Endpoint '{endpoint}' debería tener docstring"
+      },
+      {
+        "id": "backend_medium_002",
+        "name": "Type Hints",
+        "description": "Funciones deben tener type hints",
+        "type": "code_quality",
+        "block_on_failure": false,
+        "show_suggestion": true,
+        "message": "Función '{function}' debería tener type hints"
+      },
+      {
+        "id": "backend_medium_003",
+        "name": "Code Organization",
+        "description": "Código debe seguir estructura modular",
+        "type": "code_quality",
+        "block_on_failure": false,
+        "show_suggestion": true,
+        "message": "Código debería estar organizado en módulos apropiados"
+      },
+      {
+        "id": "backend_medium_004",
+        "name": "Logging",
+        "description": "Operaciones importantes deben tener logging",
+        "type": "code_quality",
+        "block_on_failure": false,
+        "show_suggestion": true,
+        "message": "Operación '{operation}' debería tener logging"
+      },
+      {
+        "id": "backend_medium_005",
+        "name": "Error Messages",
+        "description": "Mensajes de error deben ser informativos",
+        "type": "code_quality",
+        "block_on_failure": false,
+        "show_suggestion": true,
+        "message": "Mensaje de error debería ser más informativo"
+      }
+    ],
+    
+    "low": [
+      {
+        "id": "backend_low_001",
+        "name": "Code Comments",
+        "description": "Código complejo debe tener comentarios",
+        "type": "code_quality",
+        "block_on_failure": false,
+        "show_info": true,
+        "message": "Código complejo debería tener comentarios explicativos"
+      }
+    ]
+  },
+  
+  "code_generation": {
+    "enabled": true,
+    "templates": {
+      "endpoint": {
+        "template_file": "templates/endpoint_template.py",
+        "include_security": true,
+        "include_validation": true,
+        "include_documentation": true,
+        "include_error_handling": true
+      },
+      "service": {
+        "template_file": "templates/service_template.py",
+        "include_error_handling": true,
+        "include_logging": true,
+        "include_type_hints": true
+      },
+      "router": {
+        "template_file": "templates/router_template.py",
+        "include_prefix": true,
+        "include_tags": true
+      }
+    },
+    "patterns": {
+      "follow_existing": true,
+      "use_fastapi_best_practices": true,
+      "follow_project_structure": true
+    }
+  },
+  
+  "security_checks": {
+    "authentication": {
+      "required_for": [
+        "/api/admin/**",
+        "/api/asesor/**",
+        "/api/profile/**",
+        "/api/chat",
+        "/api/conversations",
+        "/api/messages"
+      ],
+      "optional_for": [
+        "/health",
+        "/api/settings/mode"
+      ]
+    },
+    "authorization": {
+      "admin_only": [
+        "/api/admin/**"
+      ],
+      "admin_or_asesor": [
+        "/api/settings/mode",
+        "/api/review/**"
+      ],
+      "asesor_only": [
+        "/api/asesor/**"
+      ]
+    },
+    "input_validation": {
+      "required_for_all_inputs": true,
+      "sanitize_strings": true,
+      "validate_types": true,
+      "validate_ranges": true
+    }
+  },
+  
+  "communication": {
+    "redis_channels": {
+      "triggers": "agent:backend:trigger",
+      "feedback": "agent:backend:feedback",
+      "status": "agent:backend:status",
+      "notifications": "agent:backend:notify"
+    },
+    "redis_keys": {
+      "status": "agent:status:backend",
+      "current_task": "agent:task:backend:{task_id}",
+      "feedback": "agent:feedback:backend:{task_id}",
+      "locks": "lock:backend:{resource}"
+    },
+    "file_paths": {
+      "feedback": ".agents/communications/backend_feedback.json",
+      "status": ".agents/status/backend_status.json",
+      "triggers": ".agents/triggers/backend_trigger.json",
+      "reports": ".agents/reports/backend_report.md"
+    }
+  },
+  
+  "configuration": {
+    "validate_on_change": true,
+    "validate_on_save": false,
+    "auto_suggest_improvements": true,
+    "strict_mode": false,
+    "security_checks_enabled": true,
+    "code_generation_enabled": true
+  },
+  
+  "dependencies": {
+    "required": [
+      "fastapi>=0.104.0",
+      "uvicorn>=0.24.0",
+      "sqlalchemy>=2.0.32",
+      "pymysql>=1.1.1",
+      "passlib>=1.7.4",
+      "itsdangerous>=2.1.2"
+    ],
+    "optional": [
+      "redis>=5.0.0",
+      "httpx>=0.25.0",
+      "python-multipart>=0.0.6"
+    ]
+  },
+  
+  "examples": {
+    "trigger": {
+      "trigger_id": "backend-20250115-143022",
+      "timestamp": "2025-01-15T14:30:22Z",
+      "agent": "backend",
+      "event_type": "file_modified",
+      "file_path": "app/main.py",
+      "actions": [
+        "validate_code",
+        "validate_endpoints",
+        "validate_security"
+      ]
+    },
+    "feedback": {
+      "agent": "backend",
+      "trigger_id": "backend-20250115-143022",
+      "timestamp": "2025-01-15T14:30:22Z",
+      "status": "completed",
+      "file_analyzed": "app/main.py",
+      "results": {
+        "code_validation": {
+          "status": "valid",
+          "errors": [],
+          "warnings": [
+            {
+              "rule_id": "backend_high_001",
+              "message": "Endpoint '/api/test' no sigue formato de respuesta estándar",
+              "suggestion": "Usar JSONResponse con formato consistente"
+            }
+          ],
+          "suggestions": []
+        },
+        "security_validation": {
+          "status": "valid",
+          "errors": [],
+          "warnings": [],
+          "suggestions": []
+        },
+        "endpoint_validation": {
+          "status": "valid",
+          "errors": [],
+          "warnings": [],
+          "suggestions": []
+        }
+      },
+      "summary": {
+        "total_errors": 0,
+        "total_warnings": 1,
+        "total_suggestions": 0,
+        "can_proceed": true,
+        "blocked": false
+      }
+    }
+  },
+  
+  "metrics_tracking": {
+    "enabled": true,
+    "track_execution_time": true,
+    "track_cpu_time": true,
+    "track_memory": true,
+    "track_cost": true,
+    "track_operations": true,
+    "custom_metrics": {
+      "files_analyzed": {
+        "enabled": true,
+        "description": "Número de archivos Python analizados"
+      },
+      "code_validations": {
+        "enabled": true,
+        "description": "Número de validaciones de código realizadas"
+      },
+      "endpoints_validated": {
+        "enabled": true,
+        "description": "Número de endpoints API validados"
+      },
+      "security_checks": {
+        "enabled": true,
+        "description": "Número de verificaciones de seguridad realizadas"
+      },
+      "code_generated": {
+        "enabled": true,
+        "description": "Número de veces que se generó código"
+      },
+      "errors_found": {
+        "enabled": true,
+        "description": "Número de errores encontrados"
+      },
+      "warnings_found": {
+        "enabled": true,
+        "description": "Número de warnings encontrados"
+      }
+    },
+    "publish_to_redis": true,
+    "redis_channel": "agent:backend:metrics",
+    "save_to_file": true,
+    "storage_dir": "agentes/data/metrics",
+    "publish_frequency": "on_completion"
+  }
+}
+

@@ -1,0 +1,602 @@
+{
+  "agent_id": "db",
+  "agent_name": "Database Agent",
+  "version": "2.0",
+  "description": "Agente especializado en validación y optimización de modelos de datos, migraciones SQL y estructura de base de datos",
+  "enabled": true,
+  "priority": "high",
+  "environment": "development",
+  "created_at": "2025-01-XX",
+  "last_updated": "2025-01-XX",
+  
+  "metadata": {
+    "type": "database",
+    "category": "validation",
+    "database_type": "mysql",
+    "database_version": "8.0+",
+    "orm": "sqlalchemy",
+    "language": "python"
+  },
+  
+  "test_and_performance": {
+    "enabled": true,
+    "config_file": "db_agent_test_performance.json",
+    "description": "Sistema de pruebas y análisis de performance automatizado"
+  },
+  
+  "metrics_tracking": {
+    "enabled": true,
+    "track_execution_time": true,
+    "track_cpu_time": true,
+    "track_memory": true,
+    "track_cost": true,
+    "track_operations": true,
+    "custom_metrics": {
+      "queries_executed": {
+        "enabled": true,
+        "description": "Número de queries SQL ejecutadas"
+      },
+      "query_time_ms": {
+        "enabled": true,
+        "description": "Tiempo total de ejecución de queries"
+      },
+      "avg_query_time_ms": {
+        "enabled": true,
+        "description": "Tiempo promedio de queries",
+        "calculation": "query_time_ms / queries_executed"
+      },
+      "connections_used": {
+        "enabled": true,
+        "description": "Número de conexiones DB utilizadas"
+      },
+      "db_operations": {
+        "enabled": true,
+        "description": "Número de operaciones DB (SELECT, INSERT, UPDATE, DELETE)"
+      },
+      "migrations_applied": {
+        "enabled": true,
+        "description": "Número de migraciones aplicadas"
+      },
+      "model_validations": {
+        "enabled": true,
+        "description": "Número de validaciones de modelo realizadas"
+      }
+    },
+    "publish_to_redis": true,
+    "redis_channel": "agent:db:metrics",
+    "save_to_file": true,
+    "storage_dir": "agentes/data/metrics",
+    "publish_frequency": "on_completion"
+  },
+  
+  "monitoring": {
+    "files": {
+      "patterns": [
+        "app/backend/models/**/*.py",
+        "app/backend/database/**/*.py",
+        "sql/migrations/**/*.sql",
+        "scripts/database/**/*.py"
+      ],
+      "specific": [
+        "app/backend/models/current.py",
+        "app/backend/models/advanced.py",
+        "app/backend/database/connection.py",
+        "sql/migrations/*.sql"
+      ],
+      "exclude": [
+        "**/__pycache__/**",
+        "**/*.pyc",
+        "**/tests/**"
+      ]
+    },
+    "directories": [
+      "app/backend/models",
+      "app/backend/database",
+      "sql/migrations",
+      "scripts/database"
+    ],
+    "triggers": {
+      "on_file_modified": true,
+      "on_file_created": true,
+      "on_file_deleted": false,
+      "debounce_ms": 2000
+    }
+  },
+  
+  "knowledge_base": {
+    "file": "db_agent_knowledge.json",
+    "auto_update": true,
+    "update_on_change": true,
+    "search_external": false,
+    "suggest_improvements": true
+  },
+  
+  "functions": {
+    "analyze_and_suggest": {
+      "enabled": true,
+      "function_id": "db_analyze_and_suggest",
+      "description": "Analiza cambios en el modelo y sugiere mejoras basadas en conocimiento y mejores prácticas",
+      "parameters": {
+        "compare_with_knowledge": {
+          "enabled": true,
+          "required": true
+        },
+        "search_external": {
+          "enabled": false,
+          "required": false,
+          "description": "Buscar en internet mejores prácticas (opcional)"
+        },
+        "suggest_improvements": {
+          "enabled": true,
+          "required": false
+        },
+        "detect_patterns": {
+          "enabled": true,
+          "required": false
+        }
+      },
+      "output_format": "json",
+      "trigger_on": [
+        "table_added",
+        "table_modified",
+        "column_added",
+        "column_modified",
+        "relationship_added",
+        "index_added"
+      ]
+    },
+    
+    "validate_model": {
+      "enabled": true,
+      "function_id": "db_validate_model",
+      "description": "Valida modelo de datos SQLAlchemy completo",
+      "parameters": {
+        "normalization": {
+          "enabled": true,
+          "level": "3NF",
+          "required": false
+        },
+        "indexes": {
+          "enabled": true,
+          "check_foreign_keys": true,
+          "required": false
+        },
+        "relations": {
+          "enabled": true,
+          "validate_foreign_keys": true,
+          "required": true
+        },
+        "naming": {
+          "enabled": true,
+          "strictness": "medium",
+          "required": false
+        }
+      },
+      "output_format": "json",
+      "validation_levels": {
+        "critical": {
+          "block_on_failure": true,
+          "required": true
+        },
+        "high": {
+          "block_on_failure": false,
+          "show_warning": true,
+          "suggest_fix": true
+        },
+        "medium": {
+          "block_on_failure": false,
+          "show_suggestion": true,
+          "allow_continue": true
+        },
+        "low": {
+          "block_on_failure": false,
+          "show_info": true,
+          "optional": true
+        }
+      }
+    },
+    
+    "check_migrations": {
+      "enabled": true,
+      "function_id": "db_check_migrations",
+      "description": "Valida migraciones SQL",
+      "parameters": {
+        "syntax": {
+          "enabled": true,
+          "required": true
+        },
+        "compatibility": {
+          "enabled": true,
+          "mysql_version": "8.0+",
+          "required": true
+        },
+        "rollback": {
+          "enabled": false,
+          "required": false,
+          "reason": "Development environment - rollback optional"
+        },
+        "naming": {
+          "enabled": true,
+          "strictness": "low",
+          "required": false
+        }
+      },
+      "output_format": "json"
+    },
+    
+    "optimize_queries": {
+      "enabled": true,
+      "function_id": "db_optimize_queries",
+      "description": "Analiza y optimiza queries SQL",
+      "parameters": {
+        "analyze": {
+          "enabled": true,
+          "detect_n_plus_one": true,
+          "required": false
+        },
+        "suggest_indexes": {
+          "enabled": true,
+          "required": false
+        }
+      },
+      "output_format": "json"
+    },
+    
+    "validate_connection_pool": {
+      "enabled": true,
+      "function_id": "db_validate_connection_pool",
+      "description": "Valida configuración de conexión a BD",
+      "parameters": {
+        "pool_size": {
+          "enabled": true,
+          "min": 5,
+          "max": 50,
+          "required": false
+        },
+        "timeout": {
+          "enabled": true,
+          "min_seconds": 5,
+          "required": false
+        }
+      },
+      "output_format": "json"
+    },
+    
+    "validate_naming_conventions": {
+      "enabled": true,
+      "function_id": "db_validate_naming",
+      "description": "Valida naming conventions según mejores prácticas",
+      "parameters": {
+        "tables": {
+          "enabled": true,
+          "rules": {
+            "lowercase": true,
+            "plural": true,
+            "snake_case": true,
+            "no_prefixes": true
+          },
+          "required": false
+        },
+        "columns": {
+          "enabled": true,
+          "rules": {
+            "lowercase": true,
+            "snake_case": true,
+            "foreign_keys_format": "{table}_id",
+            "boolean_prefix": "is_",
+            "timestamp_suffix": "_at"
+          },
+          "required": false
+        },
+        "indexes": {
+          "enabled": true,
+          "rules": {
+            "unique_prefix": "uq_",
+            "regular_prefix": "idx_",
+            "foreign_key_prefix": "fk_",
+            "format": "{prefix}_{table}_{column}"
+          },
+          "required": false
+        }
+      },
+      "output_format": "json"
+    },
+    
+    "update_knowledge_base": {
+      "enabled": true,
+      "function_id": "db_update_knowledge",
+      "description": "Actualiza el conocimiento del modelo de datos cuando hay cambios",
+      "parameters": {
+        "auto_update": {
+          "enabled": true,
+          "required": true
+        },
+        "backup_before_update": {
+          "enabled": true,
+          "required": false
+        }
+      },
+      "output_format": "json",
+      "trigger_on": [
+        "model_file_changed",
+        "migration_applied"
+      ]
+    }
+  },
+  
+  "rules": {
+    "critical": [
+      {
+        "id": "db_critical_001",
+        "name": "Primary Key Required",
+        "description": "Cada tabla debe tener una primary key llamada 'id'",
+        "type": "model_validation",
+        "block_on_failure": true,
+        "message": "Table '{table}' must have a primary key named 'id'"
+      },
+      {
+        "id": "db_critical_002",
+        "name": "Valid Foreign Keys",
+        "description": "Foreign keys deben referenciar tablas existentes",
+        "type": "model_validation",
+        "block_on_failure": true,
+        "message": "Foreign key '{fk}' references non-existent table '{table}'"
+      },
+      {
+        "id": "db_critical_003",
+        "name": "Correct Data Types",
+        "description": "Campos de texto deben tener límites, campos numéricos tipos apropiados",
+        "type": "model_validation",
+        "block_on_failure": true,
+        "message": "Field '{field}' in table '{table}' has invalid data type"
+      },
+      {
+        "id": "db_critical_004",
+        "name": "SQL Syntax Valid",
+        "description": "Sintaxis SQL debe ser válida",
+        "type": "migration_validation",
+        "block_on_failure": true,
+        "message": "SQL syntax error in migration '{file}'"
+      },
+      {
+        "id": "db_critical_005",
+        "name": "MySQL Compatibility",
+        "description": "Migraciones deben ser compatibles con MySQL 8.0+",
+        "type": "migration_validation",
+        "block_on_failure": true,
+        "message": "Migration '{file}' uses features not supported in MySQL 8.0+"
+      }
+    ],
+    
+    "high": [
+      {
+        "id": "db_high_001",
+        "name": "Indexes on Foreign Keys",
+        "description": "Foreign keys deben tener índices para performance",
+        "type": "model_validation",
+        "block_on_failure": false,
+        "show_warning": true,
+        "suggest_fix": true,
+        "message": "Foreign key '{fk}' should have an index",
+        "suggestion": "Add index: CREATE INDEX idx_{table}_{column} ON {table}({column})"
+      },
+      {
+        "id": "db_high_002",
+        "name": "Timestamp Fields",
+        "description": "Tablas principales deben tener created_at y updated_at",
+        "type": "model_validation",
+        "block_on_failure": false,
+        "show_warning": true,
+        "message": "Table '{table}' should have created_at and updated_at fields"
+      },
+      {
+        "id": "db_high_003",
+        "name": "Normalization 3NF",
+        "description": "No debe haber dependencias transitivas",
+        "type": "model_validation",
+        "block_on_failure": false,
+        "show_warning": true,
+        "message": "Table '{table}' violates 3NF normalization"
+      },
+      {
+        "id": "db_high_004",
+        "name": "Use Transactions",
+        "description": "Migraciones deben usar transacciones",
+        "type": "migration_validation",
+        "block_on_failure": false,
+        "show_warning": true,
+        "message": "Migration '{file}' should use transactions (BEGIN...COMMIT)"
+      },
+      {
+        "id": "db_high_005",
+        "name": "N+1 Query Problem",
+        "description": "Detectar queries en loops",
+        "type": "query_optimization",
+        "block_on_failure": false,
+        "show_warning": true,
+        "message": "N+1 query problem detected in '{file}' at line {line}"
+      }
+    ],
+    
+    "medium": [
+      {
+        "id": "db_medium_001",
+        "name": "Table Naming Convention",
+        "description": "Tablas en minúsculas, plural, snake_case",
+        "type": "naming_validation",
+        "block_on_failure": false,
+        "show_suggestion": true,
+        "message": "Table '{current}' should be '{recommended}'",
+        "recommendation": "Use lowercase, plural, snake_case: '{recommended}'"
+      },
+      {
+        "id": "db_medium_002",
+        "name": "Column Naming Convention",
+        "description": "Columnas en minúsculas, snake_case",
+        "type": "naming_validation",
+        "block_on_failure": false,
+        "show_suggestion": true,
+        "message": "Column '{current}' should be '{recommended}'"
+      },
+      {
+        "id": "db_medium_003",
+        "name": "Boolean Column Prefix",
+        "description": "Columnas booleanas deben usar prefijo 'is_'",
+        "type": "naming_validation",
+        "block_on_failure": false,
+        "show_suggestion": true,
+        "message": "Boolean column '{current}' should be 'is_{current}'"
+      },
+      {
+        "id": "db_medium_004",
+        "name": "Index Naming Convention",
+        "description": "Índices deben seguir convención: uq_/idx_/fk_",
+        "type": "naming_validation",
+        "block_on_failure": false,
+        "show_suggestion": true,
+        "message": "Index '{current}' should be '{recommended}'"
+      },
+      {
+        "id": "db_medium_005",
+        "name": "Missing Indexes",
+        "description": "Sugerir índices faltantes para columnas usadas en WHERE/JOIN",
+        "type": "query_optimization",
+        "block_on_failure": false,
+        "show_suggestion": true,
+        "message": "Consider adding index on '{table}.{column}'"
+      },
+      {
+        "id": "db_medium_006",
+        "name": "Rollback in Migrations",
+        "description": "Migraciones deberían tener rollback (opcional en dev)",
+        "type": "migration_validation",
+        "block_on_failure": false,
+        "show_suggestion": true,
+        "message": "Consider adding rollback section to migration '{file}'"
+      }
+    ],
+    
+    "low": [
+      {
+        "id": "db_low_001",
+        "name": "Documentation",
+        "description": "Clases deben tener docstrings",
+        "type": "code_quality",
+        "block_on_failure": false,
+        "show_info": true,
+        "message": "Consider adding docstring to class '{class}'"
+      },
+      {
+        "id": "db_low_002",
+        "name": "Soft Delete",
+        "description": "Considerar deleted_at para soft delete",
+        "type": "model_validation",
+        "block_on_failure": false,
+        "show_info": true,
+        "message": "Consider adding deleted_at field for soft delete"
+      }
+    ]
+  },
+  
+  "communication": {
+    "redis_channels": {
+      "triggers": "agent:db:trigger",
+      "feedback": "agent:db:feedback",
+      "status": "agent:db:status",
+      "notifications": "agent:db:notify"
+    },
+    "redis_keys": {
+      "status": "agent:status:db",
+      "current_task": "agent:task:db:{task_id}",
+      "feedback": "agent:feedback:db:{task_id}",
+      "locks": "lock:db:{resource}"
+    },
+    "file_paths": {
+      "feedback": ".agents/communications/db_feedback.json",
+      "status": ".agents/status/db_status.json",
+      "triggers": ".agents/triggers/db_trigger.json",
+      "reports": ".agents/reports/db_report.md"
+    }
+  },
+  
+  "configuration": {
+    "validate_on_change": true,
+    "validate_on_save": false,
+    "auto_suggest_indexes": true,
+    "strict_mode": false,
+    "pool_config": {
+      "min_pool_size": 5,
+      "max_pool_size": 50,
+      "max_overflow": 30,
+      "pool_recycle": 1800,
+      "pool_pre_ping": true,
+      "timeout": 30
+    },
+    "naming_conventions": {
+      "enabled": true,
+      "strictness": "medium",
+      "table_plural": true,
+      "table_lowercase": true,
+      "column_snake_case": true,
+      "boolean_prefix": "is_",
+      "timestamp_suffix": "_at",
+      "foreign_key_format": "{table}_id",
+      "unique_index_prefix": "uq_",
+      "regular_index_prefix": "idx_",
+      "foreign_key_index_prefix": "fk_"
+    }
+  },
+  
+  "dependencies": {
+    "required": [
+      "sqlalchemy>=2.0.32",
+      "pymysql>=1.1.1"
+    ],
+    "optional": [
+      "redis>=5.0.0"
+    ]
+  },
+  
+  "examples": {
+    "trigger": {
+      "trigger_id": "db-20250115-143022",
+      "timestamp": "2025-01-15T14:30:22Z",
+      "agent": "db",
+      "event_type": "file_modified",
+      "file_path": "app/models/current.py",
+      "actions": [
+        "validate_model",
+        "validate_naming_conventions"
+      ]
+    },
+    "feedback": {
+      "agent": "db",
+      "trigger_id": "db-20250115-143022",
+      "timestamp": "2025-01-15T14:30:22Z",
+      "status": "completed",
+      "file_analyzed": "app/models/current.py",
+      "results": {
+        "model_validation": {
+          "status": "valid",
+          "errors": [],
+          "warnings": [
+            {
+              "rule_id": "db_high_001",
+              "message": "Foreign key 'conversation_id' should have an index",
+              "suggestion": "Add index: CREATE INDEX idx_messages_conversation_id ON messages(conversation_id)"
+            }
+          ],
+          "suggestions": []
+        }
+      },
+      "summary": {
+        "total_errors": 0,
+        "total_warnings": 1,
+        "total_suggestions": 0,
+        "can_proceed": true,
+        "blocked": false
+      }
+    }
+  }
+}
+

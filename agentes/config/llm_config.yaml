@@ -1,0 +1,112 @@
+# Framework v3.0 Configuration
+
+# LLM Providers
+llm_providers:
+  deepseek:
+    api_key: ${DEEPSEEK_API_KEY}
+    base_url: ${DEEPSEEK_BASE_URL}
+    models:
+      chat: "deepseek-chat"
+      coder: "deepseek-coder"
+    default_temperature: 0.3
+    default_max_tokens: 4000
+
+# Agent LLM Mapping (usando solo DeepSeek)
+agent_llm_mapping:
+  coordinador:
+    provider: "deepseek"
+    model: "deepseek-chat"
+    temperature: 0.3
+    max_tokens: 4000
+  
+  arquitecto:
+    principal:
+      provider: "deepseek"
+      model: "deepseek-chat"
+      temperature: 0.3
+      max_tokens: 4000
+    reviewer:
+      provider: "deepseek"
+      model: "deepseek-chat"
+      temperature: 0.1
+      max_tokens: 4000
+  
+  ui_ux_designer:
+    principal:
+      provider: "deepseek"
+      model: "deepseek-chat"
+      temperature: 0.3
+      max_tokens: 4000
+    reviewer:
+      provider: "deepseek"
+      model: "deepseek-chat"
+      temperature: 0.1
+      max_tokens: 4000
+  
+  sentinel:
+    provider: "deepseek"
+    model: "deepseek-chat"
+    temperature: 0.2
+    max_tokens: 2000
+  
+  coder:
+    provider: "deepseek"
+    model: "deepseek-coder"
+    temperature: 0.2
+    max_tokens: 4000
+  
+  test_designer:
+    principal:
+      provider: "deepseek"
+      model: "deepseek-chat"
+      temperature: 0.2
+      max_tokens: 2000
+    reviewer:
+      provider: "deepseek"
+      model: "deepseek-chat"
+      temperature: 0.1
+      max_tokens: 2000
+
+# Auto-Scaling Configuration
+coordinator_pool:
+  auto_scaling:
+    enabled: true
+    min_coordinators: ${MIN_COORDINATORS:1}
+    max_coordinators: ${MAX_COORDINATORS:5}
+    scale_up_threshold: ${SCALE_UP_THRESHOLD:3}
+    scale_down_threshold: ${SCALE_DOWN_THRESHOLD:1}
+    cooldown_seconds: ${COOLDOWN_SECONDS:60}
+  
+  workers:
+    num_workers: 3
+  
+  monitoring:
+    log_interval_seconds: 30
+    metrics_enabled: true
+
+# Executable Feedback Configuration
+executable_feedback:
+  enabled: true
+  max_iterations: 3
+  timeout_seconds: ${DOCKER_TIMEOUT:60}
+  docker:
+    image: "python:3.11-slim"
+    max_memory: ${DOCKER_MAX_MEMORY:512m}
+    max_cpu: ${DOCKER_MAX_CPU:1.0}
+
+# Peer Review Configuration
+peer_review:
+  enabled: true
+  consensus_threshold: 0.8
+  arbiter_enabled: true
+
+# SOPs Configuration
+sops:
+  validation_enabled: true
+  compliance_threshold: 0.8
+
+# Communication Protocol
+communication:
+  protocol: "toon"  # toon | json
+  validation_enabled: true
+  schema_validation: true

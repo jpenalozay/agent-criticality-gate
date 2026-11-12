@@ -1,0 +1,1181 @@
+{
+  "knowledge_base": {
+    "version": "1.0",
+    "last_updated": "2025-01-XX",
+    "source": "app/backend/models/current.py",
+    "database_type": "mysql",
+    "database_version": "8.0+",
+    "orm": "sqlalchemy",
+    "environment": "development"
+  },
+  
+  "current_model": {
+    "tables": [
+      {
+        "name": "users",
+        "class_name": "User",
+        "description": "Usuarios del sistema (admin, asesor, user)",
+        "primary_key": {
+          "column": "id",
+          "type": "INTEGER",
+          "autoincrement": true
+        },
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "primary_key": true,
+            "autoincrement": true,
+            "nullable": false
+          },
+          {
+            "name": "name",
+            "type": "VARCHAR(120)",
+            "nullable": false,
+            "description": "Nombre completo del usuario"
+          },
+          {
+            "name": "email",
+            "type": "VARCHAR(180)",
+            "nullable": true,
+            "unique": true,
+            "indexed": true,
+            "description": "Email del usuario"
+          },
+          {
+            "name": "phone",
+            "type": "VARCHAR(30)",
+            "nullable": true,
+            "unique": true,
+            "indexed": true,
+            "description": "Teléfono del usuario (formato: 9XXXXXXXX)"
+          },
+          {
+            "name": "password_hash",
+            "type": "VARCHAR(200)",
+            "nullable": false,
+            "description": "Hash de contraseña (bcrypt)"
+          },
+          {
+            "name": "role",
+            "type": "VARCHAR(20)",
+            "nullable": false,
+            "default": "user",
+            "possible_values": ["user", "admin", "asesor"],
+            "description": "Rol del usuario en el sistema"
+          },
+          {
+            "name": "avatar_url",
+            "type": "VARCHAR(300)",
+            "nullable": true,
+            "description": "URL del avatar del usuario"
+          },
+          {
+            "name": "alias",
+            "type": "VARCHAR(120)",
+            "nullable": true,
+            "description": "Alias o apodo del usuario"
+          },
+          {
+            "name": "created_at",
+            "type": "DATETIME",
+            "nullable": false,
+            "default": "CURRENT_TIMESTAMP",
+            "description": "Fecha de creación del usuario"
+          },
+          {
+            "name": "first_name",
+            "type": "VARCHAR(60)",
+            "nullable": true,
+            "description": "Nombre de pila"
+          },
+          {
+            "name": "last_name",
+            "type": "VARCHAR(60)",
+            "nullable": true,
+            "description": "Apellido"
+          },
+          {
+            "name": "company_name",
+            "type": "VARCHAR(120)",
+            "nullable": true,
+            "description": "Nombre de la empresa"
+          },
+          {
+            "name": "position",
+            "type": "VARCHAR(80)",
+            "nullable": true,
+            "description": "Cargo o posición"
+          },
+          {
+            "name": "bio",
+            "type": "TEXT",
+            "nullable": true,
+            "description": "Biografía del usuario"
+          },
+          {
+            "name": "is_active",
+            "type": "BOOLEAN",
+            "nullable": false,
+            "default": true,
+            "description": "Indica si el usuario está activo"
+          },
+          {
+            "name": "must_change_password",
+            "type": "BOOLEAN",
+            "nullable": false,
+            "default": false,
+            "description": "Indica si el usuario debe cambiar su contraseña"
+          },
+          {
+            "name": "username",
+            "type": "VARCHAR(60)",
+            "nullable": true,
+            "unique": true,
+            "description": "Nombre de usuario único"
+          },
+          {
+            "name": "chat_bag_limit",
+            "type": "INTEGER",
+            "nullable": true,
+            "description": "Límite de chats para asesores"
+          },
+          {
+            "name": "notes",
+            "type": "TEXT",
+            "nullable": true,
+            "description": "Notas adicionales sobre el usuario"
+          },
+          {
+            "name": "manager_id",
+            "type": "INTEGER",
+            "nullable": true,
+            "foreign_key": {
+              "references_table": "users",
+              "references_column": "id",
+              "on_delete": "SET NULL"
+            },
+            "indexed": true,
+            "description": "ID del manager/usuario que gestiona este usuario"
+          }
+        ],
+        "indexes": [
+          {
+            "name": "uq_users_email",
+            "type": "unique",
+            "columns": ["email"],
+            "description": "Índice único para email"
+          },
+          {
+            "name": "uq_users_phone",
+            "type": "unique",
+            "columns": ["phone"],
+            "description": "Índice único para teléfono"
+          },
+          {
+            "name": "uq_users_username",
+            "type": "unique",
+            "columns": ["username"],
+            "description": "Índice único para username"
+          },
+          {
+            "name": "idx_users_manager_id",
+            "type": "index",
+            "columns": ["manager_id"],
+            "description": "Índice para foreign key manager_id"
+          }
+        ],
+        "relationships": [
+          {
+            "type": "self_reference",
+            "name": "manager",
+            "foreign_key": "manager_id",
+            "relationship_type": "many_to_one",
+            "back_populates": "managed_users"
+          },
+          {
+            "type": "one_to_many",
+            "name": "assigned_chats",
+            "related_table": "chat_assignments",
+            "foreign_key_in_related": "asesor_id"
+          }
+        ],
+        "timestamps": {
+          "created_at": true,
+          "updated_at": false,
+          "deleted_at": false,
+          "soft_delete": false
+        },
+        "normalization_level": "3NF",
+        "estimated_rows": "unknown",
+        "usage_patterns": [
+          "user_authentication",
+          "user_management",
+          "role_based_access",
+          "hierarchical_management"
+        ]
+      },
+      
+      {
+        "name": "conversations",
+        "class_name": "Conversation",
+        "description": "Conversaciones de chat entre usuarios y el sistema",
+        "primary_key": {
+          "column": "id",
+          "type": "INTEGER",
+          "autoincrement": true
+        },
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "primary_key": true,
+            "autoincrement": true,
+            "nullable": false
+          },
+          {
+            "name": "user_id",
+            "type": "INTEGER",
+            "nullable": false,
+            "foreign_key": {
+              "references_table": "users",
+              "references_column": "id",
+              "on_delete": "CASCADE"
+            },
+            "indexed": true,
+            "description": "ID del usuario propietario de la conversación"
+          },
+          {
+            "name": "title",
+            "type": "VARCHAR(200)",
+            "nullable": false,
+            "default": "Conversación",
+            "description": "Título de la conversación"
+          },
+          {
+            "name": "openai_thread_id",
+            "type": "VARCHAR(100)",
+            "nullable": true,
+            "description": "ID del thread de OpenAI para esta conversación"
+          },
+          {
+            "name": "mode",
+            "type": "VARCHAR(20)",
+            "nullable": false,
+            "default": "inherit",
+            "possible_values": ["inherit", "play", "pause", "stop"],
+            "description": "Modo de operación de la conversación"
+          },
+          {
+            "name": "created_at",
+            "type": "DATETIME",
+            "nullable": false,
+            "default": "CURRENT_TIMESTAMP",
+            "description": "Fecha de creación"
+          },
+          {
+            "name": "updated_at",
+            "type": "DATETIME",
+            "nullable": false,
+            "default": "CURRENT_TIMESTAMP",
+            "on_update": "CURRENT_TIMESTAMP",
+            "description": "Fecha de última actualización"
+          }
+        ],
+        "indexes": [
+          {
+            "name": "idx_conversations_user_id",
+            "type": "index",
+            "columns": ["user_id"],
+            "description": "Índice para foreign key user_id"
+          }
+        ],
+        "relationships": [
+          {
+            "type": "many_to_one",
+            "name": "user",
+            "foreign_key": "user_id",
+            "related_table": "users"
+          },
+          {
+            "type": "one_to_many",
+            "name": "chat_assignments",
+            "related_table": "chat_assignments",
+            "foreign_key_in_related": "conversation_id"
+          },
+          {
+            "type": "one_to_many",
+            "name": "messages",
+            "related_table": "messages",
+            "foreign_key_in_related": "conversation_id"
+          }
+        ],
+        "timestamps": {
+          "created_at": true,
+          "updated_at": true,
+          "deleted_at": false,
+          "soft_delete": false
+        },
+        "normalization_level": "3NF",
+        "usage_patterns": [
+          "chat_management",
+          "openai_integration",
+          "conversation_tracking"
+        ]
+      },
+      
+      {
+        "name": "messages",
+        "class_name": "Message",
+        "description": "Mensajes individuales en conversaciones",
+        "primary_key": {
+          "column": "id",
+          "type": "INTEGER",
+          "autoincrement": true
+        },
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "primary_key": true,
+            "autoincrement": true,
+            "nullable": false
+          },
+          {
+            "name": "user_id",
+            "type": "INTEGER",
+            "nullable": false,
+            "foreign_key": {
+              "references_table": "users",
+              "references_column": "id",
+              "on_delete": "CASCADE"
+            },
+            "indexed": true,
+            "description": "ID del usuario que envió/recibió el mensaje"
+          },
+          {
+            "name": "conversation_id",
+            "type": "INTEGER",
+            "nullable": true,
+            "foreign_key": {
+              "references_table": "conversations",
+              "references_column": "id",
+              "on_delete": "SET NULL"
+            },
+            "indexed": true,
+            "description": "ID de la conversación a la que pertenece"
+          },
+          {
+            "name": "role",
+            "type": "VARCHAR(10)",
+            "nullable": false,
+            "possible_values": ["user", "assistant"],
+            "description": "Rol del mensaje (usuario o asistente)"
+          },
+          {
+            "name": "content",
+            "type": "TEXT",
+            "nullable": false,
+            "description": "Contenido del mensaje"
+          },
+          {
+            "name": "direction",
+            "type": "VARCHAR(10)",
+            "nullable": true,
+            "possible_values": ["inbound", "outbound"],
+            "description": "Dirección del mensaje"
+          },
+          {
+            "name": "review_status",
+            "type": "VARCHAR(20)",
+            "nullable": true,
+            "possible_values": ["none", "pending", "approved", "rejected"],
+            "description": "Estado de revisión del mensaje"
+          },
+          {
+            "name": "reviewed_by",
+            "type": "INTEGER",
+            "nullable": true,
+            "description": "ID del usuario que revisó el mensaje"
+          },
+          {
+            "name": "sent_at",
+            "type": "DATETIME",
+            "nullable": true,
+            "description": "Fecha en que se envió el mensaje"
+          },
+          {
+            "name": "created_at",
+            "type": "DATETIME",
+            "nullable": false,
+            "default": "CURRENT_TIMESTAMP",
+            "description": "Fecha de creación del mensaje"
+          }
+        ],
+        "indexes": [
+          {
+            "name": "idx_messages_user_id",
+            "type": "index",
+            "columns": ["user_id"],
+            "description": "Índice para foreign key user_id"
+          },
+          {
+            "name": "idx_messages_conversation_id",
+            "type": "index",
+            "columns": ["conversation_id"],
+            "description": "Índice para foreign key conversation_id"
+          }
+        ],
+        "relationships": [
+          {
+            "type": "many_to_one",
+            "name": "user",
+            "foreign_key": "user_id",
+            "related_table": "users"
+          },
+          {
+            "type": "many_to_one",
+            "name": "conversation",
+            "foreign_key": "conversation_id",
+            "related_table": "conversations"
+          }
+        ],
+        "timestamps": {
+          "created_at": true,
+          "updated_at": false,
+          "deleted_at": false,
+          "soft_delete": false
+        },
+        "normalization_level": "3NF",
+        "usage_patterns": [
+          "message_storage",
+          "message_review",
+          "chat_history"
+        ]
+      },
+      
+      {
+        "name": "settings",
+        "class_name": "Setting",
+        "description": "Configuración global del sistema",
+        "primary_key": {
+          "column": "id",
+          "type": "INTEGER",
+          "autoincrement": true
+        },
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "primary_key": true,
+            "autoincrement": true,
+            "nullable": false
+          },
+          {
+            "name": "key",
+            "type": "VARCHAR(100)",
+            "nullable": false,
+            "unique": true,
+            "indexed": true,
+            "description": "Clave de la configuración"
+          },
+          {
+            "name": "value",
+            "type": "VARCHAR(200)",
+            "nullable": false,
+            "description": "Valor de la configuración"
+          },
+          {
+            "name": "description",
+            "type": "TEXT",
+            "nullable": true,
+            "description": "Descripción de la configuración"
+          },
+          {
+            "name": "created_at",
+            "type": "DATETIME",
+            "nullable": false,
+            "default": "CURRENT_TIMESTAMP"
+          },
+          {
+            "name": "updated_at",
+            "type": "DATETIME",
+            "nullable": false,
+            "default": "CURRENT_TIMESTAMP",
+            "on_update": "CURRENT_TIMESTAMP"
+          }
+        ],
+        "indexes": [
+          {
+            "name": "uq_settings_key",
+            "type": "unique",
+            "columns": ["key"],
+            "description": "Índice único para key"
+          }
+        ],
+        "relationships": [],
+        "timestamps": {
+          "created_at": true,
+          "updated_at": true,
+          "deleted_at": false
+        },
+        "normalization_level": "3NF",
+        "usage_patterns": [
+          "system_configuration",
+          "global_settings"
+        ]
+      },
+      
+      {
+        "name": "chat_assignments",
+        "class_name": "ChatAssignment",
+        "description": "Asignación de chats a asesores",
+        "primary_key": {
+          "column": "id",
+          "type": "INTEGER",
+          "autoincrement": true
+        },
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "primary_key": true,
+            "autoincrement": true,
+            "nullable": false
+          },
+          {
+            "name": "conversation_id",
+            "type": "INTEGER",
+            "nullable": false,
+            "foreign_key": {
+              "references_table": "conversations",
+              "references_column": "id",
+              "on_delete": "CASCADE"
+            },
+            "indexed": true,
+            "description": "ID de la conversación asignada"
+          },
+          {
+            "name": "asesor_id",
+            "type": "INTEGER",
+            "nullable": false,
+            "foreign_key": {
+              "references_table": "users",
+              "references_column": "id",
+              "on_delete": "CASCADE"
+            },
+            "indexed": true,
+            "description": "ID del asesor asignado"
+          },
+          {
+            "name": "assigned_at",
+            "type": "DATETIME",
+            "nullable": false,
+            "default": "CURRENT_TIMESTAMP",
+            "description": "Fecha de asignación"
+          },
+          {
+            "name": "status",
+            "type": "VARCHAR(20)",
+            "nullable": false,
+            "default": "active",
+            "possible_values": ["active", "completed", "transferred"],
+            "description": "Estado de la asignación"
+          },
+          {
+            "name": "priority",
+            "type": "VARCHAR(20)",
+            "nullable": false,
+            "default": "normal",
+            "possible_values": ["low", "normal", "high", "urgent"],
+            "description": "Prioridad de la asignación"
+          },
+          {
+            "name": "notes",
+            "type": "TEXT",
+            "nullable": true,
+            "description": "Notas adicionales sobre la asignación"
+          }
+        ],
+        "indexes": [
+          {
+            "name": "idx_chat_assignments_conversation_id",
+            "type": "index",
+            "columns": ["conversation_id"],
+            "description": "Índice para foreign key conversation_id"
+          },
+          {
+            "name": "idx_chat_assignments_asesor_id",
+            "type": "index",
+            "columns": ["asesor_id"],
+            "description": "Índice para foreign key asesor_id"
+          }
+        ],
+        "relationships": [
+          {
+            "type": "many_to_one",
+            "name": "conversation",
+            "foreign_key": "conversation_id",
+            "related_table": "conversations",
+            "back_populates": "chat_assignments"
+          },
+          {
+            "type": "many_to_one",
+            "name": "asesor",
+            "foreign_key": "asesor_id",
+            "related_table": "users",
+            "back_populates": "assigned_chats"
+          }
+        ],
+        "timestamps": {
+          "created_at": false,
+          "updated_at": false,
+          "deleted_at": false
+        },
+        "normalization_level": "3NF",
+        "usage_patterns": [
+          "chat_assignment",
+          "workload_management",
+          "conversation_tracking"
+        ]
+      },
+      
+      {
+        "name": "user_sessions",
+        "class_name": "UserSession",
+        "description": "Sesiones de usuario para control de acceso",
+        "primary_key": {
+          "column": "id",
+          "type": "INTEGER",
+          "autoincrement": true
+        },
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "primary_key": true,
+            "autoincrement": true,
+            "nullable": false
+          },
+          {
+            "name": "user_id",
+            "type": "INTEGER",
+            "nullable": false,
+            "foreign_key": {
+              "references_table": "users",
+              "references_column": "id",
+              "on_delete": "CASCADE"
+            },
+            "indexed": true,
+            "description": "ID del usuario"
+          },
+          {
+            "name": "session_token",
+            "type": "VARCHAR(255)",
+            "nullable": false,
+            "unique": true,
+            "indexed": true,
+            "description": "Token único de la sesión"
+          },
+          {
+            "name": "created_at",
+            "type": "DATETIME",
+            "nullable": false,
+            "default": "CURRENT_TIMESTAMP",
+            "description": "Fecha de creación de la sesión"
+          },
+          {
+            "name": "expires_at",
+            "type": "DATETIME",
+            "nullable": false,
+            "description": "Fecha de expiración de la sesión"
+          },
+          {
+            "name": "is_active",
+            "type": "BOOLEAN",
+            "nullable": false,
+            "default": true,
+            "description": "Indica si la sesión está activa"
+          },
+          {
+            "name": "ip_address",
+            "type": "VARCHAR(45)",
+            "nullable": true,
+            "description": "Dirección IP del usuario (IPv6 compatible)"
+          },
+          {
+            "name": "user_agent",
+            "type": "TEXT",
+            "nullable": true,
+            "description": "User agent del navegador"
+          }
+        ],
+        "indexes": [
+          {
+            "name": "uq_user_sessions_session_token",
+            "type": "unique",
+            "columns": ["session_token"],
+            "description": "Índice único para session_token"
+          },
+          {
+            "name": "idx_user_sessions_user_id",
+            "type": "index",
+            "columns": ["user_id"],
+            "description": "Índice para foreign key user_id"
+          }
+        ],
+        "relationships": [
+          {
+            "type": "many_to_one",
+            "name": "user",
+            "foreign_key": "user_id",
+            "related_table": "users"
+          }
+        ],
+        "timestamps": {
+          "created_at": true,
+          "updated_at": false,
+          "deleted_at": false,
+          "soft_delete": false
+        },
+        "normalization_level": "3NF",
+        "usage_patterns": [
+          "session_management",
+          "security_tracking",
+          "authentication"
+        ]
+      },
+      
+      {
+        "name": "audit_logs",
+        "class_name": "AuditLog",
+        "description": "Log de auditoría para acciones importantes",
+        "primary_key": {
+          "column": "id",
+          "type": "INTEGER",
+          "autoincrement": true
+        },
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "primary_key": true,
+            "autoincrement": true,
+            "nullable": false
+          },
+          {
+            "name": "user_id",
+            "type": "INTEGER",
+            "nullable": false,
+            "foreign_key": {
+              "references_table": "users",
+              "references_column": "id",
+              "on_delete": "CASCADE"
+            },
+            "indexed": true,
+            "description": "ID del usuario que realizó la acción"
+          },
+          {
+            "name": "action",
+            "type": "VARCHAR(100)",
+            "nullable": false,
+            "indexed": true,
+            "description": "Tipo de acción (login, logout, create_user, etc.)"
+          },
+          {
+            "name": "resource_type",
+            "type": "VARCHAR(50)",
+            "nullable": false,
+            "description": "Tipo de recurso afectado"
+          },
+          {
+            "name": "resource_id",
+            "type": "INTEGER",
+            "nullable": true,
+            "description": "ID del recurso afectado"
+          },
+          {
+            "name": "details",
+            "type": "JSON",
+            "nullable": true,
+            "description": "Detalles adicionales en formato JSON"
+          },
+          {
+            "name": "ip_address",
+            "type": "VARCHAR(45)",
+            "nullable": true,
+            "description": "Dirección IP desde donde se realizó la acción"
+          },
+          {
+            "name": "created_at",
+            "type": "DATETIME",
+            "nullable": false,
+            "default": "CURRENT_TIMESTAMP",
+            "description": "Fecha de la acción"
+          }
+        ],
+        "indexes": [
+          {
+            "name": "idx_audit_logs_user_id",
+            "type": "index",
+            "columns": ["user_id"],
+            "description": "Índice para foreign key user_id"
+          },
+          {
+            "name": "idx_audit_logs_action",
+            "type": "index",
+            "columns": ["action"],
+            "description": "Índice para búsquedas por acción"
+          },
+          {
+            "name": "idx_audit_logs_resource",
+            "type": "composite_index",
+            "columns": ["resource_type", "resource_id"],
+            "description": "Índice compuesto para búsquedas por recurso"
+          }
+        ],
+        "relationships": [
+          {
+            "type": "many_to_one",
+            "name": "user",
+            "foreign_key": "user_id",
+            "related_table": "users"
+          }
+        ],
+        "timestamps": {
+          "created_at": true,
+          "updated_at": false,
+          "deleted_at": false,
+          "soft_delete": false
+        },
+        "normalization_level": "3NF",
+        "usage_patterns": [
+          "audit_trail",
+          "security_monitoring",
+          "compliance"
+        ]
+      }
+    ],
+    
+    "relationships_map": {
+      "users": {
+        "self_reference": ["manager_id -> users.id"],
+        "one_to_many": [
+          "chat_assignments.asesor_id",
+          "conversations.user_id",
+          "messages.user_id",
+          "user_sessions.user_id",
+          "audit_logs.user_id"
+        ]
+      },
+      "conversations": {
+        "many_to_one": ["users.id"],
+        "one_to_many": [
+          "messages.conversation_id",
+          "chat_assignments.conversation_id"
+        ]
+      },
+      "messages": {
+        "many_to_one": [
+          "users.id",
+          "conversations.id"
+        ]
+      },
+      "chat_assignments": {
+        "many_to_one": [
+          "conversations.id",
+          "users.id (asesor_id)"
+        ]
+      },
+      "user_sessions": {
+        "many_to_one": ["users.id"]
+      },
+      "audit_logs": {
+        "many_to_one": ["users.id"]
+      }
+    },
+    
+    "indexes_summary": {
+      "unique_indexes": [
+        "uq_users_email",
+        "uq_users_phone",
+        "uq_users_username",
+        "uq_settings_key",
+        "uq_user_sessions_session_token"
+      ],
+      "regular_indexes": [
+        "idx_users_manager_id",
+        "idx_conversations_user_id",
+        "idx_messages_user_id",
+        "idx_messages_conversation_id",
+        "idx_chat_assignments_conversation_id",
+        "idx_chat_assignments_asesor_id",
+        "idx_user_sessions_user_id",
+        "idx_audit_logs_user_id",
+        "idx_audit_logs_action",
+        "idx_audit_logs_resource"
+      ],
+      "foreign_key_indexes": [
+        "idx_users_manager_id",
+        "idx_conversations_user_id",
+        "idx_messages_user_id",
+        "idx_messages_conversation_id",
+        "idx_chat_assignments_conversation_id",
+        "idx_chat_assignments_asesor_id",
+        "idx_user_sessions_user_id",
+        "idx_audit_logs_user_id"
+      ],
+      "composite_indexes": [
+        "idx_audit_logs_resource"
+      ]
+    },
+    
+    "statistics": {
+      "total_tables": 7,
+      "total_columns": 71,
+      "total_indexes": 17,
+      "total_foreign_keys": 10,
+      "tables_with_timestamps": 5,
+      "tables_with_soft_delete": 0,
+      "tables_with_self_reference": 1,
+      "average_columns_per_table": 10.1,
+      "normalization_compliance": "3NF"
+    }
+  },
+  
+  "analysis_functions": {
+    "compare_with_best_practices": {
+      "enabled": true,
+      "description": "Compara el modelo actual con mejores prácticas de la industria",
+      "sources": [
+        "industry_patterns",
+        "common_design_patterns",
+        "orm_best_practices",
+        "database_design_principles"
+      ],
+      "search_on_change": true,
+      "search_triggers": [
+        "table_added",
+        "table_modified",
+        "relationship_added",
+        "index_added"
+      ]
+    },
+    
+    "suggest_improvements": {
+      "enabled": true,
+      "description": "Sugiere mejoras basadas en patrones comunes",
+      "suggestion_types": [
+        "missing_indexes",
+        "missing_timestamps",
+        "missing_soft_delete",
+        "normalization_improvements",
+        "performance_optimizations",
+        "naming_improvements",
+        "relationship_optimizations",
+        "common_patterns"
+      ]
+    },
+    
+    "detect_patterns": {
+      "enabled": true,
+      "description": "Detecta patrones comunes en el modelo",
+      "patterns_to_detect": [
+        "user_management_pattern",
+        "chat_conversation_pattern",
+        "assignment_pattern",
+        "audit_log_pattern",
+        "session_management_pattern"
+      ]
+    }
+  },
+  
+  "best_practices_knowledge": {
+    "common_patterns": {
+      "user_management": {
+        "description": "Patrón común de gestión de usuarios",
+        "typical_fields": [
+          "id",
+          "email",
+          "username",
+          "password_hash",
+          "is_active",
+          "created_at",
+          "updated_at"
+        ],
+        "typical_indexes": [
+          "unique_email",
+          "unique_username",
+          "index_is_active"
+        ],
+        "suggestions": [
+          {
+            "field": "email_verified",
+            "type": "BOOLEAN",
+            "reason": "Common practice for user verification",
+            "priority": "medium"
+          },
+          {
+            "field": "last_login_at",
+            "type": "DATETIME",
+            "reason": "Common tracking field",
+            "priority": "medium"
+          }
+        ]
+      },
+      
+      "conversation_management": {
+        "description": "Patrón común de gestión de conversaciones",
+        "typical_fields": [
+          "id",
+          "user_id",
+          "status",
+          "created_at",
+          "updated_at",
+          "last_message_at"
+        ],
+        "typical_indexes": [
+          "index_user_id_status",
+          "index_status_updated_at",
+          "index_last_message_at"
+        ],
+        "suggestions": [
+          {
+            "field": "status",
+            "type": "ENUM",
+            "reason": "Better than VARCHAR for fixed values",
+            "priority": "medium",
+            "current": "VARCHAR(20)",
+            "recommended": "ENUM('open', 'closed', 'pending', 'resolved')"
+          },
+          {
+            "field": "last_message_at",
+            "type": "DATETIME",
+            "reason": "Common field for sorting conversations",
+            "priority": "high",
+            "missing": true
+          }
+        ]
+      },
+      
+      "message_storage": {
+        "description": "Patrón común de almacenamiento de mensajes",
+        "typical_fields": [
+          "id",
+          "conversation_id",
+          "user_id",
+          "content",
+          "role",
+          "created_at"
+        ],
+        "typical_indexes": [
+          "index_conversation_id_created_at",
+          "index_user_id_created_at"
+        ],
+        "suggestions": [
+          {
+            "field": "message_type",
+            "type": "ENUM",
+            "reason": "Support for different message types (text, image, file)",
+            "priority": "medium",
+            "current": "missing",
+            "recommended": "ENUM('text', 'image', 'file', 'audio', 'video')"
+          },
+          {
+            "field": "metadata",
+            "type": "JSON",
+            "reason": "Common pattern for storing message metadata",
+            "priority": "low",
+            "current": "missing",
+            "recommended": "JSON column for rich media metadata"
+          }
+        ]
+      },
+      
+      "audit_logging": {
+        "description": "Patrón común de auditoría",
+        "typical_fields": [
+          "id",
+          "user_id",
+          "action",
+          "resource_type",
+          "resource_id",
+          "created_at",
+          "ip_address"
+        ],
+        "typical_indexes": [
+          "index_user_id_action",
+          "index_resource_type_id",
+          "index_created_at"
+        ],
+        "suggestions": [
+          {
+            "field": "created_at_index",
+            "type": "index",
+            "reason": "Common for time-based queries",
+            "priority": "high",
+            "current": "missing",
+            "recommended": "CREATE INDEX idx_audit_logs_created_at ON audit_logs(created_at)"
+          }
+        ]
+      }
+    },
+    
+    "industry_examples": {
+      "intercom": {
+        "pattern": "Separación users vs contacts",
+        "suggestion": "Consider separating internal users from external contacts",
+        "priority": "low",
+        "applies_to": "users table"
+      },
+      "zendesk": {
+        "pattern": "Ticket-like conversation management",
+        "suggestion": "Consider adding ticket_number and status enum",
+        "priority": "medium",
+        "applies_to": "conversations table"
+      },
+      "crisp": {
+        "pattern": "Rich media support in messages",
+        "suggestion": "Add message_type and media_url fields",
+        "priority": "medium",
+        "applies_to": "messages table"
+      },
+      "freshchat": {
+        "pattern": "Conversation tags and categories",
+        "suggestion": "Consider adding tags and category fields",
+        "priority": "low",
+        "applies_to": "conversations table"
+      }
+    }
+  },
+  
+  "suggestion_engine": {
+    "enabled": true,
+    "auto_suggest": true,
+    "search_external": false,
+    "search_on_change": true,
+    "suggestion_criteria": {
+      "missing_common_fields": {
+        "enabled": true,
+        "priority": "medium"
+      },
+      "missing_indexes": {
+        "enabled": true,
+        "priority": "high"
+      },
+      "naming_improvements": {
+        "enabled": true,
+        "priority": "medium"
+      },
+      "type_optimizations": {
+        "enabled": true,
+        "priority": "medium"
+      },
+      "relationship_improvements": {
+        "enabled": true,
+        "priority": "medium"
+      }
+    }
+  }
+}
+

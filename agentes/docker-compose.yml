@@ -1,0 +1,135 @@
+version: '3.8'
+
+services:
+  # Python Framework (gRPC Server)
+  framework:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.framework
+    container_name: agentes-framework
+    ports:
+      - "50051:50051"
+    environment:
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - DEEPSEEK_BASE_URL=https://api.deepseek.com/v1
+      - REDIS_HOST=redis
+      - POSTGRES_HOST=postgres
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - agentes-network
+    restart: unless-stopped
+
+  # Redis (Caching & Rate Limiting)
+  redis:
+    image: redis:7-alpine
+    container_name: agentes-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - agentes-network
+    restart: unless-stopped
+
+  # PostgreSQL (Persistent Storage)
+  postgres:
+    image: postgres:15-alpine
+    container_name: agentes-postgres
+    environment:
+      - POSTGRES_DB=agentes
+      - POSTGRES_USER=agentes
+      - POSTGRES_PASSWORD=agentes_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - agentes-network
+    restart: unless-stopped
+
+  # Dashboard UI (React)
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: agentes-dashboard
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080
+    depends_on:
+      - api-gateway
+    networks:
+      - agentes-network
+    restart: unless-stopped
+
+  # API Gateway (Go)
+  api-gateway:
+    build:
+      context: ./go
+      dockerfile: Dockerfile
+    container_name: agentes-api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - GRPC_SERVER=framework:50051
+      - REDIS_HOST=redis:6379
+      - POSTGRES_HOST=postgres:5432
+      - JWT_SECRET=${JWT_SECRET:-your-secret-key-change-in-production}
+    depends_on:
+      - framework
+      - redis
+      - postgres
+    networks:
+      - agentes-network
+    restart: unless-stopped
+
+  # Prometheus (Monitoring)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: agentes-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - agentes-network
+    restart: unless-stopped
+
+  # Grafana (Visualization)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: agentes-grafana
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./docker/grafana-dashboards:/etc/grafana/provisioning/dashboards
+    depends_on:
+      - prometheus
+    networks:
+      - agentes-network
+    restart: unless-stopped
+
+networks:
+  agentes-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  postgres-data:
+  prometheus-data:
+  grafana-data:

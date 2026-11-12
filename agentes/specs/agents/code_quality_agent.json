@@ -1,0 +1,306 @@
+{
+  "agent_id": "code_quality",
+  "agent_name": "Code Quality Agent",
+  "version": "1.0",
+  "description": "Agente especializado en validar calidad de código, estilo PEP 8, detección de duplicación, refactoring y convenciones",
+  "enabled": true,
+  "priority": "medium",
+  "environment": "development",
+  "created_at": "2025-01-XX",
+  "last_updated": "2025-01-XX",
+  
+  "metadata": {
+    "type": "code_quality",
+    "category": "code_validation",
+    "language": "python",
+    "focus": ["pep8", "duplication", "refactoring", "conventions"]
+  },
+  
+  "monitoring": {
+    "files": {
+      "patterns": [
+        "app/**/*.py",
+        "scripts/**/*.py"
+      ],
+      "specific": [
+        "app/main.py",
+        "app/backend/**/*.py"
+      ],
+      "exclude": [
+        "**/__pycache__/**",
+        "**/*.pyc",
+        "**/migrations/**"
+      ]
+    },
+    "directories": [
+      "app",
+      "scripts"
+    ],
+    "triggers": {
+      "file_created": true,
+      "file_modified": true,
+      "file_deleted": false,
+      "on_save": true,
+      "git_commit": false
+    }
+  },
+  
+  "functions": {
+    "validate_pep8": {
+      "description": "Valida PEP 8 compliance",
+      "priority": "medium",
+      "rules": [
+        "Líneas <= 120 caracteres",
+        "Imports ordenados correctamente",
+        "Nombres siguen convenciones",
+        "Espaciado correcto",
+        "Uso de whitespace apropiado",
+        "Comentarios siguen estilo",
+        "Docstrings apropiados"
+      ],
+      "parameters": {
+        "strict": false,
+        "line_length": true,
+        "imports": true,
+        "naming": true,
+        "spacing": true
+      }
+    },
+    
+    "detect_duplication": {
+      "description": "Detecta código duplicado",
+      "priority": "medium",
+      "rules": [
+        "Detectar bloques duplicados",
+        "Detectar funciones similares",
+        "Detectar patrones repetidos",
+        "Sugerir extracción de código común"
+      ],
+      "parameters": {
+        "min_lines": 5,
+        "similarity_threshold": 0.8,
+        "check_functions": true,
+        "check_classes": true
+      }
+    },
+    
+    "suggest_refactoring": {
+      "description": "Sugiere refactoring basado en complejidad y longitud",
+      "priority": "medium",
+      "rules": [
+        "Funciones <= 50 líneas",
+        "Complejidad ciclomática <= 10",
+        "Clases <= 500 líneas",
+        "Métodos <= 30 líneas",
+        "Evitar funciones muy largas",
+        "Evitar clases muy grandes",
+        "Sugerir extracción de métodos"
+      ],
+      "parameters": {
+        "complexity": true,
+        "length": true,
+        "max_function_length": 50,
+        "max_class_length": 500,
+        "max_complexity": 10
+      }
+    },
+    
+    "check_conventions": {
+      "description": "Verifica convenciones de código del proyecto",
+      "priority": "low",
+      "rules": [
+        "Nombres de archivos siguen convenciones",
+        "Nombres de funciones siguen convenciones",
+        "Nombres de clases siguen convenciones",
+        "Estructura de archivos apropiada",
+        "Imports organizados correctamente"
+      ],
+      "parameters": {
+        "check_naming": true,
+        "check_structure": true,
+        "check_imports": true
+      }
+    },
+    
+    "analyze_complexity": {
+      "description": "Analiza complejidad ciclomática del código",
+      "priority": "medium",
+      "rules": [
+        "Detectar funciones complejas",
+        "Detectar clases complejas",
+        "Sugerir simplificación",
+        "Identificar código difícil de mantener"
+      ],
+      "parameters": {
+        "check_functions": true,
+        "check_classes": true,
+        "max_complexity": 10,
+        "provide_suggestions": true
+      }
+    },
+    
+    "check_documentation": {
+      "description": "Verifica documentación del código",
+      "priority": "low",
+      "rules": [
+        "Funciones públicas deben tener docstrings",
+        "Clases deben tener docstrings",
+        "Módulos deben tener docstrings",
+        "Docstrings deben seguir formato apropiado"
+      ],
+      "parameters": {
+        "check_public_functions": true,
+        "check_classes": true,
+        "check_modules": true,
+        "check_format": true
+      }
+    },
+    
+    "suggest_improvements": {
+      "description": "Sugiere mejoras generales de código",
+      "priority": "low",
+      "rules": [
+        "Analizar patrones de código",
+        "Sugerir mejoras de legibilidad",
+        "Sugerir mejoras de mantenibilidad",
+        "Sugerir mejoras de performance"
+      ],
+      "parameters": {
+        "check_patterns": true,
+        "check_readability": true,
+        "check_maintainability": true,
+        "provide_examples": true
+      }
+    }
+  },
+  
+  "rules": {
+    "pep8": {
+      "priority": "medium",
+      "required": [
+        "líneas <= 120 caracteres",
+        "imports ordenados",
+        "nombres siguen convenciones"
+      ],
+      "recommended": [
+        "docstrings apropiados",
+        "comentarios útiles",
+        "espaciado consistente"
+      ],
+      "forbidden": [
+        "líneas muy largas",
+        "imports desordenados",
+        "nombres confusos"
+      ]
+    },
+    
+    "refactoring": {
+      "priority": "medium",
+      "required": [
+        "funciones <= 50 líneas",
+        "complejidad <= 10"
+      ],
+      "recommended": [
+        "métodos pequeños",
+        "clases cohesivas",
+        "código reutilizable"
+      ],
+      "forbidden": [
+        "funciones muy largas",
+        "complejidad excesiva",
+        "código duplicado"
+      ]
+    }
+  },
+  
+  "communication": {
+    "redis_channels": {
+      "listen": [
+        "agent:code_quality:trigger",
+        "agent:code_quality:validate",
+        "agent:code_quality:analyze"
+      ],
+      "publish": [
+        "agent:code_quality:results",
+        "agent:code_quality:issues",
+        "agent:code_quality:suggestions"
+      ]
+    },
+    "file_based": {
+      "input": "agentes/communication/code_quality_agent_input.json",
+      "output": "agentes/communication/code_quality_agent_output.json",
+      "errors": "agentes/communication/code_quality_agent_errors.json"
+    }
+  },
+  
+  "test_and_performance": {
+    "enabled": true,
+    "schedule": {
+      "quality_analysis": {
+        "enabled": true,
+        "frequency": "daily",
+        "time": "10:00",
+        "timezone": "America/Lima"
+      }
+    },
+    "metrics": {
+      "pep8_compliance": {
+        "target_percentage": 90
+      },
+      "code_duplication": {
+        "max_percentage": 5
+      },
+      "complexity": {
+        "max_average": 8,
+        "max_individual": 10
+      }
+    },
+    "reporting": {
+      "format": "json",
+      "location": "agentes/reports/code_quality_agent_reports/",
+      "include_suggestions": true,
+      "include_refactoring": true
+    }
+  },
+  
+  "metrics_tracking": {
+    "enabled": true,
+    "track_execution_time": true,
+    "track_cpu_time": true,
+    "track_memory": true,
+    "track_cost": true,
+    "track_operations": true,
+    "custom_metrics": {
+      "files_analyzed": {
+        "enabled": true,
+        "description": "Número de archivos Python analizados"
+      },
+      "pep8_violations": {
+        "enabled": true,
+        "description": "Número de violaciones PEP 8 encontradas"
+      },
+      "duplication_blocks": {
+        "enabled": true,
+        "description": "Número de bloques de código duplicados encontrados"
+      },
+      "complexity_issues": {
+        "enabled": true,
+        "description": "Número de problemas de complejidad encontrados"
+      },
+      "refactoring_suggestions": {
+        "enabled": true,
+        "description": "Número de sugerencias de refactoring"
+      },
+      "code_smells": {
+        "enabled": true,
+        "description": "Número de code smells detectados"
+      }
+    },
+    "publish_to_redis": true,
+    "redis_channel": "agent:code_quality:metrics",
+    "save_to_file": true,
+    "storage_dir": "agentes/data/metrics",
+    "publish_frequency": "on_completion"
+  }
+}
+
