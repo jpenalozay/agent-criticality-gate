@@ -41,7 +41,7 @@ python demo.py
 
 1. **`EarlyGate` (`agentes/core/early_gate.py`):**
    - **`lexical_classify(requirement)`:** Fast, deterministic pattern scoring across risk signatures (`play`, `pause`, `stop`) that guarantees sub-millisecond fallback if an external LLM API is unreachable.
-   - **`llm_classify(requirement)`:** Structured zero-shot semantic evaluation via LLM APIs (supports Anthropic, OpenAI, and DeepSeek backends).
+   - **`llm_classify(requirement)`:** Structured zero-shot semantic evaluation via LLM APIs (supports Anthropic Claude (Sonnet / Opus) and compatible LLM backends).
    - **`fuse(llm_out, lex_mode, lex_scores)`:** Hybrid decision fusion that reconciles semantic LLM output with deterministic lexical safety bounds.
    - **`decide(requirement, context)`:** Unified entry point returning the final routing mode, confidence scores, and rationale.
 
@@ -127,7 +127,7 @@ print(result)
 ## 7. Roadmap
 
 - [ ] **PyPI Packaging (`agent-criticality-gate`):** Publish standalone wheel to PyPI with zero-config CLI and modular extras (`pip install agent-criticality-gate[anthropic,langgraph]`).
-- [ ] **Native Claude & Multi-Provider Adapters:** First-class support for Anthropic Claude tool-use guardrails alongside OpenAI and DeepSeek providers.
+- [ ] **Native Claude & Multi-Provider Adapters:** First-class support for Anthropic Claude tool-use guardrails alongside multi-model provider backends.
 - [ ] **Framework Integrations:** Plug-and-play middleware and node decorators for **LangGraph**, **AG2 (AutoGen)**, and **CrewAI**.
 - [ ] **`pause` Boundary Calibration:** Confidence calibration and active-learning threshold tuning to improve `pause` vs. `play` disambiguation (currently `0.54` F1 on zero-shot borderline cases) without sacrificing `1.00` `stop` recall.
 - [ ] **Multilingual Benchmark Expansion:** Extend the 300-case gold corpus to 1,000+ English and Spanish adversarial tool-use and code-execution scenarios.

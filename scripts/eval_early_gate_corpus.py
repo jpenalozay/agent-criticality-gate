@@ -6,13 +6,13 @@ Métricas: accuracy, F1-macro / por clase, matriz de confusión, Cohen's κ.
 Salidas: JSON de resumen, CSV de predicciones, figuras (confusión, barras por clase).
 
 Requisitos:
-  - Variable de entorno DEEPSEEK_API_KEY (no commitear la clave).
+  - Variable de entorno ANTHROPIC_API_KEY (no commitear la clave).
   - Ejecutar desde cualquier cwd; el script resuelve rutas respecto a `agent-criticality-gate/`.
 
 Uso:
   python scripts/eval_early_gate_corpus.py
   python scripts/eval_early_gate_corpus.py --limit 10
-  $env:DEEPSEEK_API_KEY="..."   # PowerShell
+  $env:ANTHROPIC_API_KEY="..."   # PowerShell
 """
 
 from __future__ import annotations
@@ -74,11 +74,11 @@ def main() -> int:
     parser.add_argument("--no-plots", action="store_true", help="No generar PNG")
     args = parser.parse_args()
 
-    if not os.getenv("DEEPSEEK_API_KEY", "").strip():
+    if not os.getenv("ANTHROPIC_API_KEY", "").strip():
         print(
-            "ERROR: Defina DEEPSEEK_API_KEY en el entorno (no la guarde en el repo).\n"
-            "  PowerShell example: $env:DEEPSEEK_API_KEY='your_api_key_here'\n"
-            "  Ejemplo bash: export DEEPSEEK_API_KEY=...",
+            "ERROR: Defina ANTHROPIC_API_KEY en el entorno (no la guarde en el repo).\n"
+            "  PowerShell example: $env:ANTHROPIC_API_KEY='your_api_key_here'\n"
+            "  Ejemplo bash: export ANTHROPIC_API_KEY=...",
             file=sys.stderr,
         )
         return 2

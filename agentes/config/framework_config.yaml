@@ -3,7 +3,7 @@ framework:
   version: "1.0.0-mvp"
   
 deepseek:
-  model: "deepseek-chat"
+  model: "claude-sonnet-4-20250514"
   temperature: 0.3
   max_tokens: 4000
   timeout_seconds: 30

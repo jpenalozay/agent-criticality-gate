@@ -41,15 +41,15 @@ class DeepSeekClient:
             max_tokens: Máximo de tokens a generar
             timeout: Timeout en segundos
         """
-        self.api_key = api_key or os.getenv("DEEPSEEK_API_KEY")
+        self.api_key = api_key or os.getenv("ANTHROPIC_API_KEY")
         self.base_url = base_url or os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1")
-        self.model = model or os.getenv("DEEPSEEK_MODEL", "deepseek-chat")
+        self.model = model or os.getenv("DEEPSEEK_MODEL", "claude-sonnet-4-20250514")
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.timeout = timeout
         
         if not self.api_key:
-            raise ValueError("DEEPSEEK_API_KEY no configurada")
+            raise ValueError("ANTHROPIC_API_KEY no configurada")
         
         # Inicializar cliente OpenAI compatible
         self.client = OpenAI(

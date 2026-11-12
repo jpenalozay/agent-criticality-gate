@@ -44,8 +44,8 @@ class LLMClient:
         """Carga configuración desde variables de entorno."""
         return LLMConfig(
             provider="deepseek",
-            model=os.getenv("DEEPSEEK_MODEL", "deepseek-chat"),
-            api_key=os.getenv("DEEPSEEK_API_KEY", ""),
+            model=os.getenv("DEEPSEEK_MODEL", "claude-sonnet-4-20250514"),
+            api_key=os.getenv("ANTHROPIC_API_KEY", ""),
             base_url=os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1"),
             temperature=float(os.getenv("LLM_TEMPERATURE", "0.3")),
             max_tokens=int(os.getenv("LLM_MAX_TOKENS", "4000"))
@@ -164,7 +164,7 @@ def get_llm_client(
     
     Args:
         agent_id: ID del agente (para logging)
-        model: Modelo a usar (deepseek-chat o deepseek-coder)
+        model: Modelo a usar (claude-sonnet-4-20250514 o deepseek-coder)
         
     Returns:
         Cliente LLM configurado
@@ -174,12 +174,12 @@ def get_llm_client(
         if agent_id == "coder":
             model = "deepseek-coder"
         else:
-            model = "deepseek-chat"
+            model = "claude-sonnet-4-20250514"
     
     config = LLMConfig(
         provider="deepseek",
         model=model,
-        api_key=os.getenv("DEEPSEEK_API_KEY", ""),
+        api_key=os.getenv("ANTHROPIC_API_KEY", ""),
         base_url=os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1"),
         temperature=0.3,
         max_tokens=4000
@@ -198,8 +198,8 @@ def get_reviewer_llm_client(
     """
     config = LLMConfig(
         provider="deepseek",
-        model="deepseek-chat",
-        api_key=os.getenv("DEEPSEEK_API_KEY", ""),
+        model="claude-sonnet-4-20250514",
+        api_key=os.getenv("ANTHROPIC_API_KEY", ""),
         base_url=os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1"),
         temperature=0.1,  # Más conservador para review
         max_tokens=4000
