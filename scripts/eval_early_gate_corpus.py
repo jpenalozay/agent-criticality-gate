@@ -27,10 +27,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 # Raíz del bloque tesis (directorio padre de scripts/)
-TESIS2_ROOT = Path(__file__).resolve().parent.parent
-AGENTES_DIR = TESIS2_ROOT / "agentes"
-CORPUS = TESIS2_ROOT / "data" / "criticidad_cases" / "casos_gold_criticidad_v2.jsonl"
-REPORTS_DIR = TESIS2_ROOT / "reports"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+AGENTES_DIR = PROJECT_ROOT / "agentes"
+CORPUS = PROJECT_ROOT / "data" / "criticidad_cases" / "casos_gold_criticidad_v2.jsonl"
+REPORTS_DIR = PROJECT_ROOT / "reports"
 
 
 def _load_env_file() -> None:
@@ -38,7 +38,7 @@ def _load_env_file() -> None:
     try:
         from dotenv import load_dotenv
 
-        load_dotenv(TESIS2_ROOT / ".env")
+        load_dotenv(PROJECT_ROOT / ".env")
     except ImportError:
         pass
 
@@ -189,7 +189,7 @@ def main() -> int:
         c = int(by_source[src]["correct"])
         by_source[src]["accuracy"] = float(c / n) if n else 0.0
 
-    corpus_rel = str(CORPUS.relative_to(TESIS2_ROOT)).replace("\\", "/")
+    corpus_rel = str(CORPUS.relative_to(PROJECT_ROOT)).replace("\\", "/")
     summary = {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "corpus": corpus_rel,

@@ -7,7 +7,10 @@ trackeen sus métricas de ejecución, costos y tiempos.
 
 import time
 import json
-import psutil
+try:
+    import psutil
+except ImportError:
+    psutil = None
 import os
 from datetime import datetime
 from typing import Dict, Optional, Any, List
